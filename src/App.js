@@ -5,14 +5,14 @@ import Slider from "./components/Slider";
 import SearchBar from "./components/SearchBar";
 import EventsGrid from "./components/EventsGrid";
 import ComponentWrapper from "./components/ComponentWrapper";
-import NewEvent from "./components/NewEvent";
+import CreateEvent from "./components/CreateEvent";
 import CreateTypeTicket from "./components/CreateTypeTicket";
+import CreateUser from "./components/CreateUser";
 import Footer from "./components/Footer";
-import awsExports from "./aws-exports";
-import { Amplify } from "aws-amplify";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
-
+import awsExports from "./aws-exports";
+import { Amplify } from "aws-amplify";
 
 Amplify.configure(awsExports);
 
@@ -30,15 +30,16 @@ function App() {
       <ComponentWrapper optionDisplay={displayEvents}>
         <Slider />
         <SearchBar />
-        {/* <EventsGrid /> */}
+        <EventsGrid />
         <OwnerEvents />
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>
       <ComponentWrapper optionDisplay={!displayEvents}>
-        <NewEvent />
+        <CreateEvent />
       </ComponentWrapper>
-      {/* <CreateTypeTicket /> */}
+      {/* <CreateTypeTicket />
+      {/* <CreateUser />} */}
     </div>
   );
 }

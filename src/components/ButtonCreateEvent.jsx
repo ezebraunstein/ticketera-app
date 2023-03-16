@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreateEventButton.css';
+import './ButtonCreateEvent.css';
 
 const CreateEventButton = ({ onClick, displayEvents }) => {
 

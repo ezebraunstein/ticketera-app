@@ -1,6 +1,6 @@
 import React from 'react';
 import palaLogo from '../images/pala.png';
-import CreateEventButton from './CreateEventButton';
+import CreateEventButton from './ButtonCreateEvent';
 
 const Header = ({ onButtonClick, displayEvents }) => {
   

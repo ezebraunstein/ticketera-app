@@ -1,6 +1,7 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import { createUser } from "../graphql/mutations";
+import { v4 as uuid } from "uuid";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import awsExports from "../aws-exports";
 
@@ -16,6 +17,7 @@ function App() {
       query: createUser,
       variables: {
         input: {
+          id: uuid(),
           nameUser: userData.nameUser,
           surnameUser: userData.surnameUser,
           dniUser: userData.dniUser,
@@ -29,37 +31,47 @@ function App() {
   return (
     <div className="App">
       <div className="newUser">
-        <input
-          placeholder="Nombre"
-          value={userData.nameUser}
-          onChange={(e) =>
-            setUsersData({ ...userData, nameUser: e.target.value })
-          }
-        ></input>
-        <input
-          placeholder="Apellido"
-          value={userData.surnameUser}
-          onChange={(e) =>
-            setUsersData({ ...userData, surnameUser: e.target.value })
-          }
-        ></input>
-        <input
-          placeholder="DNI"
-          value={userData.dniUser}
-          onChange={(e) => setUsersData({ ...userData, dniUser: e.target.value })}
-        ></input>
-        <input
-          placeholder="Email"
-          value={userData.emailUser}
-          onChange={(e) => setUsersData({ ...userData, emailUser: e.target.value })}
-        ></input>
-        <input
-          placeholder="ALIAS"
-          value={userData.aliasUser}
-          onChange={(e) =>
-            setUsersData({ ...userData, aliasUser: e.target.value })
-          }
-        ></input>
+        <label className="nameUser">Nombre
+          <input
+            placeholder="Nombre"
+            value={userData.nameUser}
+            onChange={(e) =>
+              setUsersData({ ...userData, nameUser: e.target.value })
+            }
+          ></input>
+        </label>
+        < label className="surnameUser">Apellido
+          <input
+            placeholder="Apellido"
+            value={userData.surnameUser}
+            onChange={(e) =>
+              setUsersData({ ...userData, surnameUser: e.target.value })
+            }
+          ></input>
+        </label>
+        < label className="dniUser">DNI
+          <input
+            placeholder="DNI"
+            value={userData.dniUser}
+            onChange={(e) => setUsersData({ ...userData, dniUser: e.target.value })}
+          ></input>
+        </label>
+        <label className="emailUser">Email
+          <input
+            placeholder="Email"
+            value={userData.emailUser}
+            onChange={(e) => setUsersData({ ...userData, emailUser: e.target.value })}
+          ></input>
+        </label>
+        <label className="aliasUser">ALIAS
+          <input
+            placeholder="ALIAS"
+            value={userData.aliasUser}
+            onChange={(e) =>
+              setUsersData({ ...userData, aliasUser: e.target.value })
+            }
+          ></input>
+        </label>
         <button onClick={uploadUser}>Agregar Usuario</button>
       </div>
     </div>
