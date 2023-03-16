@@ -48,14 +48,6 @@ function CreateTypeTicket({ }) {
     const handleSubmit = async (typeTicket) => {
         typeTicket.preventDefault();
         const createTypeTicketInput = {
-            // id: uuid(),
-            // monto: parseInt(tipoEntradaData.monto),
-            // descripcion: tipoEntradaData.descripcion,
-            // cantidad: parseInt(tipoEntradaData.cantidad),
-            // activo: Boolean(tipoEntradaData.activo),
-            // fechaInicio: new Date(tipoEntradaData.fechaInicio).toISOString(),
-            // fechaFin: new Date(tipoEntradaData.fechaFin).toISOString(),
-            // eventoID: eventId,
             id: uuid(),
             nameTT: typeTicketData.nameTT,
             priceTT: parseInt(typeTicketData.priceTT),
@@ -78,7 +70,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="text"
                     name="nameTT"
-                    value={tipoEntradaData.nameTT}
+                    value={typeTicketData.nameTT}
                     onChange={handleInputChange}
                 />
             </label>
@@ -87,7 +79,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="int"
                     name="priceTT"
-                    value={tipoEntradaData.priceTT}
+                    value={typeTicketData.priceTT}
                     onChange={handleInputChange}
                 />
             </label>
@@ -96,7 +88,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="text"
                     name="descriptionTT"
-                    value={tipoEntradaData.descriptionTT}
+                    value={typeTicketData.descriptionTT}
                     onChange={handleInputChange}
                 />
             </label>
@@ -105,7 +97,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="int"
                     name="quantityTT"
-                    value={tipoEntradaData.quantityTT}
+                    value={typeTicketData.quantityTT}
                     onChange={handleInputChange}
                 />
             </label>
@@ -114,7 +106,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="checkbox"
                     name="activeTT"
-                    checked={tipoEntradaData.activeTT}
+                    checked={typeTicketData.activeTT}
                     onChange={handleInputChangeBool}
                 />
             </label>
@@ -123,7 +115,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="date"
                     name="startDateTT"
-                    value={tipoEntradaData.startDateTT}
+                    value={typeTicketData.startDateTT}
                     onChange={handleInputChange}
                 />
             </label>
@@ -132,7 +124,7 @@ function CreateTypeTicket({ }) {
                 <input className='inputTypeTicket'
                     type="date"
                     name="fechaFin"
-                    value={tipoEntradaData.endDateTT}
+                    value={typeTicketData.endDateTT}
                     onChange={handleInputChange}
                 />
             </label>
