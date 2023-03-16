@@ -1,0 +1,77 @@
+.featuredEvents {
+  padding-top: 5%;
+  text-align: center;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+  color: #4654e1;
+}
+
+#boxes .container {
+  padding-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.box {
+  min-width: 200px;
+  max-width: 200px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  outline: solid;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.box img {
+  height: 200px;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+
+.box h3 {
+  min-height: 40px;
+  max-height: 40px;
+  flex: 1 1 auto;
+  outline: solid;
+  text-align: center;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  padding-top: 5px;
+}
+
+.box p {
+  margin: 3%;
+  flex: 0 1 auto;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  text-align: justify;
+}
+
+.btnBuy {
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  /* background: #0bb475; */
+  background: #4654e1;
+  display: block;
+  float: left;
+  padding: 10px 15px;
+  width: auto;
+  /* color: #FFF; */
+  color: #000;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+  border: 0;
+}
+
+.btnBuy:hover {
+  color: white;
+  background-color: #222c92;
+}

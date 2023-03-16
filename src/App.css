@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background: #4654e1;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.divSearchBar {
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: auto;
+}
+
+.searchBar {
+  background-color: #4654e1;
+  width: 100%;
+  height: 44px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+}
+
+.searchInput {
+  all: unset;
+  font: 16px system-ui;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+.searchButton {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+}
+
+.searchSvg {
+  color: #fff;
+  fill: currentColor;
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+}
+
+/* .slider-frame {
+  width: 100%;
+  height: 400px;
+  margin: 0 auto 0;
+  overflow: hidden;
+}
+
+.slider-frame ul {
+  display: flex;
+  padding: 0;
+  width: 400%;
+
+  animation: slide 20s infinite alternate ease-in-out;
+}
+
+.slider-frame li {
+  width: 100%;
+  list-style: none;
+}
+
+.slider-frame img {
+  width: 100%;
+  position: relative;
+}
+
+@keyframes slide {
+  0% {
+    margin-left: 0;
+  }
+  20% {
+    margin-left: 0;
+  }
+
+  25% {
+    margin-left: -100%;
+  }
+  45% {
+    margin-left: -100%;
+  }
+
+  50% {
+    margin-left: -200%;
+  }
+  70% {
+    margin-left: -200%;
+  }
+
+  75% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: -300%;
+  }
+} */
+
+.logo {
+  display: flex;
+}
+
+.featuredEvents {
+  padding-top: 5%;
+  text-align: center;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  color: #4654e1;
+}
+
+#boxes .container {
+  padding-top: 50px;
+  display: flex;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 50px;
+}
+
+.separar {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.box {
+  min-width: 200px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  outline: solid;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.box img {
+  height: 200px;
+  max-width: 100%;
+  flex: 0 0 auto;
+}
+
+.box h3 {
+  min-height: 40px;
+  max-height: 40px;
+  flex: 1 1 auto;
+  outline: solid;
+  text-align: center;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  padding-top: 5px;
+}
+
+.box p {
+  margin: 3%;
+  flex: 0 1 auto;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  text-align: justify;
+}
+
+.btnBuy {
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  background: #4654e1;
+  display: block;
+  float: left;
+  padding: 10px 15px;
+  width: auto;
+  color: #000;
+  text-decoration: none;
+  transition: 0.3s;
+  cursor: pointer;
+  border: 0;
+}
+
+.btnBuy:hover {
+  color: white;
+  background-color: #222c92;
+}
+
+.hide {
+  display: none;
+}

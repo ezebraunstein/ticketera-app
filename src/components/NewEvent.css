@@ -1,0 +1,48 @@
+.labelEvent, .inputEvent, .buttonEvent {
+    font-family: "Proxima Soft", sans-serif;
+  }
+  
+  .labelEvent {
+    color: #4654e1;
+  }
+  
+  .inputEvent {
+    background-color: #fff;
+    color: #4654e1;
+    border: 1px solid #4654e1;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .buttonEvent {
+    background-color: #4654e1;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .buttonEvent:hover {
+    background-color: #3940a1;
+  }
+
+  .labelEvent {
+    padding-left: 2%;
+    padding-right: 2%;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .inputEvent {
+    display: block;
+    width: 100%;
+  }
+
+  .eventForm {
+    min-height: 100%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
