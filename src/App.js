@@ -19,19 +19,27 @@ Amplify.configure(awsExports);
 function App() {
 
   const [displayEvents, setShouldDisplayEvents] = useState(true);
+  const [displayCondition, setDisplayCondition] = useState(true);
 
   const toggleEventsDisplay = () => {
     setShouldDisplayEvents(!displayEvents);
+  };
+
+  function toggleDisplayCondition() {
+    setDisplayCondition(!displayCondition);
   };
 
   return (
     <div className="App">
       <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
       <ComponentWrapper optionDisplay={displayEvents}>
-        <Slider />
-        <SearchBar />
-        <EventsGrid />
-        <OwnerEvents />
+      {displayCondition && <Slider />}
+      {displayCondition && <SearchBar />}
+        {/* <EventsGrid /> */}
+      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
+        <OwnerEvents onButtonClick={toggleDisplayCondition}/>
+      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
+      {/* {displayCondition && <Event data={eventAux} />} */}
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>

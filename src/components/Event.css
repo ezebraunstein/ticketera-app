@@ -1,0 +1,16 @@
+.eventSpan {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+.eventTitles {
+    display: inline-block;
+}
+
+.eventClass {
+    text-align: center;
+}
+
+.imageTitles {
+    padding-bottom: 0.5em;
+}

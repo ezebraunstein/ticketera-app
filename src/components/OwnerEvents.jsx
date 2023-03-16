@@ -3,8 +3,9 @@ import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
 import Event from "./Event";
+import App from "../App"
 
-const OwnerEvents = () => {
+const OwnerEvents = ({onButtonClick}) => {
 
   const [events, setEvents] = useState([]);
   const [showNewComponent, setShowNewComponent] = useState(false);
@@ -14,7 +15,7 @@ const OwnerEvents = () => {
       const eventsData = await API.graphql(graphqlOperation(listEvents));
       const eventsList = eventsData.data.listEvents.items;
       const filterEventsList = eventsList.filter(
-        (event) => event.userID === "610700e0-becd-4fe3-82a5-a856556ca14f"
+        (event) => event.userID === "86a71ce4-36c9-4af0-93f8-51225806b0c5"
       );
       const eventsWithImages = await Promise.all(
         filterEventsList.map(async (event) => {
@@ -47,6 +48,9 @@ const OwnerEvents = () => {
 
   return (
     <div id="boxes">
+      <div style={{
+    display: !showNewComponent ? '' : 'none',
+  }}>
       <h1 className="featuredEvents">🎉Mis Eventos🎉</h1>
       <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
         {events.map((event) => (
@@ -62,12 +66,14 @@ const OwnerEvents = () => {
               onClick={function () {
                 handleButtonClick();
                 getEvent(event);
+                onButtonClick();
               }}
               className="btnBuy"
             >
               <i className="icon-ticket"></i>Acceder</button>
           </div>
         ))}
+      </div>
       </div>
       {showNewComponent && <Event data={eventAux} />}
     </div>
