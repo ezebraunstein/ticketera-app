@@ -14,6 +14,7 @@ import Event from "./components/Event";
 import awsExports from "./aws-exports";
 import { Amplify } from "aws-amplify";
 
+
 Amplify.configure(awsExports);
 
 function App() {
@@ -36,10 +37,7 @@ function App() {
       {displayCondition && <Slider />}
       {displayCondition && <SearchBar />}
         {/* <EventsGrid /> */}
-      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
-        <OwnerEvents onButtonClick={toggleDisplayCondition}/>
-      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
-      {/* {displayCondition && <Event data={eventAux} />} */}
+      <OwnerEvents onButtonClick={toggleDisplayCondition}/>
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>

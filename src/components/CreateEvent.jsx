@@ -5,7 +5,7 @@ import { createEvent } from "../graphql/mutations";
 import { v4 as uuid } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import FooterCreateEvent from './FooterCreateEvent';
-
+import Swal from 'sweetalert2';
 
 function AddEvent() {
 
@@ -32,7 +32,7 @@ function AddEvent() {
   };
 
   const handleSubmit = async (event) => {
-
+    
     event.preventDefault();
     const createEventInput = {
       id: uuid(),
@@ -46,6 +46,7 @@ function AddEvent() {
       upDateE: new Date().toISOString(),
       downDateE: new Date().toISOString(),
       userID: eventData.userID
+      
     };
 
     // Upload banner file to S3 bucket
@@ -65,10 +66,20 @@ function AddEvent() {
       });
       createEventInput.miniBannerEvent = miniBannerKey;
     }
-
+    try{
     await API.graphql(
-      graphqlOperation(createEvent, { input: createEventInput })
-    );
+      graphqlOperation(createEvent, { input: createEventInput }))
+      Swal.fire({
+        icon: 'success',
+        title: 'Evento creado con éxito.',
+      });
+    } catch (error){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al crear el evento.',
+      });
+
+    }
 
   };
   return (
