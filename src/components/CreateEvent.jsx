@@ -6,8 +6,10 @@ import { v4 as uuid } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
 import FooterCreateEvent from './FooterCreateEvent';
 import Swal from 'sweetalert2';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
-function AddEvent() {
+
+function AddEvent({ user }) {
 
   const [eventData, setEventData] = useState({});
   const [bannerFile, setBannerFile] = useState(null);
@@ -148,7 +150,7 @@ function AddEvent() {
             onChange={handleMiniChange}
           />
         </label>
-        <label className='labelEvent'>
+        {/* <label className='labelEvent'>
           Usuario ID:
           <input className='inputEvent'
             type="text"
@@ -156,7 +158,7 @@ function AddEvent() {
             value={eventData.userID}
             onChange={handleInputChange}
           />
-        </label>
+        </label> */}
         <label className='labelEvent'>
           <button className='buttonEvent' type="submit">Agregar Evento</button>
         </label>
@@ -167,4 +169,4 @@ function AddEvent() {
   );
 };
 
-export default AddEvent;
+export default withAuthenticator(AddEvent);

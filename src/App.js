@@ -34,8 +34,8 @@ function App() {
     <div className="App">
       <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
       <ComponentWrapper optionDisplay={displayEvents}>
-      {displayCondition && <Slider />}
-      {displayCondition && <SearchBar />}
+        {displayCondition && <Slider />}
+        {displayCondition && <SearchBar />}
         {/* <EventsGrid /> */}
       <OwnerEvents onButtonClick={toggleDisplayCondition}/>
         {/* <Event /> */}

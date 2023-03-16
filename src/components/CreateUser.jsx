@@ -4,10 +4,11 @@ import { createUser } from "../graphql/mutations";
 import { v4 as uuid } from "uuid";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import awsExports from "../aws-exports";
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsExports);
 
-function App() {
+function App({ user }) {
 
   const [users, setUsers] = useState([]);
   const [userData, setUsersData] = useState({});
@@ -17,7 +18,7 @@ function App() {
       query: createUser,
       variables: {
         input: {
-          id: uuid(),
+          id: user.username,
           nameUser: userData.nameUser,
           surnameUser: userData.surnameUser,
           dniUser: userData.dniUser,
