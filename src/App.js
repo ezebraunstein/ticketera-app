@@ -33,13 +33,13 @@ function App() {
     <div className="App">
       <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
       <ComponentWrapper optionDisplay={displayEvents}>
-      {displayCondition && <Slider />}
-      {displayCondition && <SearchBar />}
+        {displayCondition && <Slider />}
+        {displayCondition && <SearchBar />}
         {/* <EventsGrid /> */}
-      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
-        <OwnerEvents onButtonClick={toggleDisplayCondition}/>
-      {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
-      {/* {displayCondition && <Event data={eventAux} />} */}
+        {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
+        <OwnerEvents onButtonClick={toggleDisplayCondition} />
+        {/* {displayCondition && <OwnerEvents onButtonClick={toggleDisplayCondition}/>} */}
+        {/* {displayCondition && <Event data={eventAux} />} */}
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>
