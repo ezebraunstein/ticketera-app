@@ -3,6 +3,7 @@ import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
 import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogIn';
+import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -50,6 +51,7 @@ const Header = () => {
         <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
       </a>
       {user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />)}
+      <ButtonLogout />
     </header>
   );
 };

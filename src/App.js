@@ -17,12 +17,13 @@ import { Amplify } from "aws-amplify";
 import { Route, Routes, Link } from 'react-router-dom';
 import FooterCreateEvent from "./components/FooterCreateEvent";
 import '@aws-amplify/ui-react/styles.css';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 
 
 
 Amplify.configure(awsExports);
 
-function App() {
+function App({signOut}) {
 
   const [displayEvents, setShouldDisplayEvents] = useState(true);
   const [displayCondition, setDisplayCondition] = useState(true);
@@ -37,6 +38,7 @@ function App() {
 
   return (
     <div>
+      {/* <button onClick={signOut}> hola </ button> */}
       <Routes>
         <Route path="/" element={
           <div>
@@ -102,6 +104,7 @@ function App() {
 }
 
 export default App;
+// export default withAuthenticator(App);
 
 
 
