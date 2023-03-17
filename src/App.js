@@ -11,10 +11,12 @@ import CreateUser from "./components/CreateUser";
 import Footer from "./components/Footer";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
+import Login from "./components/Login";
 import awsExports from "./aws-exports";
 import { Amplify } from "aws-amplify";
 import { Route, Routes, Link } from 'react-router-dom';
 import FooterCreateEvent from "./components/FooterCreateEvent";
+import '@aws-amplify/ui-react/styles.css';
 
 
 
@@ -38,10 +40,17 @@ function App() {
       <Routes>
         <Route path="/" element={
           <div>
-            <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
+            <Header />
             <Slider />
             <SearchBar />
             <EventsGrid />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/login" element={
+          <div>
+            <Header />
+            <Login />
             <FooterCreateEvent />
           </div>
         } />

@@ -2,22 +2,21 @@ import React from 'react';
 import './ButtonCreateEvent.css';
 import { useNavigate } from 'react-router-dom';
 
-const ButtonReturn = () => {
-  
+const ButtonLogin = () => {
+
   const navigate = useNavigate();
 
   function onclick() {
-    navigate(`/`);
+    navigate('/login');
   };
 
   return (
     <div className="box-1">
       <button className="btn btn-one" onClick={onclick}>
-        <span>Volver</span>
+        <span>LogIn</span>
       </button>
     </div>
   );
 };
 
-export default ButtonReturn;
-
+export default ButtonLogin;

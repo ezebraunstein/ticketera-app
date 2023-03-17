@@ -6,6 +6,7 @@ import { getEvent } from "../graphql/queries";
 import Event from "./Event";
 import { useNavigate } from 'react-router-dom';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 
 const OwnerEvents = ({ user }) => {

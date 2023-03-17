@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import checkUser from './CheckUser';
 import CreateUser from './CreateUser';
+import '@aws-amplify/ui-react/styles.css';
 
 
 function AddEvent({ user }) {
