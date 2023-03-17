@@ -2,22 +2,21 @@ import React from 'react';
 import './ButtonCreateEvent.css';
 import { useNavigate } from 'react-router-dom';
 
-const ButtonCreateEvent = () => {
+const ButtonReturn = () => {
   const navigate = useNavigate();
 
   function onclick() {
-    navigate(`/create-event`);
+    navigate(`/`);
   };
 
   return (
     <div className="box-1">
       <button className="btn btn-one" onClick={onclick}>
-        <span>Crear Evento</span>
+        <span>Volver</span>
       </button>
     </div>
   );
 };
 
-
-export default ButtonCreateEvent;
+export default ButtonReturn;
 

@@ -166,7 +166,7 @@ function AddEvent({ user }) {
             />
           </label>
           <label className='labelEvent'>
-            <button className='buttonEvent' type="submit">Agregar Evento</button>
+            <button className='btn btn-primary' type="submit">Agregar Evento</button>
           </label>
         </form>
         <FooterCreateEvent />

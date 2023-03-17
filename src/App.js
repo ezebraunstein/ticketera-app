@@ -13,6 +13,9 @@ import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import awsExports from "./aws-exports";
 import { Amplify } from "aws-amplify";
+import { Route, Routes, Link } from 'react-router-dom';
+import FooterCreateEvent from "./components/FooterCreateEvent";
+
 
 
 Amplify.configure(awsExports);
@@ -31,24 +34,82 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
-      <ComponentWrapper optionDisplay={displayEvents}>
-        {displayCondition && <Slider />}
-        {displayCondition && <SearchBar />}
-        <EventsGrid />
-        {/* <OwnerEvents onButtonClick={toggleDisplayCondition}/> */}
-        {/* <Event /> */}
-        <Footer />
-      </ComponentWrapper>
-      <ComponentWrapper optionDisplay={!displayEvents}>
-        <CreateEvent />
-      </ComponentWrapper>
-      {/* <CreateTypeTicket />
-      {/* <CreateUser />} */}
+    <div>
+      <Routes>
+        <Route path="/" element={
+          <div>
+            <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
+            <Slider />
+            <SearchBar />
+            <EventsGrid />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/create-event" element={
+          <div>
+            <Header />
+            <CreateEvent />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/create-typeticket" element={
+          <div>
+            <Header />
+            <CreateTypeTicket />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/create-user" element={
+          <div>
+            <Header />
+            <CreateUser />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/owner-events" element={
+          <div>
+            <Header />
+            <OwnerEvents />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/events" element={
+          <div>
+            <Header />
+            <OwnerEvents />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/events/:eventId" element={
+          <div>
+            <Header />
+            <Event />
+            <FooterCreateEvent />
+          </div>
+        } />
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
+
+
+// // <div className="App">
+// {/* <Header onButtonClick={toggleEventsDisplay} displayEvents={displayEvents} />
+//   <ComponentWrapper optionDisplay={displayEvents}>
+//     {displayCondition && <Slider />}
+//     {displayCondition && <SearchBar />}
+//     <EventsGrid /> */}
+// {/* <OwnerEvents onButtonClick={toggleDisplayCondition}/> */ }
+// {/* <Event /> */ }
+// {/* <Footer />
+//   </ComponentWrapper>
+//   <ComponentWrapper optionDisplay={!displayEvents}>
+//     <CreateEvent />
+//   </ComponentWrapper> */}
+// {/* <CreateTypeTicket />
+// {/* <CreateUser />} */}
+// // </div>
 

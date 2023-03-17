@@ -2,15 +2,16 @@ import "./EventsGrid.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
+import { getEvent } from "../graphql/queries";
 import Event from "./Event";
+import { useNavigate } from 'react-router-dom';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 
 
-const OwnerEvents = ({ onButtonClick, user }) => {
-  debugger;
+const OwnerEvents = ({ user }) => {
 
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const [showNewComponent, setShowNewComponent] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -38,54 +39,29 @@ const OwnerEvents = ({ onButtonClick, user }) => {
     fetchEvents();
   }, []);
 
-  function handleButtonClick() {
-    setShowNewComponent(true);
-  }
-
-  function handleButtonClick2() {
-    setShowNewComponent(false);
-  }
-
-  const [eventAux, setEventAux] = useState({});
-
-  function getEvent(event) {
-    setEventAux(event);
+  function handleButtonClick(event) {
+    navigate(`/events/${event.id}`);
   }
 
   return (
     <div id="boxes">
-      <div style={{
-        display: !showNewComponent ? '' : 'none',
-      }}>
-        <h1 className="featuredEvents">🎉Mis Eventos🎉</h1>
-        <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="box"
-              style={{ flexBasis: "25%", marginBottom: "20px" }}
-            >
-              <img src={event.imageUrl} alt={event.nameEvent} />
-              <h3>{event.nameEvent}</h3>
-              <p>{event.descriptionEvent}</p>
-              <button
-                onClick={function () {
-                  handleButtonClick();
-                  getEvent(event);
-                  onButtonClick();
-                }}
-                className="btnBuy"
-              >
-                <i className="icon-ticket"></i>Acceder</button>
-            </div>
-          ))}
-        </div>
+      <h1 className="featuredEvents">🎉Mis Eventos🎉</h1>
+      <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
+        {events.map((event) => (
+          <div
+            key={event.id}
+            className="box"
+            style={{ flexBasis: "25%", marginBottom: "20px" }}
+          >
+            <img src={event.imageUrl} alt={event.nameEvent} />
+            <h3>{event.nameEvent}</h3>
+            <p>{event.descriptionEvent}</p>
+            <button onClick={() => handleButtonClick(event)} className="btnBuy">
+              <i className="icon-ticket"></i>Acceder
+            </button>
+          </div>
+        ))}
       </div>
-      {showNewComponent && <Event data={eventAux} onButtonClick={
-        function () {
-          handleButtonClick2();
-          onButtonClick();
-        }} />}
     </div>
   );
 };
