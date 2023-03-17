@@ -37,7 +37,11 @@ const OwnerEvents = ({onButtonClick}) => {
   }, []);
 
   function handleButtonClick() {
-    setShowNewComponent(true); // set showNewComponent to true when button is clicked
+    setShowNewComponent(true); 
+  }
+
+  function handleButtonClick2() {
+    setShowNewComponent(false); 
   }
 
   const [eventAux, setEventAux] = useState({});
@@ -75,7 +79,11 @@ const OwnerEvents = ({onButtonClick}) => {
         ))}
       </div>
       </div>
-      {showNewComponent && <Event data={eventAux} />}
+      {showNewComponent && <Event data={eventAux} onButtonClick={
+        function () {
+          handleButtonClick2();
+          onButtonClick();
+        }}/>}
     </div>
   );
 };

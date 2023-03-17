@@ -1,7 +1,8 @@
 import React from "react";
-import './Event.css'
+import OwnerEvents from "./OwnerEvents";
+import './Event.css';
 
-const Event = ({ data }) => {
+const Event = ({ data, onButtonClick }) => {
   return (
     <div className="eventClass">
       <div>
@@ -22,6 +23,9 @@ const Event = ({ data }) => {
       {/* <div>
       <h3 className="imageTitles"> Imagen de Miniatura: </h3> <img  src={data.imageUrl} alt="" width="300px" height="300px"/>
       </div> */}
+      <div>
+        <button onClick={onButtonClick}> Volver </button>
+      </div>
     </div>
   );
 };

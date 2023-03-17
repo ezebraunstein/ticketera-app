@@ -37,7 +37,7 @@ function App() {
         {displayCondition && <Slider />}
         {displayCondition && <SearchBar />}
         {/* <EventsGrid /> */}
-      <OwnerEvents onButtonClick={toggleDisplayCondition}/>
+        <OwnerEvents onButtonClick={toggleDisplayCondition}/>
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>
