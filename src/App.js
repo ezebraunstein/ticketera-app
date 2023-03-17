@@ -36,8 +36,8 @@ function App() {
       <ComponentWrapper optionDisplay={displayEvents}>
         {displayCondition && <Slider />}
         {displayCondition && <SearchBar />}
-        {/* <EventsGrid /> */}
-        <OwnerEvents onButtonClick={toggleDisplayCondition}/>
+        <EventsGrid />
+        {/* <OwnerEvents onButtonClick={toggleDisplayCondition}/> */}
         {/* <Event /> */}
         <Footer />
       </ComponentWrapper>
@@ -51,3 +51,4 @@ function App() {
 }
 
 export default App;
+
