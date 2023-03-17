@@ -8,6 +8,7 @@ import FooterCreateEvent from './FooterCreateEvent';
 import Swal from 'sweetalert2';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import checkUser from './CheckUser';
+import { useNavigate } from 'react-router-dom';
 import CreateUser from './CreateUser';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -31,6 +32,7 @@ function AddEvent({ user }) {
   const [eventData, setEventData] = useState({});
   const [bannerFile, setBannerFile] = useState(null);
   const [miniBannerFile, setMiniBannerFile] = useState(null);
+  const navigate = useNavigate();
 
   const handleBannerChange = (event) => {
     const file = event.target.files[0];
@@ -82,8 +84,9 @@ function AddEvent({ user }) {
       });
       createEventInput.miniBannerEvent = miniBannerKey;
     }
+
     try {
-      debugger;
+
       await API.graphql(
         graphqlOperation(createEvent, { input: createEventInput }))
       Swal.fire({
@@ -96,6 +99,7 @@ function AddEvent({ user }) {
         title: 'Error al crear el evento.',
       });
     }
+    navigate(`/`);
 
   };
   return (

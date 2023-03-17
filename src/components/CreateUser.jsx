@@ -2,6 +2,7 @@ import "../App.css";
 import { useState } from "react";
 import { createUser } from "../graphql/mutations";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
+import { useNavigate } from "react-router-dom";
 import awsExports from "../aws-exports";
 import Swal from 'sweetalert2';
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -11,6 +12,7 @@ Amplify.configure(awsExports);
 function App({ user }) {
 
   const [userData, setUsersData] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = async (users) => {
     users.preventDefault();
@@ -29,6 +31,7 @@ function App({ user }) {
       Swal.fire({
         icon: 'success',
         title: 'Usuario creado con éxito.',
+
       });
     } catch (error) {
       Swal.fire({
@@ -36,7 +39,12 @@ function App({ user }) {
         title: 'Error al crear el usuario.',
       });
     }
+    navigate(`/`);
   };
+
+
+
+
   return (
     <div>
       <form className="userForm" onSubmit={handleSubmit}>
