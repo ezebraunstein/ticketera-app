@@ -99,7 +99,7 @@ function AddEvent({ user }) {
         title: 'Error al crear el evento.',
       });
     }
-    navigate(`/`);
+    navigate(`/events/${createEventInput.id}`)
 
   };
   return (
