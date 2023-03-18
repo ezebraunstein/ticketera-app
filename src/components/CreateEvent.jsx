@@ -61,10 +61,10 @@ function AddEvent({ user }) {
       descriptionEvent: eventData.descriptionEvent,
       bannerEvent: "",
       miniBannerEvent: "",
-      startDateE: new Date(eventData.startDateE).toISOString(),
-      endDateE: new Date(eventData.endDateE).toISOString(),
-      upDateE: new Date().toISOString(),
-      downDateE: new Date().toISOString(),
+      startDateE: new Date(eventData.startDateE),
+      endDateE: new Date(eventData.endDateE),
+      upDateE: new Date(),
+      downDateE: new Date(),
       userID: user.username
 
     };
@@ -99,7 +99,8 @@ function AddEvent({ user }) {
         title: 'Error al crear el evento.',
       });
     }
-    navigate(`/events/${createEventInput.id}`)
+
+    navigate(`/edit-event/${createEventInput.id}`)
 
   };
   return (

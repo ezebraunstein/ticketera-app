@@ -1,32 +1,14 @@
-import React from 'react';
 import { useState, useEffect } from "react";
 import { createTypeTicket } from "../graphql/mutations";
-//import { listTypeTickets } from "../graphql/queries";
 import { v4 as uuid } from "uuid";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import awsExports from "../aws-exports";
 
 Amplify.configure(awsExports);
 
-function CreateTypeTicket({ }) {
+function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
-    //const [tipoEntradas, setTipoEntradas] = useState([]);
     const [typeTicketData, setTypeTicketData] = useState({});
-
-    // const fetchTipoEntrada = async () => {
-    //     try {
-    //         const typeticketsData = await API.graphql(graphqlOperation(listTipoEntradas));
-    //         const typeticketList = typeticketsData.data.listEventos.items;
-    //         console.log("Lista de TipoEntradas", typeticketList);
-    //         setTipoEntradas(typeticketList);
-    //     } catch (error) {
-    //         console.log("error on fetching type tickets", error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     fetchTipoEntrada();
-    // }, []);
 
     const handleInputChange = (typeTicket) => {
         const { name, value } = typeTicket.target;
@@ -54,13 +36,16 @@ function CreateTypeTicket({ }) {
             quantityTT: parseInt(typeTicketData.quantityTT),
             descriptionTT: typeTicketData.descriptionTT,
             activeTT: Boolean(typeTicketData.activeTT),
-            startDateTT: new Date(typeTicketData.startDateTT).toISOString(),
-            endDateTT: new Date(typeTicketData.endDateTT).toISOString(),
-            eventID: "65265442363626"
+            startDateTT: new Date(typeTicketData.startDateTT),
+            endDateTT: new Date(typeTicketData.endDateTT),
+            eventID: eventId
         };
         await API.graphql(
             graphqlOperation(createTypeTicket, { input: createTypeTicketInput })
         );
+        if (onTypeTicketCreated) {
+            onTypeTicketCreated(createTypeTicketInput);
+        }
     };
 
     return (
@@ -123,7 +108,7 @@ function CreateTypeTicket({ }) {
                 Fecha Fin:
                 <input className='inputTypeTicket'
                     type="date"
-                    name="fechaFin"
+                    name="endDateTT"
                     value={typeTicketData.endDateTT}
                     onChange={handleInputChange}
                 />

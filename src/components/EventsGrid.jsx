@@ -1,7 +1,8 @@
+import "./EventsGrid.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
-import "./EventsGrid.css";
+
 
 const EventsGrid = () => {
     const [events, setEvents] = useState([]);

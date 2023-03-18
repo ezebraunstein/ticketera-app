@@ -40,12 +40,10 @@ const Header = () => {
 
     Hub.listen('auth', listener);
 
-    return () => {
-      Hub.remove('auth', listener);
-    };
   }, []);
 
   const url = window.location.pathname;
+
 
   return (
     <header>

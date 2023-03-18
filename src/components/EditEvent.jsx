@@ -1,20 +1,19 @@
 import './Event.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Storage } from "aws-amplify";
 import { getEvent } from '../graphql/queries';
-import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
-import { deleteEvent, deleteTypeTicket } from "../graphql/mutations";
+import { listTypeTickets } from '../graphql/queries';
+import CreateTypeTicket from './CreateTypeTicket';
 
 
-const Event = () => {
+
+const EditEvent = () => {
 
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
-  const navigate = useNavigate();
 
   const fetchEventData = async () => {
     try {
@@ -44,7 +43,7 @@ const Event = () => {
       console.error("Error fetching type tickets:", error);
     }
   };
-
+  
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
       <div key={typeTicket.id}>
@@ -56,43 +55,10 @@ const Event = () => {
     ));
   };
 
-  // const handleDeleteEvent = async () => {
-  //   try {
-  //     // 1. Fetch TypeTickets associated with the event
-  //     const typeTicketsData = await API.graphql(
-  //       graphqlOperation(listTypeTickets, {
-  //         filter: { eventID: { eq: eventId } },
-  //       })
-  //     );
-  //     const typeTickets = typeTicketsData.data.listTypeTickets.items;
-
-  //     // 2. Delete associated TypeTickets
-  //     const deleteTypeTicketsPromises = typeTickets.map((typeTicket) =>
-  //       API.graphql(
-  //         graphqlOperation(deleteTypeTicket, { input: { id: typeTicket.id } })
-  //       )
-  //     );
-  //     await Promise.all(deleteTypeTicketsPromises);
-
-  //     // 3. Delete Event
-  //     await API.graphql(
-  //       graphqlOperation(deleteEvent, { input: { id: eventId } })
-  //     );
-
-  //     // 4. Delete related S3 objects
-  //     const bannerKey = `events/${eventId}/banner`;
-  //     const miniBannerKey = `events/${eventId}/miniBanner`;
-  //     await Storage.remove(bannerKey);
-  //     await Storage.remove(miniBannerKey);
-
-  //     // 5. Navigate to the home page
-  //     navigate('/');
-  //   } catch (error) {
-  //     console.error("Error deleting event:", error);
-  //   }
-  // };
-
-
+  const handleTypeTicketCreated = (newTypeTicket) => {
+    setTypeTickets((prevTypeTickets) => [...prevTypeTickets, newTypeTicket]);
+  };
+  
   useEffect(() => {
     fetchEventData();
   }, [eventId]);
@@ -100,11 +66,6 @@ const Event = () => {
   if (!eventData) {
     return <div>Loading event data...</div>;
   }
-
-  const handleEditEvent = () => {
-    navigate(`/edit-event/${eventId}`);
-  };
-
   return (
     <div className="eventClass">
       <div>
@@ -122,11 +83,10 @@ const Event = () => {
       <div>
         <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
       </div>
-      <button className="btn btn-primary" onClick={handleEditEvent}>Edit Event</button>
-      {/* <button className="btn btn-primary" onClick={handleDeleteEvent}>Eliminar evento</button> */}
       {renderTypeTickets()}
+      <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
     </div>
   );
 };
 
-export default Event;
+export default EditEvent;

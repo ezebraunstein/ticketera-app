@@ -33,8 +33,7 @@ const Slider = () => {
   return (
     <div className="slider-frame">
       <ul>
-        {/* {events.map((event) => { */}
-        {events.slice(0, 4).map((event, index) => {
+        {events.slice(0, 4).map((event) => {
           return (
             <li>
               <img className="sliderImg" src={event.imageUrl} alt="" />

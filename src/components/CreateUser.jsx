@@ -1,5 +1,4 @@
-import './CreateEvent.css';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createUser } from "../graphql/mutations";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
