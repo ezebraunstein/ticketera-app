@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
+import './ButtonCreateEvent.css';
 import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogin';
 import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
+import ButtonOwnerEvents from './ButtonOwnerEvents';
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -50,8 +52,11 @@ const Header = () => {
       <a href="/">
         <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
       </a>
+      <div className='box-1'>
       {user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />)}
-      <ButtonLogout />
+      {user && <ButtonOwnerEvents />}
+      {user && <ButtonLogout />}
+      </div>
     </header>
   );
 };
