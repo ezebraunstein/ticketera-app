@@ -42,9 +42,6 @@ function App({ user }) {
     navigate(`/`);
   };
 
-
-
-
   return (
     <div>
       <form className="userForm" onSubmit={handleSubmit}>

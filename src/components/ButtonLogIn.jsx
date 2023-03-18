@@ -13,7 +13,7 @@ const ButtonLogin = () => {
   return (
     <div className="box-1">
       <button className="btn btn-one" onClick={onclick}>
-        <span>LogIn</span>
+        <span>Login</span>
       </button>
     </div>
   );

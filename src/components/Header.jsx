@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
 import ButtonReturn from './ButtonReturn';
-import ButtonLogin from './ButtonLogIn';
+import ButtonLogin from './ButtonLogin';
+import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -43,13 +44,14 @@ const Header = () => {
   }, []);
 
   const url = window.location.pathname;
-
+  
   return (
     <header>
       <a href="/">
         <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
       </a>
       {user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />)}
+      <ButtonLogout />
     </header>
   );
 };

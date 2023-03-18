@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 import awsExports from "./aws-exports";
 import { Amplify } from "aws-amplify";
 import { Route, Routes, Link } from 'react-router-dom';
