@@ -1,5 +1,5 @@
-import "../App.css";
-import { useState } from "react";
+import './CreateEvent.css';
+import { useState, useEffect } from "react";
 import { createUser } from "../graphql/mutations";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
@@ -13,9 +13,19 @@ function App({ user }) {
 
   const [userData, setUsersData] = useState({});
   const navigate = useNavigate();
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const handleSubmit = async (users) => {
-    users.preventDefault();
+  useEffect(() => {
+    setIsFormValid(
+      userData.nameUser &&
+      userData.surnameUser &&
+      userData.dniUser &&
+      userData.aliasUser
+    );
+  }, [userData]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const createUserInput = {
       id: user.username,
       nameUser: userData.nameUser,
@@ -42,46 +52,51 @@ function App({ user }) {
     navigate(`/`);
   };
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUsersData({ ...userData, [name]: value });
+  };
+
   return (
     <div>
-      <form className="userForm" onSubmit={handleSubmit}>
-        <label className="newUser">
-          <label className="nameUser">Nombre
-            <input
+      <form className="eventForm" onSubmit={handleSubmit}>
+          <label className="labelEvent">Nombre/s:
+            <input className='inputEvent'
               placeholder="Nombre"
-              value={userData.nameUser}
-              onChange={(e) =>
-                setUsersData({ ...userData, nameUser: e.target.value })
-              }
+              name="nameUser"
+              value={userData.nameUser || ''}
+              onChange={handleInputChange}
             ></input>
           </label>
-          < label className="surnameUser">Apellido
-            <input
+          <label className='labelEvent'>Apellido/s:
+            <input className='inputEvent'
               placeholder="Apellido"
-              value={userData.surnameUser}
-              onChange={(e) =>
-                setUsersData({ ...userData, surnameUser: e.target.value })
-              }
+              name="surnameUser"
+              value={userData.surnameUser || ''}
+              onChange={handleInputChange}
             ></input>
           </label>
-          < label className="dniUser">DNI
-            <input
+          <label className='labelEvent'>DNI:
+            <input className='inputEvent'
               placeholder="DNI"
-              value={userData.dniUser}
-              onChange={(e) => setUsersData({ ...userData, dniUser: e.target.value })}
+              name="dniUser"
+              value={userData.dniUser || ''}
+              onChange={handleInputChange}
             ></input>
           </label>
-          <label className="aliasUser">ALIAS
-            <input
+          <label className='labelEvent'>ALIAS:
+            <input className='inputEvent'
               placeholder="ALIAS"
-              value={userData.aliasUser}
-              onChange={(e) =>
-                setUsersData({ ...userData, aliasUser: e.target.value })
-              }
+              name="aliasUser"
+              value={userData.aliasUser || ''}
+              onChange={handleInputChange}
             ></input>
           </label>
-          <button className='buttonEvent' type="submit">Agregar Usuario</button>
-        </label>
+          <label className='labelEvent'>
+            <button className='btn btn-primary' type="submit" disabled={!isFormValid}>
+              Agregar Usuario
+            </button>
+          </label>
       </form>
     </div>
 
@@ -89,3 +104,5 @@ function App({ user }) {
 }
 
 export default withAuthenticator(App);
+
+
