@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createUser } from "../graphql/mutations";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { useNavigate } from "react-router-dom";
@@ -59,43 +59,43 @@ function App({ user }) {
   return (
     <div>
       <form className="eventForm" onSubmit={handleSubmit}>
-          <label className="labelEvent">Nombre/s:
-            <input className='inputEvent'
-              placeholder="Nombre"
-              name="nameUser"
-              value={userData.nameUser || ''}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <label className='labelEvent'>Apellido/s:
-            <input className='inputEvent'
-              placeholder="Apellido"
-              name="surnameUser"
-              value={userData.surnameUser || ''}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <label className='labelEvent'>DNI:
-            <input className='inputEvent'
-              placeholder="DNI"
-              name="dniUser"
-              value={userData.dniUser || ''}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <label className='labelEvent'>ALIAS:
-            <input className='inputEvent'
-              placeholder="ALIAS"
-              name="aliasUser"
-              value={userData.aliasUser || ''}
-              onChange={handleInputChange}
-            ></input>
-          </label>
-          <label className='labelEvent'>
-            <button className='btn btn-primary' type="submit" disabled={!isFormValid}>
-              Agregar Usuario
-            </button>
-          </label>
+        <label className="labelEvent">Nombre/s:
+          <input className='inputEvent'
+            placeholder="Nombre"
+            name="nameUser"
+            value={userData.nameUser || ''}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label className='labelEvent'>Apellido/s:
+          <input className='inputEvent'
+            placeholder="Apellido"
+            name="surnameUser"
+            value={userData.surnameUser || ''}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label className='labelEvent'>DNI:
+          <input className='inputEvent'
+            placeholder="DNI"
+            name="dniUser"
+            value={userData.dniUser || ''}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label className='labelEvent'>ALIAS:
+          <input className='inputEvent'
+            placeholder="ALIAS"
+            name="aliasUser"
+            value={userData.aliasUser || ''}
+            onChange={handleInputChange}
+          ></input>
+        </label>
+        <label className='labelEvent'>
+          <button className='btn btn-primary' type="submit" disabled={!isFormValid}>
+            Agregar Usuario
+          </button>
+        </label>
       </form>
     </div>
 
