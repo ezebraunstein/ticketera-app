@@ -7,8 +7,8 @@ import { listTypeTickets } from '../graphql/queries';
 import Swal from 'sweetalert2';
 import { createTicket } from '../graphql/mutations';
 import { v4 as uuid } from 'uuid';
-//import { updateTypeTicket } from '../graphql/mutations';
-//import * as mutations from '../graphql/mutations';
+import { updateTypeTicket } from '../graphql/mutations';
+import * as mutations from '../graphql/mutations';
 import QRGenerator from './QRGenerator';
 
 
@@ -130,7 +130,7 @@ const Event = () => {
         return Array.from({ length: item.selectedQuantity }, async () => {
 
           const ticketId = uuid();
-          const key = await QRGenerator(eventId, ticketId);
+          const key = await QRGenerator(eventId, ticketId, userEmail);
           const ticketData = {
             id: ticketId,
             qrTicket: key,
@@ -147,21 +147,21 @@ const Event = () => {
 
       await Promise.all(ticketPromises);
 
-      // for (const item of cart) {
+      for (const item of cart) {
 
-      //   const itemID = item.id;
-      //   const itemQuantity = item.quantityTT - item.selectedQuantity;
+        const itemID = item.id;
+        const itemQuantity = item.quantityTT - item.selectedQuantity;
 
-      //   const updateTypeTicketInput = {
-      //     id: itemID,
-      //     quantityTT: itemQuantity,
-      //   };
-
-      //   await API.graphql({
-      //     query: mutations.updateTypeTicket,
-      //     variables: { input: updateTypeTicketInput }
-      //   });
-      // }
+        const updateTypeTicketInput = {
+          id: itemID,
+          quantityTT: itemQuantity,
+        };
+        
+        await API.graphql({
+          query: mutations.updateTypeTicket,
+          variables: { input: updateTypeTicketInput }
+        });
+      }
 
       Swal.fire({
         icon: 'success',
