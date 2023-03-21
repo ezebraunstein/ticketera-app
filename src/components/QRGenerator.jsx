@@ -25,7 +25,7 @@ const qrGenerator = async (eventId, ticketId, userEmail) => {
         const storedQR = await Storage.put(fileName, blob, {
             contentType: "image/jpeg",
         });
-        
+
         await sendEmailWithQR(
             'cooperativa.fort.llc@gmail.com',
             userEmail,
@@ -44,7 +44,7 @@ const qrGenerator = async (eventId, ticketId, userEmail) => {
 
 const sendEmailWithQR = async (from, to, subject, eventId, ticketId, qrBlob) => {
     try {
-        const result = await API.post('ticketeraappsendqrbyemail', '/ticketeraAppsendQRbyEmail', {
+        const result = await API.post('apisendemail', '/sendemail', {
             body: { from, to, subject, eventId, ticketId, qrBlob: qrBlob.toString('base64') },
         });
         console.log('Email sent:', result);
