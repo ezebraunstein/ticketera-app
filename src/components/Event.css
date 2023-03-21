@@ -14,3 +14,16 @@
 .imageTitles {
     padding-bottom: 0.5em;
 }
+
+.cart-dropdown {
+    position: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+.cart-dropdown.visible {
+    display: block;
+}

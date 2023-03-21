@@ -98,7 +98,7 @@ const Event = () => {
   }, [eventId]);
 
   if (!eventData) {
-    return <div>Loading event data...</div>;
+    return <div></div>;
   }
 
   const handleEditEvent = () => {

@@ -46,6 +46,15 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
         if (onTypeTicketCreated) {
             onTypeTicketCreated(createTypeTicketInput);
         }
+        setTypeTicketData({
+            nameTT: "",
+            priceTT: "",
+            quantityTT: "",
+            descriptionTT: "",
+            activeTT: false,
+            startDateTT: "",
+            endDateTT: "",
+        });
     };
 
     return (

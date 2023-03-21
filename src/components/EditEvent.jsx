@@ -64,7 +64,7 @@ const EditEvent = () => {
   }, [eventId]);
 
   if (!eventData) {
-    return <div>Loading event data...</div>;
+    return <div></div>;
   }
   return (
     <div className="eventClass">

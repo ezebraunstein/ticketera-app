@@ -1,8 +1,12 @@
 import "./App.css";
+import '@aws-amplify/ui-react/styles.css';
+import awsExports from "./aws-exports";
+import { Amplify } from "aws-amplify";
+import { Route, Routes } from 'react-router-dom';
 import Header from "./components/Header";
 import Slider from "./components/Slider";
 import SearchBar from "./components/SearchBar";
-import EventsGrid from "./components/EventsGrid";
+import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
 import CreateTypeTicket from "./components/CreateTypeTicket";
 import CreateUser from "./components/CreateUser";
@@ -10,12 +14,8 @@ import OwnerEvents from "./components/OwnerEvents";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
 import Login from "./components/Login";
-import awsExports from "./aws-exports";
-import { Amplify } from "aws-amplify";
-import { Route, Routes } from 'react-router-dom';
+import BuyEvent from './components/BuyEvent';
 import FooterCreateEvent from "./components/FooterCreateEvent";
-import '@aws-amplify/ui-react/styles.css';
-
 
 
 Amplify.configure(awsExports);
@@ -30,7 +30,7 @@ function App() {
             <Header />
             <Slider />
             <SearchBar />
-            <EventsGrid />
+            <HomeEvents />
             <FooterCreateEvent />
           </div>
         } />
@@ -87,6 +87,13 @@ function App() {
           <div>
             <Header />
             <EditEvent />
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/buy-ticket/:eventId" element={
+          <div>
+            <Header />
+            <BuyEvent />
             <FooterCreateEvent />
           </div>
         } />

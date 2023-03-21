@@ -92,6 +92,10 @@ function AddEvent({ user }) {
       Swal.fire({
         icon: 'success',
         title: 'Evento creado con éxito.',
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        navigate(`/edit-event/${createEventInput.id}`)
       });
     } catch (error) {
       Swal.fire({
@@ -99,9 +103,6 @@ function AddEvent({ user }) {
         title: 'Error al crear el evento.',
       });
     }
-
-    navigate(`/edit-event/${createEventInput.id}`)
-
   };
   return (
     <>

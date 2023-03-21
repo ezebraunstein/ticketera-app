@@ -40,7 +40,10 @@ function App({ user }) {
       Swal.fire({
         icon: 'success',
         title: 'Usuario creado con éxito.',
-
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        navigate(`/`);
       });
     } catch (error) {
       Swal.fire({
@@ -48,7 +51,6 @@ function App({ user }) {
         title: 'Error al crear el usuario.',
       });
     }
-    navigate(`/`);
   };
 
   const handleInputChange = (event) => {

@@ -1,10 +1,12 @@
-import "./EventsGrid.css";
+import "./HomeEvents.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
+const HomeEvents = () => {
 
-const EventsGrid = () => {
+    const navigate = useNavigate();
     const [events, setEvents] = useState([]);
     const fetchEvents = async () => {
         try {
@@ -23,10 +25,14 @@ const EventsGrid = () => {
         }
     };
 
+    const goToBuyEvent = (eventId) => {
+        navigate(`/buy-ticket/${eventId}`);
+    };
+
     useEffect(() => {
         fetchEvents();
     }, []);
-
+    
     return (
         <div id="boxes">
             <h1 className="featuredEvents">🎉Eventos Destacados🎉</h1>
@@ -36,8 +42,7 @@ const EventsGrid = () => {
                         <img src={event.imageUrl} alt={event.nameEvent} />
                         <h3>{event.nameEvent}</h3>
                         <p>{event.descriptionEvent}</p>
-                        <button href={event.link} className="btnBuy">
-                            <i className="icon-ticket"></i>Comprar Tickets</button>
+                        <button onClick={() => goToBuyEvent(event.id)} className="btnBuy">Comprar Tickets</button>
                     </div>
                 ))}
             </div>
@@ -45,4 +50,4 @@ const EventsGrid = () => {
     );
 };
 
-export default EventsGrid;
+export default HomeEvents;
