@@ -1,18 +1,31 @@
 .eventSpan {
     display: inline-block;
     margin-left: 0.5em;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .eventTitles {
     display: inline-block;
+    color:rgba(34,44,146,1);
 }
 
 .eventClass {
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: 'Proxima Soft', sans-serif;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(70, 84, 225, 0.7);
+    width: 50%;
+    margin: auto;
+    position: relative;
+    top: 50px;
 }
 
 .imageTitles {
     padding-bottom: 0.5em;
+    color: rgba(34,44,146,1);
 }
 
 .cart-dropdown {
@@ -26,4 +39,33 @@
 
 .cart-dropdown.visible {
     display: block;
+}
+
+.btn-Edit {
+    color: black;
+    transition: all 0.3s;
+    position: relative;
+    border-radius: 5px;
+    background-color: rgba(70,84,225,1);
+    font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
+    Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+.btn-Edit:hover {
+    color:white;
+    background-color: rgba(34,44,146,1);
+}
+
+.imgEvent {
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: rgba(34,44,146,1);
+}
+
+.editIcon {
+    padding-left: 5px;
 }
