@@ -1,7 +1,5 @@
 import "./App.css";
 import '@aws-amplify/ui-react/styles.css';
-import awsExports from "./aws-exports";
-import { Amplify } from "aws-amplify";
 import { Route, Routes } from 'react-router-dom';
 import Header from "./components/Header";
 import Slider from "./components/Slider";
@@ -16,9 +14,6 @@ import EditEvent from "./components/EditEvent";
 import Login from "./components/Login";
 import BuyEvent from './components/BuyEvent';
 import FooterCreateEvent from "./components/FooterCreateEvent";
-
-
-Amplify.configure(awsExports);
 
 function App() {
 

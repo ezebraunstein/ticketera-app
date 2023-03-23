@@ -2,8 +2,9 @@ import { API } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { createCanvas } from 'canvas';
 import { Storage } from 'aws-amplify';
+import axios from 'axios';
 
-const qrGenerator = async (eventId, ticketId, userEmail) => {
+const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
     try {
         const canvas = createCanvas(290, 290);
         await QRCode.toCanvas(canvas, ticketId, {
@@ -26,13 +27,22 @@ const qrGenerator = async (eventId, ticketId, userEmail) => {
             contentType: "image/jpeg",
         });
 
+        const blobToBase64 = (blob) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        };
+
+        const base64QRCode = await blobToBase64(blob);
+
         await sendEmailWithQR(
-            'cooperativa.fort.llc@gmail.com',
             userEmail,
-            'Your QR Code',
-            eventId,
+            nameEvent,
             ticketId,
-            blob
+            base64QRCode
         );
 
         return storedQR.key;
@@ -42,10 +52,10 @@ const qrGenerator = async (eventId, ticketId, userEmail) => {
     }
 };
 
-const sendEmailWithQR = async (from, to, subject, eventId, ticketId, qrBlob) => {
+const sendEmailWithQR = async (userEmail, nameEvent, ticketId, base64QRCode) => {
     try {
-        const result = await API.post('apisendemail', '/sendemail', {
-            body: { from, to, subject, eventId, ticketId, qrBlob: qrBlob.toString('base64') },
+        const result = await axios.post('https://rx7qo86rei.execute-api.us-east-1.amazonaws.com/lambdasendemail-dev', {
+            userEmail, nameEvent, ticketId, base64QRCode
         });
         console.log('Email sent:', result);
     } catch (error) {
@@ -54,3 +64,4 @@ const sendEmailWithQR = async (from, to, subject, eventId, ticketId, qrBlob) => 
 };
 
 export default qrGenerator;
+

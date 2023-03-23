@@ -21,6 +21,7 @@ const Event = () => {
   const [cartVisible, setCartVisible] = useState(false);
   const navigate = useNavigate();
 
+
   const fetchEventData = async () => {
     try {
       const eventResult = await API.graphql(
@@ -127,10 +128,12 @@ const Event = () => {
 
     try {
       const ticketPromises = cart.flatMap(async (item) => {
+
         return Array.from({ length: item.selectedQuantity }, async () => {
 
           const ticketId = uuid();
-          const key = await QRGenerator(eventId, ticketId, userEmail);
+          const nameEvent = eventData.nameEvent;
+          const key = await QRGenerator(eventId, ticketId, userEmail, nameEvent);
           const ticketData = {
             id: ticketId,
             qrTicket: key,
@@ -156,7 +159,7 @@ const Event = () => {
           id: itemID,
           quantityTT: itemQuantity,
         };
-        
+
         await API.graphql({
           query: mutations.updateTypeTicket,
           variables: { input: updateTypeTicketInput }
