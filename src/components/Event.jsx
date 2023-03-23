@@ -7,6 +7,9 @@ import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { deleteEvent, deleteTypeTicket } from "../graphql/mutations";
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 const Event = () => {
@@ -108,21 +111,25 @@ const Event = () => {
   return (
     <div className="eventClass">
       <div>
-        <h3 className="eventTitles"> Nombre del evento: </h3> <span> {eventData.nameEvent}</span>
+        <h4 className="eventTitles"> Nombre del evento: </h4> <span className="eventSpan"> {eventData.nameEvent}</span>
       </div>
       <div>
-        <h3 className="eventTitles"> Descripción: </h3> <span> {eventData.descriptionEvent}</span>
+        <h4 className="eventTitles"> Descripción: </h4> <span className="eventSpan"> {eventData.descriptionEvent}</span>
       </div>
       <div>
-        <h3 className="eventTitles"> Fecha de Inicio: </h3> <span> {(eventData.startDateE).slice(0, 10)}</span>
+        <h4 className="eventTitles"> Fecha de Inicio: </h4> <span className="eventSpan"> {(eventData.startDateE).slice(0, 10)}</span>
       </div>
       <div>
-        <h3 className="eventTitles"> Fecha de Fin: </h3> <span> {(eventData.endDateE).slice(0, 10)}</span>
+        <h4 className="eventTitles"> Fecha de Fin: </h4> <span className="eventSpan"> {(eventData.endDateE).slice(0, 10)}</span>
       </div>
       <div>
-        <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
+        <h4 className="imageTitles"> Imagen de Banner: </h4> <img className="imgEvent" src={eventData.imageUrl} alt="" width="300px" height="300px" />
       </div>
-      <button className="btn btn-primary" onClick={handleEditEvent}>Edit Event</button>
+      <br />
+      <button className="btn btn-Edit" onClick={handleEditEvent}>
+        Editar Evento 
+        <FontAwesomeIcon className="editIcon" icon={faEdit} />
+      </button>
       {/* <button className="btn btn-primary" onClick={handleDeleteEvent}>Eliminar evento</button> */}
       {renderTypeTickets()}
     </div>
