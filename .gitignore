@@ -1,5 +1,7 @@
 node_modules
 amplify/
+.env
+aws
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend

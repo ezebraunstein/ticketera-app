@@ -5,8 +5,8 @@ import { Storage } from "aws-amplify";
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
-import { deleteEvent, deleteTypeTicket } from "../graphql/mutations";
+//import Swal from 'sweetalert2';
+//import { deleteEvent, deleteTypeTicket } from "../graphql/mutations";
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -127,7 +127,7 @@ const Event = () => {
       </div>
       <br />
       <button className="btn btn-Edit" onClick={handleEditEvent}>
-        Editar Evento 
+        Editar Evento
         <FontAwesomeIcon className="editIcon" icon={faEdit} />
       </button>
       {/* <button className="btn btn-primary" onClick={handleDeleteEvent}>Eliminar evento</button> */}

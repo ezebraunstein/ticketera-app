@@ -1,4 +1,3 @@
-import { API } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { createCanvas } from 'canvas';
 import { Storage } from 'aws-amplify';

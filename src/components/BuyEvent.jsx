@@ -7,10 +7,9 @@ import { listTypeTickets } from '../graphql/queries';
 import Swal from 'sweetalert2';
 import { createTicket } from '../graphql/mutations';
 import { v4 as uuid } from 'uuid';
-import { updateTypeTicket } from '../graphql/mutations';
 import * as mutations from '../graphql/mutations';
 import QRGenerator from './QRGenerator';
-
+import axios from 'axios';
 
 const Event = () => {
 
@@ -20,6 +19,7 @@ const Event = () => {
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
   const navigate = useNavigate();
+  const [preferenceId, setPreferenceId] = useState(null);
 
 
   const fetchEventData = async () => {
@@ -111,6 +111,24 @@ const Event = () => {
     return <div></div>;
   }
 
+  const initMercadoPago = () => {
+
+    const mp = new window.MercadoPago(process.env.REACT_APP_MP_PRU_PUBLIC_KEY,
+      {
+        locale: 'es-AR'
+      });
+
+    mp.checkout({
+      preference: {
+        id: preferenceId
+      },
+      render: {
+        container: '.cho-container',
+        label: 'Pagar',
+      }
+    });
+  };
+
   const handleCheckout = async () => {
 
     if (cart.length === 0) {
@@ -119,11 +137,33 @@ const Event = () => {
     }
 
     const userEmail = prompt("Please enter your email:");
+    //const userName = prompt("Please enter your name:");
+    //const userSurname = prompt("Please enter your surname:");
     const userDni = parseInt(prompt("Please enter your DNI:"));
 
     if (!userEmail || !userDni) {
       alert("Email and DNI are required to proceed with the checkout.");
       return;
+    }
+
+    const checkoutMP = async () => {
+      try {
+        const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+        console.log('Checkout done', result);
+        return result.data.id;
+      } catch (error) {
+        console.error('Failed to checkout', error);
+      }
+    }
+
+    const preferenceId = await checkoutMP();
+
+    if (preferenceId) {
+      initMercadoPago(preferenceId);
+    } else {
+      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+      console.log('Checkout done', result);
+      setPreferenceId(result.data.id);
     }
 
     try {
@@ -171,9 +211,10 @@ const Event = () => {
         title: 'Ticket(s) created successfully!',
         showConfirmButton: true,
         confirmButtonText: 'Aceptar'
-      }).then(() => {
-        navigate('/');
       });
+      //.then(() => {
+      //navigate('/');
+      //});
 
     } catch (error) {
       Swal.fire({
@@ -208,6 +249,7 @@ const Event = () => {
         </div>
       </div>
       <button onClick={handleCheckout} className="checkout-button">Checkout</button>
+      <div className="cho-container"></div>
     </div>
   );
 };

@@ -92,6 +92,27 @@ function App() {
             <FooterCreateEvent />
           </div>
         } />
+        <Route path="/checkout/success" element={
+          <div>
+            <Header />
+            <h1>Success!</h1>
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/checkout/failure" element={
+          <div>
+            <Header />
+            <h1>Failure!</h1>
+            <FooterCreateEvent />
+          </div>
+        } />
+        <Route path="/checkout/pending" element={
+          <div>
+            <Header />
+            <h1>Pending!</h1>
+            <FooterCreateEvent />
+          </div>
+        } />
       </Routes>
     </div>
   );
