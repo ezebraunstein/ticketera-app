@@ -111,23 +111,22 @@ const Event = () => {
     return <div></div>;
   }
 
-  const initMercadoPago = () => {
+  // const initMercadoPago = () => {
 
-    const mp = new window.MercadoPago(process.env.REACT_APP_MP_PRU_PUBLIC_KEY,
-      {
-        locale: 'es-AR'
-      });
-
-    mp.checkout({
-      preference: {
-        id: preferenceId
-      },
-      render: {
-        container: '.cho-container',
-        label: 'Pagar',
-      }
-    });
-  };
+  //   const mp = new window.MercadoPago(process.env.REACT_APP_MP_PUBLIC_KEY,
+  //     {
+  //       locale: 'es-AR'
+  //     });
+  //   mp.checkout({
+  //     preference: {
+  //       id: preferenceId
+  //     },
+  //     render: {
+  //       container: '.cho-container',
+  //       label: 'Pagar',
+  //     }
+  //   });
+  // };
 
   const handleCheckout = async () => {
 
@@ -146,25 +145,57 @@ const Event = () => {
       return;
     }
 
-    const checkoutMP = async () => {
+    // const checkoutMP = async () => {
+    //   try {
+    //     const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+    //     console.log('Checkout done', result);
+    //     //return result.data.id;
+    //   } catch (error) {
+    //     console.error('Failed to checkout', error);
+    //   }
+    // }
+
+
+    // await checkoutMP();
+
+
+
+    document.getElementById("checkout-btn").addEventListener("click", async function () {
+
       try {
         const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
         console.log('Checkout done', result);
-        return result.data.id;
+        const preferenceId = result.data.id;
+        createCheckoutButton(preferenceId);
       } catch (error) {
         console.error('Failed to checkout', error);
       }
+
+    });
+
+    function createCheckoutButton(preference) {
+      var script = document.createElement("script");
+
+      script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
+      script.type = "text/javascript";
+      script.dataset.preferenceId = preference;
+      document.getElementById("checkout-btn").innerHTML = "";
+      document.querySelector("#checkout-btn").appendChild(script);
     }
 
-    const preferenceId = await checkoutMP();
 
-    if (preferenceId) {
-      initMercadoPago(preferenceId);
-    } else {
-      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
-      console.log('Checkout done', result);
-      setPreferenceId(result.data.id);
-    }
+
+
+
+
+    // if (preferenceId) {
+    //   initMercadoPago(preferenceId);
+    //   debugger;
+    // } else {
+    //   const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+    //   console.log('Checkout done', result);
+    //   setPreferenceId(result.data.id);
+    // }
 
     try {
       const ticketPromises = cart.flatMap(async (item) => {
@@ -249,7 +280,8 @@ const Event = () => {
         </div>
       </div>
       <button onClick={handleCheckout} className="checkout-button">Checkout</button>
-      <div className="cho-container"></div>
+      <button id="checkout-btn">PAGAR GIL</button>
+      {/* <div className="cho-container"></div> */}
     </div>
   );
 };
