@@ -9,7 +9,9 @@ import { createTicket } from '../graphql/mutations';
 import { v4 as uuid } from 'uuid';
 import * as mutations from '../graphql/mutations';
 import QRGenerator from './QRGenerator';
+import ModalCheckout from './ModalCheckout';
 import axios from 'axios';
+import handleCheckout from './Checkout';
 
 const Event = () => {
 
@@ -21,6 +23,19 @@ const Event = () => {
   const navigate = useNavigate();
   const [preferenceId, setPreferenceId] = useState(null);
 
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [dni, setDni] = useState('');
+
+  const handleModalSubmit = async (data) => {
+    setName(data.name);
+    setSurname(data.surname);
+    setEmail(data.email);
+    setDni(data.dni);
+    //await handleCheckout(data);
+    handleCheckoutMP();
+  };
 
   const fetchEventData = async () => {
     try {
@@ -111,91 +126,43 @@ const Event = () => {
     return <div></div>;
   }
 
-  // const initMercadoPago = () => {
 
-  //   const mp = new window.MercadoPago(process.env.REACT_APP_MP_PUBLIC_KEY,
-  //     {
-  //       locale: 'es-AR'
-  //     });
-  //   mp.checkout({
-  //     preference: {
-  //       id: preferenceId
-  //     },
-  //     render: {
-  //       container: '.cho-container',
-  //       label: 'Pagar',
-  //     }
-  //   });
-  // };
+  const handleCheckoutMP = async () => {
+    try {
+      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+      console.log('Checkout done', result);
+      const preferenceId = result.data.id;
+      createCheckoutButton(preferenceId);
+    } catch (error) {
+      console.error('Failed to checkout', error);
+    }
+  };
 
-  const handleCheckout = async () => {
+  function createCheckoutButton(preference) {
+    var script = document.createElement("script");
+
+    script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
+    script.type = "text/javascript";
+    script.dataset.preferenceId = preference;
+    document.getElementById("checkout-btn").innerHTML = "";
+    document.getElementById("checkout-btn").style.display = "block";
+    document.querySelector("#checkout-btn").appendChild(script);
+
+  }
+
+
+  const handleCheckout = async (data) => {
+
+    const emailUser = data.email;
+    const nameUser = data.name;
+    const surnameUser = data.surname;
+    const dniUser = data.dni;
+
 
     if (cart.length === 0) {
       alert('Your cart is empty. Please add some tickets before checking out.');
       return;
     }
-
-    const userEmail = prompt("Please enter your email:");
-    //const userName = prompt("Please enter your name:");
-    //const userSurname = prompt("Please enter your surname:");
-    const userDni = parseInt(prompt("Please enter your DNI:"));
-
-    if (!userEmail || !userDni) {
-      alert("Email and DNI are required to proceed with the checkout.");
-      return;
-    }
-
-    // const checkoutMP = async () => {
-    //   try {
-    //     const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
-    //     console.log('Checkout done', result);
-    //     //return result.data.id;
-    //   } catch (error) {
-    //     console.error('Failed to checkout', error);
-    //   }
-    // }
-
-
-    // await checkoutMP();
-
-
-
-    document.getElementById("checkout-btn").addEventListener("click", async function () {
-
-      try {
-        const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
-        console.log('Checkout done', result);
-        const preferenceId = result.data.id;
-        createCheckoutButton(preferenceId);
-      } catch (error) {
-        console.error('Failed to checkout', error);
-      }
-
-    });
-
-    function createCheckoutButton(preference) {
-      var script = document.createElement("script");
-
-      script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
-      script.type = "text/javascript";
-      script.dataset.preferenceId = preference;
-      document.getElementById("checkout-btn").innerHTML = "";
-      document.querySelector("#checkout-btn").appendChild(script);
-    }
-
-
-
-
-
-
-    // if (preferenceId) {
-    //   initMercadoPago(preferenceId);
-    //   debugger;
-    // } else {
-    //   const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
-    //   console.log('Checkout done', result);
-    //   setPreferenceId(result.data.id);
-    // }
 
     try {
       const ticketPromises = cart.flatMap(async (item) => {
@@ -204,16 +171,16 @@ const Event = () => {
 
           const ticketId = uuid();
           const nameEvent = eventData.nameEvent;
-          const key = await QRGenerator(eventId, ticketId, userEmail, nameEvent);
+          const key = await QRGenerator(eventId, ticketId, emailUser, nameEvent);
           const ticketData = {
             id: ticketId,
             qrTicket: key,
             validTicket: true,
-            dniTicket: userDni,
-            emailTicket: userEmail,
+            dniTicket: dniUser,
+            emailTicket: emailUser,
             typeticketID: item.id,
           };
-
+          debugger;
           await API.graphql(graphqlOperation(createTicket, { input: ticketData }));
 
         });
@@ -242,10 +209,9 @@ const Event = () => {
         title: 'Ticket(s) created successfully!',
         showConfirmButton: true,
         confirmButtonText: 'Aceptar'
+        // }).then(() => {
+        //   navigate('/');
       });
-      //.then(() => {
-      //navigate('/');
-      //});
 
     } catch (error) {
       Swal.fire({
@@ -279,9 +245,10 @@ const Event = () => {
           {renderCartDropdown()}
         </div>
       </div>
-      <button onClick={handleCheckout} className="checkout-button">Checkout</button>
-      <button id="checkout-btn">PAGAR GIL</button>
-      {/* <div className="cho-container"></div> */}
+      <ModalCheckout handleModalSubmit={handleModalSubmit} />
+      {/* <button onClick={handleCheckout} className="checkout-button">Checkout</button> */}
+      {/* <button id="checkout-btn">Pagar</button> */}
+      <button id="checkout-btn" style={{ display: "none" }}>Pagar</button>
     </div>
   );
 };
