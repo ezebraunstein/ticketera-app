@@ -26,7 +26,7 @@ const InputModal = ({ handleModalSubmit }) => {
 
     return (
         <div>
-            <button onClick={() => setModalIsOpen(true)}>Comprar</button>
+            <button type="button" class="btn btn-info" onClick={() => setModalIsOpen(true)}>Comprar</button>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
@@ -37,6 +37,7 @@ const InputModal = ({ handleModalSubmit }) => {
                     <div>
                         <label htmlFor="name">Nombre:</label>
                         <input
+                            class="form-control"
                             type="text"
                             id="name"
                             name="name"
@@ -48,6 +49,7 @@ const InputModal = ({ handleModalSubmit }) => {
                     <div>
                         <label htmlFor="surname">Apellido:</label>
                         <input
+                            class="form-control"
                             type="text"
                             id="surname"
                             name="surname"
@@ -59,6 +61,7 @@ const InputModal = ({ handleModalSubmit }) => {
                     <div>
                         <label htmlFor="email">Email:</label>
                         <input
+                            class="form-control"
                             type="email"
                             id="email"
                             name="email"
@@ -70,6 +73,7 @@ const InputModal = ({ handleModalSubmit }) => {
                     <div>
                         <label htmlFor="dni">DNI:</label>
                         <input
+                            class="form-control"
                             type="text"
                             id="dni"
                             name="dni"
@@ -78,8 +82,10 @@ const InputModal = ({ handleModalSubmit }) => {
                             required
                         />
                     </div>
-                    <button type="submit">Continuar con el pago</button>
-                    <button onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                    <div></div>
+                    <button type="button" class="btn btn-danger" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                    <button class="btn btn-success" type="submit">Continuar con el pago</button>
+
                 </form>
             </Modal>
         </div>

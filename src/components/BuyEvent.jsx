@@ -15,6 +15,7 @@ const Event = () => {
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
+
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -27,9 +28,9 @@ const Event = () => {
     setSurname(data.surname);
     setEmail(data.email);
     setDni(data.dni);
-    debugger;
-    await handleCheckout(data, cart, eventData);
+
     await handleCheckoutMP(data);
+    await handleCheckout(data, cart, eventData);
   };
 
   const fetchEventData = async () => {
@@ -64,21 +65,23 @@ const Event = () => {
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => {
       const cartItem = cart.find((item) => item.id === typeTicket.id);
-      const quantity = cartItem ? cartItem.quantity : 0;
+      const quantity = cartItem ? cartItem.selectedQuantity : 0;
 
       return (
         <div key={typeTicket.id}>
           <h4>{typeTicket.nameTT}</h4>
           <p>Price: {typeTicket.priceTT}</p>
           <div>
-            <button onClick={() => addToCart(typeTicket, -1)}>-</button>
+
+            <button type="button" class="btn btn-danger" onClick={() => addToCart(typeTicket, -1)}>-</button>
             <span> Quantity: {quantity} </span>
-            <button onClick={() => addToCart(typeTicket, 1)}>+</button>
+            <button type="button" class="btn btn-success" onClick={() => addToCart(typeTicket, 1)}>+</button>
           </div>
         </div>
       );
     });
   };
+
 
   const addToCart = (typeTicket, quantity) => {
     const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
@@ -95,16 +98,22 @@ const Event = () => {
     }
   };
 
+
   const renderCartDropdown = () => {
     if (!cartVisible) return null;
 
-    return cart.map((item) => (
-      <div key={item.id}>
-        <h4>{item.nameTT}</h4>
-        <p>Quantity: {item.selectedQuantity}</p>
-        <p>Price: {item.priceTT * item.selectedQuantity}</p>
-      </div>
-    ));
+    return cart.map((item) => {
+      const typeTicket = typeTickets.find(tt => tt.id === item.id);
+      const quantity = typeTicket ? item.selectedQuantity : 0;
+
+      return (
+        <div key={item.id}>
+          <h4>{item.nameTT}</h4>
+          <p>Quantity: {quantity}</p>
+          <p>Price: {item.priceTT * item.selectedQuantity}</p>
+        </div>
+      );
+    });
   };
 
   const toggleCartVisibility = () => {
@@ -120,11 +129,6 @@ const Event = () => {
   if (!eventData) {
     return <div></div>;
   }
-
-  // if (cart.length === 0) {
-  //   alert('Your cart is empty. Please add some tickets before checking out.');
-  //   return;
-  // }
 
   const handleCheckoutMP = async (data) => {
     const name = data.name;
@@ -168,7 +172,7 @@ const Event = () => {
       </div>
       {renderTypeTickets()}
       <div className="cart">
-        <button onClick={toggleCartVisibility}>Cart</button>
+        <button type="button" class="btn btn-primary" onClick={toggleCartVisibility}>Cart</button>
         <div className="cart-dropdown">
           {renderCartDropdown()}
         </div>
