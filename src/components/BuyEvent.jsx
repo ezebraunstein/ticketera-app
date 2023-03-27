@@ -4,11 +4,6 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { Storage } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
-import Swal from 'sweetalert2';
-import { createTicket } from '../graphql/mutations';
-import { v4 as uuid } from 'uuid';
-import * as mutations from '../graphql/mutations';
-import QRGenerator from './QRGenerator';
 import ModalCheckout from './ModalCheckout';
 import axios from 'axios';
 import handleCheckout from './Checkout';
@@ -21,7 +16,6 @@ const Event = () => {
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
   const navigate = useNavigate();
-  const [preferenceId, setPreferenceId] = useState(null);
 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -33,8 +27,9 @@ const Event = () => {
     setSurname(data.surname);
     setEmail(data.email);
     setDni(data.dni);
-    //await handleCheckout(data);
-    handleCheckoutMP();
+    debugger;
+    await handleCheckout(data, cart, eventData);
+    await handleCheckoutMP(data);
   };
 
   const fetchEventData = async () => {
@@ -126,100 +121,33 @@ const Event = () => {
     return <div></div>;
   }
 
+  // if (cart.length === 0) {
+  //   alert('Your cart is empty. Please add some tickets before checking out.');
+  //   return;
+  // }
 
-  const handleCheckoutMP = async () => {
+  const handleCheckoutMP = async (data) => {
+    const name = data.name;
+    const surname = data.surname;
+    const email = data.email;
+    const dni = data.dni;
+    debugger;
     try {
-      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {});
+      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {
+        name, surname, email, dni, cart, eventData
+      });
       console.log('Checkout done', result);
       const preferenceId = result.data.id;
-      createCheckoutButton(preferenceId);
+      redirectToMercadoPago(preferenceId);
     } catch (error) {
       console.error('Failed to checkout', error);
     }
   };
 
-  function createCheckoutButton(preference) {
-    var script = document.createElement("script");
-
-    script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
-    script.type = "text/javascript";
-    script.dataset.preferenceId = preference;
-    document.getElementById("checkout-btn").innerHTML = "";
-    document.getElementById("checkout-btn").style.display = "block";
-    document.querySelector("#checkout-btn").appendChild(script);
-
+  function redirectToMercadoPago(preference) {
+    const url = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preference}`;
+    window.open(url, '_blank');
   }
-
-
-  const handleCheckout = async (data) => {
-
-    const emailUser = data.email;
-    const nameUser = data.name;
-    const surnameUser = data.surname;
-    const dniUser = data.dni;
-
-
-    if (cart.length === 0) {
-      alert('Your cart is empty. Please add some tickets before checking out.');
-      return;
-    }
-
-    try {
-      const ticketPromises = cart.flatMap(async (item) => {
-
-        return Array.from({ length: item.selectedQuantity }, async () => {
-
-          const ticketId = uuid();
-          const nameEvent = eventData.nameEvent;
-          const key = await QRGenerator(eventId, ticketId, emailUser, nameEvent);
-          const ticketData = {
-            id: ticketId,
-            qrTicket: key,
-            validTicket: true,
-            dniTicket: dniUser,
-            emailTicket: emailUser,
-            typeticketID: item.id,
-          };
-          debugger;
-          await API.graphql(graphqlOperation(createTicket, { input: ticketData }));
-
-        });
-      });
-
-      await Promise.all(ticketPromises);
-
-      for (const item of cart) {
-
-        const itemID = item.id;
-        const itemQuantity = item.quantityTT - item.selectedQuantity;
-
-        const updateTypeTicketInput = {
-          id: itemID,
-          quantityTT: itemQuantity,
-        };
-
-        await API.graphql({
-          query: mutations.updateTypeTicket,
-          variables: { input: updateTypeTicketInput }
-        });
-      }
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Ticket(s) created successfully!',
-        showConfirmButton: true,
-        confirmButtonText: 'Aceptar'
-        // }).then(() => {
-        //   navigate('/');
-      });
-
-    } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error creating ticket(s)',
-      });
-    }
-  };
 
   return (
     <div className="eventClass">
@@ -248,7 +176,7 @@ const Event = () => {
       <ModalCheckout handleModalSubmit={handleModalSubmit} />
       {/* <button onClick={handleCheckout} className="checkout-button">Checkout</button> */}
       {/* <button id="checkout-btn">Pagar</button> */}
-      <button id="checkout-btn" style={{ display: "none" }}>Pagar</button>
+      {/* <button id="checkout-btn" style={{ display: "none" }}>Pagar</button> */}
     </div>
   );
 };
