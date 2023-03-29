@@ -53,7 +53,7 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
 
 const sendEmailWithQR = async (userEmail, nameEvent, ticketId, base64QRCode) => {
     try {
-        const result = await axios.post('https://rx7qo86rei.execute-api.us-east-1.amazonaws.com/lambdasendemail-dev', {
+        const result = await axios.post('https://h456ccae4obnzd5xj2535byzk40pkrdf.lambda-url.us-east-1.on.aws/', {
             userEmail, nameEvent, ticketId, base64QRCode
         });
         console.log('Email sent:', result);

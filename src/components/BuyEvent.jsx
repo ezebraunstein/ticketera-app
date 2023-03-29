@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Storage } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
@@ -17,6 +17,8 @@ const Event = () => {
   const [cartVisible, setCartVisible] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const path = location.pathname;
 
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
@@ -137,8 +139,8 @@ const Event = () => {
     const dni = data.dni;
     debugger;
     try {
-      const result = await axios.post('https://dyovo7ln67.execute-api.us-east-1.amazonaws.com/default/lambdcheckoutMP', {
-        name, surname, email, dni, cart, eventData
+      const result = await axios.post('https://hs37nkozzmf2277yidvtyqowsa0enots.lambda-url.us-east-1.on.aws/', {
+        name, surname, email, dni, cart, eventData, path
       });
       console.log('Checkout done', result);
       const preferenceId = result.data.id;
