@@ -5,6 +5,7 @@ import "./Slider.css";
 
 const Slider = () => {
 
+  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
   const [events, setEvents] = useState([]);
   const fetchEvents = async () => {
 
@@ -15,7 +16,8 @@ const Slider = () => {
       const eventsWithImages = await Promise.all(
 
         eventsList.map(async (event) => {
-          const imageUrl = await Storage.get(event.bannerEvent);
+          const imagePath = `public/${event.bannerEvent}`;
+          const imageUrl = `${cloudFrontUrl}/${imagePath}`;
           event.imageUrl = imageUrl;
           return event;
         })

@@ -9,6 +9,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 const OwnerEvents = ({ user }) => {
 
+  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
@@ -21,9 +22,11 @@ const OwnerEvents = ({ user }) => {
       );
       const eventsWithImages = await Promise.all(
         filterEventsList.map(async (event) => {
-          const imageUrl = await Storage.get(event.bannerEvent, {
-            expires: 60,
-          });
+          // const imageUrl = await Storage.get(event.bannerEvent, {
+          //   expires: 60,
+          // });
+          const imagePath = `public/${event.bannerEvent}`;
+          const imageUrl = `${cloudFrontUrl}/${imagePath}`;
           event.imageUrl = imageUrl;
           return event;
         })

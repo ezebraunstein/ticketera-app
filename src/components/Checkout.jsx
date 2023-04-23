@@ -46,18 +46,18 @@ export const handleCheckout = async (data, cart, eventData) => {
             });
         }
 
-        Swal.fire({
-            icon: 'success',
-            title: 'Ticket(s) created successfully!',
-            showConfirmButton: true,
-            confirmButtonText: 'Aceptar'
-        });
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: 'Ticket(s) created successfully!',
+        //     showConfirmButton: true,
+        //     confirmButtonText: 'Aceptar'
+        // });
 
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error creating ticket(s)',
-        });
+        // Swal.fire({
+        //     icon: 'error',
+        //     title: 'Error creating ticket(s)',
+        // });
     }
 };
 

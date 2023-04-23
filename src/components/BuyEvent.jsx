@@ -7,6 +7,7 @@ import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import axios from 'axios';
 import handleCheckout from './Checkout';
+import stripeCheckout from './StripeCheckout';
 
 const Event = () => {
 
@@ -24,6 +25,7 @@ const Event = () => {
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [dni, setDni] = useState('');
+  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
 
   const handleModalSubmit = async (data) => {
     setName(data.name);
@@ -31,7 +33,8 @@ const Event = () => {
     setEmail(data.email);
     setDni(data.dni);
 
-    await handleCheckoutMP(data);
+    //await handleCheckoutMP(data);
+    await handleCheckoutStripe();
     await handleCheckout(data, cart, eventData);
   };
 
@@ -41,9 +44,8 @@ const Event = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imageUrl = await Storage.get(event.bannerEvent, {
-        expires: 60,
-      });
+      const imagePath = `public/${event.bannerEvent}`;
+      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
       fetchTypeTickets();
@@ -103,6 +105,7 @@ const Event = () => {
 
   const renderCartDropdown = () => {
     if (!cartVisible) return null;
+    debugger;
 
     return cart.map((item) => {
       const typeTicket = typeTickets.find(tt => tt.id === item.id);
@@ -132,28 +135,50 @@ const Event = () => {
     return <div></div>;
   }
 
-  const handleCheckoutMP = async (data) => {
-    const name = data.name;
-    const surname = data.surname;
-    const email = data.email;
-    const dni = data.dni;
-    debugger;
-    try {
-      const result = await axios.post('https://hs37nkozzmf2277yidvtyqowsa0enots.lambda-url.us-east-1.on.aws/', {
-        name, surname, email, dni, cart, eventData, path
-      });
-      console.log('Checkout done', result);
-      const preferenceId = result.data.id;
-      redirectToMercadoPago(preferenceId);
-    } catch (error) {
-      console.error('Failed to checkout', error);
-    }
-  };
+  // const handleCheckoutMP = async (data) => {
+  //   const name = data.name;
+  //   const surname = data.surname;
+  //   const email = data.email;
+  //   const dni = data.dni;
+  //   debugger;
+  //   try {
+  //     const result = await axios.post('https://hs37nkozzmf2277yidvtyqowsa0enots.lambda-url.us-east-1.on.aws/', {
+  //       name, surname, email, dni, cart, eventData, path
+  //     });
+  //     console.log('Checkout done', result);
+  //     const preferenceId = result.data.id;
+  //     redirectToMercadoPago(preferenceId);
+  //   } catch (error) {
+  //     console.error('Failed to checkout', error);
+  //   }
+  // };
 
-  function redirectToMercadoPago(preference) {
-    const url = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preference}`;
-    window.open(url, '_blank');
+  // function redirectToMercadoPago(preference) {
+  //   const url = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preference}`;
+  //   window.open(url, '_blank');
+  // }
+
+  function convertCartToLineItems(cart) {
+    return cart.map((item) => {
+      const updatedPrice = (item.priceTT * 1.15) / 1.75;
+      return {
+        price_data: {
+          currency: 'ars',
+          product_data: {
+            name: item.nameTT,
+          },
+          unit_amount: Math.round(updatedPrice * 100),
+        },
+        quantity: item.selectedQuantity,
+      };
+    });
   }
+
+  async function handleCheckoutStripe() {
+    const lineItems = convertCartToLineItems(cart);
+    await stripeCheckout(lineItems, path);
+  }
+
 
   return (
     <div className="eventClass">
@@ -166,9 +191,9 @@ const Event = () => {
       <div>
         <h3 className="eventTitles"> Fecha de Inicio: </h3> <span> {(eventData.startDateE).slice(0, 10)}</span>
       </div>
-      <div>
+      {/* <div>
         <h3 className="eventTitles"> Fecha de Fin: </h3> <span> {(eventData.endDateE).slice(0, 10)}</span>
-      </div>
+      </div> */}
       <div>
         <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
       </div>

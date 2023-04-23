@@ -14,12 +14,12 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
         const response = await fetch(dataUrl);
         const blob = await response.blob();
 
-        let downloadLink = document.createElement("a");
-        downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = `${'qr'}.jpeg`;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+        // let downloadLink = document.createElement("a");
+        // downloadLink.href = URL.createObjectURL(blob);
+        // downloadLink.download = `${'qr'}.jpeg`;
+        // document.body.appendChild(downloadLink);
+        // downloadLink.click();
+        // document.body.removeChild(downloadLink);
 
         const fileName = `events/${eventId}/tickets/${ticketId}.jpeg`;
         const storedQR = await Storage.put(fileName, blob, {

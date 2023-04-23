@@ -11,6 +11,7 @@ import CreateTypeTicket from './CreateTypeTicket';
 
 const EditEvent = () => {
 
+  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
@@ -21,9 +22,8 @@ const EditEvent = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imageUrl = await Storage.get(event.bannerEvent, {
-        expires: 60,
-      });
+      const imagePath = `public/${event.bannerEvent}`;
+      const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
       fetchTypeTickets();
@@ -43,7 +43,7 @@ const EditEvent = () => {
       console.error("Error fetching type tickets:", error);
     }
   };
-  
+
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
       <div key={typeTicket.id}>
@@ -58,7 +58,7 @@ const EditEvent = () => {
   const handleTypeTicketCreated = (newTypeTicket) => {
     setTypeTickets((prevTypeTickets) => [...prevTypeTickets, newTypeTicket]);
   };
-  
+
   useEffect(() => {
     fetchEventData();
   }, [eventId]);
@@ -77,9 +77,9 @@ const EditEvent = () => {
       <div>
         <h3 className="eventTitles"> Fecha de Inicio: </h3> <span> {(eventData.startDateE).slice(0, 10)}</span>
       </div>
-      <div>
+      {/* <div>
         <h3 className="eventTitles"> Fecha de Fin: </h3> <span> {(eventData.endDateE).slice(0, 10)}</span>
-      </div>
+      </div> */}
       <div>
         <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
       </div>

@@ -2,6 +2,7 @@ node_modules
 amplify/
 .env
 aws
+.vscode
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
