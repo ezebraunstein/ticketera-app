@@ -35,7 +35,9 @@ const Event = () => {
     localStorage.setItem('userData', JSON.stringify(data));
 
     //await stripeCheckout(cart, path);
-    await mercadopagoCheckout(data, path, cart, eventData);
+    //await mercadopagoCheckout(data, path, cart, eventData);
+    await ticketCheckout(data, cart, eventData);
+
   };
 
   useEffect(() => {

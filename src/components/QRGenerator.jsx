@@ -1,7 +1,7 @@
 import QRCode from 'qrcode';
 import { createCanvas } from 'canvas';
 import { Storage } from 'aws-amplify';
-import axios from 'axios';
+import sendEmailWithQR from './SendEmail';
 
 const qrGenerator = async (eventId, ticketId, userEmail, nameEvent, nameTT) => {
     try {
@@ -16,12 +16,12 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent, nameTT) => {
 
         let downloadLink = document.createElement("a");
         downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = `${nameTT}.jpeg`;
+        downloadLink.download = `${nameEvent}-${nameTT}.jpeg`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
 
-        const fileName = `events/${eventId}/tickets/${nameTT}.jpeg`;
+        const fileName = `events/${eventId}/tickets/${nameEvent}-${nameTT}.jpeg`;
         const storedQR = await Storage.put(fileName, blob, {
             contentType: "image/jpeg",
         });
@@ -37,30 +37,24 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent, nameTT) => {
 
         const base64QRCode = await blobToBase64(blob);
 
-        await sendEmailWithQR(
-            userEmail,
-            nameEvent,
-            ticketId,
-            base64QRCode,
-            nameTT
-        );
-        debugger;
-        return storedQR.key;
+        const attachment = {
+            filename: `${nameEvent}-${nameTT}.jpeg`,
+            content: base64QRCode.split('base64,')[1],
+            contentType: 'image/jpeg',
+            contentDisposition: 'attachment',
+        };
+
+        await sendEmailWithQR(userEmail, nameEvent, ticketId, base64QRCode, nameTT);
+
+        return {
+            attachment,
+            key: storedQR.key,
+        };
 
     } catch (error) {
         console.error('Failed to generate QR code as JPEG:', error);
     }
-};
 
-const sendEmailWithQR = async (userEmail, nameEvent, ticketId, base64QRCode, nameTT) => {
-    try {
-        const result = await axios.post('https://h456ccae4obnzd5xj2535byzk40pkrdf.lambda-url.us-east-1.on.aws/', {
-            userEmail, nameEvent, ticketId, base64QRCode, nameTT
-        });
-        console.log('Email sent:', result);
-    } catch (error) {
-        console.error('Failed to send email:', error);
-    }
 };
 
 export default qrGenerator;

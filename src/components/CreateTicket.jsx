@@ -2,6 +2,7 @@ import { API, graphqlOperation } from 'aws-amplify';
 import { createTicket } from '../graphql/mutations';
 import { updateTypeTicket } from '../graphql/mutations';
 import Swal from 'sweetalert2';
+import sendEmailWithQR from './SendEmail';
 import { v4 as uuid } from 'uuid';
 import QRGenerator from './QRGenerator';
 
@@ -17,7 +18,7 @@ export const handleCheckout = async (data, cart, eventData) => {
                 const nameEvent = eventData.nameEvent;
                 const eventId = eventData.id;
                 const nameTT = item.nameTT;
-                const key = await QRGenerator(eventId, ticketId, emailUser, nameEvent, nameTT);
+                const { attachment, key } = await QRGenerator(eventId, ticketId, emailUser, nameEvent, nameTT);
                 const ticketData = {
                     id: ticketId,
                     qrTicket: key,
@@ -27,8 +28,13 @@ export const handleCheckout = async (data, cart, eventData) => {
                     typeticketID: item.id,
                 };
                 await API.graphql(graphqlOperation(createTicket, { input: ticketData }));
+                return attachment;
             });
         });
+
+        const attachments = await Promise.all(ticketPromises);
+
+        //await sendEmailWithQR(emailUser, eventData.nameEvent, attachments);
 
         await Promise.all(ticketPromises);
 
@@ -47,18 +53,18 @@ export const handleCheckout = async (data, cart, eventData) => {
             });
         }
 
-        // Swal.fire({
-        //     icon: 'success',
-        //     title: 'Ticket(s) created successfully!',
-        //     showConfirmButton: true,
-        //     confirmButtonText: 'Aceptar'
-        // });
+        Swal.fire({
+            icon: 'success',
+            title: 'Ticket(s) enviados correctamente! Revisa tu casilla de spam!',
+            showConfirmButton: true,
+            confirmButtonText: 'Aceptar'
+        });
 
     } catch (error) {
-        // Swal.fire({
-        //     icon: 'error',
-        //     title: 'Error creating ticket(s)',
-        // });
+        Swal.fire({
+            icon: 'error',
+            title: 'Error creating ticket(s)',
+        });
     }
 };
 
