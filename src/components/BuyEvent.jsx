@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Storage } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
-import axios from 'axios';
-import handleCheckout from './Checkout';
-import stripeCheckout from './StripeCheckout';
+import ticketCheckout from './CreateTicket';
+import stripeCheckout from './CheckoutStripe';
+import mercadopagoCheckout from './CheckoutMercadoPago';
 
 const Event = () => {
 
@@ -17,7 +16,6 @@ const Event = () => {
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
 
-  const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
 
@@ -33,10 +31,33 @@ const Event = () => {
     setEmail(data.email);
     setDni(data.dni);
 
-    //await handleCheckoutMP(data);
-    await handleCheckoutStripe();
-    await handleCheckout(data, cart, eventData);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('userData', JSON.stringify(data));
+
+    //await stripeCheckout(cart, path);
+    await mercadopagoCheckout(data, path, cart, eventData);
   };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const status = queryParams.get('status');
+
+    if (status === 'success' && eventData) {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      const userData = JSON.parse(localStorage.getItem('userData'));
+
+      if (cart && userData) {
+        ticketCheckout(userData, cart, eventData);
+
+        localStorage.removeItem('cart');
+        localStorage.removeItem('userData');
+      }
+    }
+  }, [eventData]);
+
+  useEffect(() => {
+    fetchEventData();
+  }, [eventId]);
 
   const fetchEventData = async () => {
     try {
@@ -86,7 +107,6 @@ const Event = () => {
     });
   };
 
-
   const addToCart = (typeTicket, quantity) => {
     const existingItemIndex = cart.findIndex((item) => item.id === typeTicket.id);
 
@@ -101,7 +121,6 @@ const Event = () => {
       setCart([...cart, { ...typeTicket, selectedQuantity: quantity }]);
     }
   };
-
 
   const renderCartDropdown = () => {
     if (!cartVisible) return null;
@@ -127,58 +146,9 @@ const Event = () => {
     cartDropdown.classList.toggle('visible');
   };
 
-  useEffect(() => {
-    fetchEventData();
-  }, [eventId]);
-
   if (!eventData) {
     return <div></div>;
   }
-
-  // const handleCheckoutMP = async (data) => {
-  //   const name = data.name;
-  //   const surname = data.surname;
-  //   const email = data.email;
-  //   const dni = data.dni;
-  //   debugger;
-  //   try {
-  //     const result = await axios.post('https://hs37nkozzmf2277yidvtyqowsa0enots.lambda-url.us-east-1.on.aws/', {
-  //       name, surname, email, dni, cart, eventData, path
-  //     });
-  //     console.log('Checkout done', result);
-  //     const preferenceId = result.data.id;
-  //     redirectToMercadoPago(preferenceId);
-  //   } catch (error) {
-  //     console.error('Failed to checkout', error);
-  //   }
-  // };
-
-  // function redirectToMercadoPago(preference) {
-  //   const url = `https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=${preference}`;
-  //   window.open(url, '_blank');
-  // }
-
-  function convertCartToLineItems(cart) {
-    return cart.map((item) => {
-      const updatedPrice = (item.priceTT * 1.15) / 1.75;
-      return {
-        price_data: {
-          currency: 'ars',
-          product_data: {
-            name: item.nameTT,
-          },
-          unit_amount: Math.round(updatedPrice * 100),
-        },
-        quantity: item.selectedQuantity,
-      };
-    });
-  }
-
-  async function handleCheckoutStripe() {
-    const lineItems = convertCartToLineItems(cart);
-    await stripeCheckout(lineItems, path);
-  }
-
 
   return (
     <div className="eventClass">
@@ -197,7 +167,9 @@ const Event = () => {
       <div>
         <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
       </div>
-      {renderTypeTickets()}
+      <div>
+        {renderTypeTickets()}
+      </div>
       <div className="cart">
         <button type="button" class="btn btn-primary" onClick={toggleCartVisibility}>Cart</button>
         <div className="cart-dropdown">
@@ -205,9 +177,6 @@ const Event = () => {
         </div>
       </div>
       <ModalCheckout handleModalSubmit={handleModalSubmit} />
-      {/* <button onClick={handleCheckout} className="checkout-button">Checkout</button> */}
-      {/* <button id="checkout-btn">Pagar</button> */}
-      {/* <button id="checkout-btn" style={{ display: "none" }}>Pagar</button> */}
     </div>
   );
 };

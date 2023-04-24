@@ -9,14 +9,15 @@ export const handleCheckout = async (data, cart, eventData) => {
 
     const emailUser = data.email;
     const dniUser = data.dni;
-    debugger;
+
     try {
         const ticketPromises = cart.flatMap(async (item) => {
             return Array.from({ length: item.selectedQuantity }, async () => {
                 const ticketId = uuid();
                 const nameEvent = eventData.nameEvent;
                 const eventId = eventData.id;
-                const key = await QRGenerator(eventId, ticketId, emailUser, nameEvent);
+                const nameTT = item.nameTT;
+                const key = await QRGenerator(eventId, ticketId, emailUser, nameEvent, nameTT);
                 const ticketData = {
                     id: ticketId,
                     qrTicket: key,

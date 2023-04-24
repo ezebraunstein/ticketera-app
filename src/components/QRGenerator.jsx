@@ -3,7 +3,7 @@ import { createCanvas } from 'canvas';
 import { Storage } from 'aws-amplify';
 import axios from 'axios';
 
-const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
+const qrGenerator = async (eventId, ticketId, userEmail, nameEvent, nameTT) => {
     try {
         const canvas = createCanvas(290, 290);
         await QRCode.toCanvas(canvas, ticketId, {
@@ -14,14 +14,14 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
         const response = await fetch(dataUrl);
         const blob = await response.blob();
 
-        // let downloadLink = document.createElement("a");
-        // downloadLink.href = URL.createObjectURL(blob);
-        // downloadLink.download = `${'qr'}.jpeg`;
-        // document.body.appendChild(downloadLink);
-        // downloadLink.click();
-        // document.body.removeChild(downloadLink);
+        let downloadLink = document.createElement("a");
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = `${nameTT}.jpeg`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
 
-        const fileName = `events/${eventId}/tickets/${ticketId}.jpeg`;
+        const fileName = `events/${eventId}/tickets/${nameTT}.jpeg`;
         const storedQR = await Storage.put(fileName, blob, {
             contentType: "image/jpeg",
         });
@@ -41,9 +41,10 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
             userEmail,
             nameEvent,
             ticketId,
-            base64QRCode
+            base64QRCode,
+            nameTT
         );
-
+        debugger;
         return storedQR.key;
 
     } catch (error) {
@@ -51,10 +52,10 @@ const qrGenerator = async (eventId, ticketId, userEmail, nameEvent) => {
     }
 };
 
-const sendEmailWithQR = async (userEmail, nameEvent, ticketId, base64QRCode) => {
+const sendEmailWithQR = async (userEmail, nameEvent, ticketId, base64QRCode, nameTT) => {
     try {
         const result = await axios.post('https://h456ccae4obnzd5xj2535byzk40pkrdf.lambda-url.us-east-1.on.aws/', {
-            userEmail, nameEvent, ticketId, base64QRCode
+            userEmail, nameEvent, ticketId, base64QRCode, nameTT
         });
         console.log('Email sent:', result);
     } catch (error) {
