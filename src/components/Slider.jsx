@@ -1,7 +1,7 @@
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
-import "./Slider.css";
+import "./CSS/Slider.css";
 
 const Slider = () => {
 

@@ -1,4 +1,4 @@
-import './CreateEvent.css';
+import './CSS/CreateEvent.css';
 import { useState, useEffect } from "react";
 import { Storage } from 'aws-amplify';
 import { createEvent } from "../graphql/mutations";

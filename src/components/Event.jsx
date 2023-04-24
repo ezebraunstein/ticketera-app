@@ -1,4 +1,4 @@
-import './Event.css';
+import './CSS/Event.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Storage } from "aws-amplify";

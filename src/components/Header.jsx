@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
-import './ButtonCreateEvent.css';
+import './CSS/ButtonCreateEvent.css';
 import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogin';
 import ButtonLogout from './ButtonLogout';
@@ -51,21 +51,21 @@ const Header = () => {
       {/* Si estoy en /create-user, el logo NO puede redireccionarme a la homepage */}
 
       {url === '/create-user' && (
-      <a>
-        <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
-      </a>)}
+        <a>
+          <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
+        </a>)}
 
       {/* Caso contrario, si */}
-      
+
       {url !== '/create-user' && (
-      <a href='/'>
-        <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
-      </a>)}
+        <a href='/'>
+          <img className="logo" src={palaLogo} alt="LA PALA" width="70px" />
+        </a>)}
 
       <div className='box-1'>
-      {url !== '/create-user' && (user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />))}
-      {url !== '/create-user' && user && <ButtonOwnerEvents />}
-      {user && <ButtonLogout />}
+        {url !== '/create-user' && (user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />))}
+        {url !== '/create-user' && user && <ButtonOwnerEvents />}
+        {user && <ButtonLogout />}
       </div>
     </header>
   );
