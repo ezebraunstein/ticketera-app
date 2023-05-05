@@ -1,6 +1,63 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createPayment = /* GraphQL */ `
+  mutation CreatePayment(
+    $input: CreatePaymentInput!
+    $condition: ModelPaymentConditionInput
+  ) {
+    createPayment(input: $input, condition: $condition) {
+      id
+      cart
+      paymentStatus
+      emailBuyer
+      dniBuyer
+      amount
+      eventName
+      createdAt
+      updatedAt
+      eventID
+    }
+  }
+`;
+export const updatePayment = /* GraphQL */ `
+  mutation UpdatePayment(
+    $input: UpdatePaymentInput!
+    $condition: ModelPaymentConditionInput
+  ) {
+    updatePayment(input: $input, condition: $condition) {
+      id
+      cart
+      paymentStatus
+      emailBuyer
+      dniBuyer
+      amount
+      eventName
+      createdAt
+      updatedAt
+      eventID
+    }
+  }
+`;
+export const deletePayment = /* GraphQL */ `
+  mutation DeletePayment(
+    $input: DeletePaymentInput!
+    $condition: ModelPaymentConditionInput
+  ) {
+    deletePayment(input: $input, condition: $condition) {
+      id
+      cart
+      paymentStatus
+      emailBuyer
+      dniBuyer
+      amount
+      eventName
+      createdAt
+      updatedAt
+      eventID
+    }
+  }
+`;
 export const createTicket = /* GraphQL */ `
   mutation CreateTicket(
     $input: CreateTicketInput!
@@ -192,6 +249,21 @@ export const createEvent = /* GraphQL */ `
         }
         nextToken
       }
+      Payments {
+        items {
+          id
+          cart
+          paymentStatus
+          emailBuyer
+          dniBuyer
+          amount
+          eventName
+          createdAt
+          updatedAt
+          eventID
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -232,6 +304,21 @@ export const updateEvent = /* GraphQL */ `
         }
         nextToken
       }
+      Payments {
+        items {
+          id
+          cart
+          paymentStatus
+          emailBuyer
+          dniBuyer
+          amount
+          eventName
+          createdAt
+          updatedAt
+          eventID
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -269,6 +356,21 @@ export const deleteEvent = /* GraphQL */ `
           eventID
           createdAt
           updatedAt
+        }
+        nextToken
+      }
+      Payments {
+        items {
+          id
+          cart
+          paymentStatus
+          emailBuyer
+          dniBuyer
+          amount
+          eventName
+          createdAt
+          updatedAt
+          eventID
         }
         nextToken
       }

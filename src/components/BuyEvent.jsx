@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
-import ticketCheckout from './CreateTicket';
+import ticketCheckout from '../functions/CreateTicket';
 import stripeCheckout from './CheckoutStripe';
 import mercadopagoCheckout from './CheckoutMercadoPago';
 
@@ -34,28 +34,10 @@ const Event = () => {
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('userData', JSON.stringify(data));
 
-    //await stripeCheckout(cart, path);
+    await stripeCheckout(cart, path, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
-    await ticketCheckout(data, cart, eventData);
 
   };
-
-  useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const status = queryParams.get('status');
-
-    if (status === 'success' && eventData) {
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      const userData = JSON.parse(localStorage.getItem('userData'));
-
-      if (cart && userData) {
-        ticketCheckout(userData, cart, eventData);
-
-        localStorage.removeItem('cart');
-        localStorage.removeItem('userData');
-      }
-    }
-  }, [eventData]);
 
   useEffect(() => {
     fetchEventData();
@@ -66,6 +48,7 @@ const Event = () => {
       const eventResult = await API.graphql(
         graphqlOperation(getEvent, { id: eventId })
       );
+
       const event = eventResult.data.getEvent;
       const imagePath = `public/${event.bannerEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;

@@ -1,6 +1,76 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getPayment = /* GraphQL */ `
+  query GetPayment($id: ID!) {
+    getPayment(id: $id) {
+      id
+      cart
+      paymentStatus
+      emailBuyer
+      dniBuyer
+      amount
+      eventName
+      createdAt
+      updatedAt
+      eventID
+    }
+  }
+`;
+export const listPayments = /* GraphQL */ `
+  query ListPayments(
+    $filter: ModelPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPayments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        cart
+        paymentStatus
+        emailBuyer
+        dniBuyer
+        amount
+        eventName
+        createdAt
+        updatedAt
+        eventID
+      }
+      nextToken
+    }
+  }
+`;
+export const paymentsByEventID = /* GraphQL */ `
+  query PaymentsByEventID(
+    $eventID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelPaymentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    paymentsByEventID(
+      eventID: $eventID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        cart
+        paymentStatus
+        emailBuyer
+        dniBuyer
+        amount
+        eventName
+        createdAt
+        updatedAt
+        eventID
+      }
+      nextToken
+    }
+  }
+`;
 export const getTicket = /* GraphQL */ `
   query GetTicket($id: ID!) {
     getTicket(id: $id) {
@@ -195,6 +265,21 @@ export const getEvent = /* GraphQL */ `
         }
         nextToken
       }
+      Payments {
+        items {
+          id
+          cart
+          paymentStatus
+          emailBuyer
+          dniBuyer
+          amount
+          eventName
+          createdAt
+          updatedAt
+          eventID
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -220,6 +305,9 @@ export const listEvents = /* GraphQL */ `
         downDateE
         userID
         TypeTickets {
+          nextToken
+        }
+        Payments {
           nextToken
         }
         createdAt
@@ -257,6 +345,9 @@ export const eventsByUserID = /* GraphQL */ `
         downDateE
         userID
         TypeTickets {
+          nextToken
+        }
+        Payments {
           nextToken
         }
         createdAt

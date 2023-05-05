@@ -1,16 +1,67 @@
+import AWS from 'aws-sdk';
+import { API, graphqlOperation } from 'aws-amplify';
+import { v4 as uuid } from 'uuid';
+import { createPayment } from '../graphql/mutations';
+import { updateTypeTicket } from "../graphql/mutations";
 import axios from "axios";
+
+AWS.config.update({
+    region: "us-east-1",
+    accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+    secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+});
 
 const stripe = window.Stripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
-async function handleCheckoutStripe(cart, path) {
+async function handleCheckoutStripe(cart, path, data, eventData) {
 
     const lineItems = convertCartToLineItems(cart);
+    const cartJson = JSON.stringify(cart);
+    const emailBuyer = data.email;
+    const dniBuyer = data.dni;
+    const eventId = eventData.id;
+    const eventName = eventData.name;
+    const paymentId = uuid();
+    const updatedPrice = ((lineItems.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0)) / 100) * 1.75;
+
+    const createPaymentInput = {
+        id: paymentId,
+        cart: cartJson,
+        paymentStatus: 'PENDING',
+        emailBuyer: emailBuyer,
+        dniBuyer: dniBuyer,
+        amount: updatedPrice,
+        eventName: eventName,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        eventID: eventId,
+    };
+
+    await API.graphql(graphqlOperation(createPayment, { input: createPaymentInput }))
+
+    for (const item of cart) {
+        const itemID = item.id;
+        const itemQuantity = item.quantityTT - item.selectedQuantity;
+
+        const updateTypeTicketInput = {
+            id: itemID,
+            quantityTT: itemQuantity,
+        };
+
+        await API.graphql({
+            query: updateTypeTicket,
+            variables: { input: updateTypeTicketInput }
+        });
+
+    };
 
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
             success_url: `http://localhost:3000${path}?status=success`,
             cancel_url: `http://localhost:3000${path}?status=cancel`,
+            email: data.email,
+            payment_id: paymentId,
         });
 
         if (response.error) {
@@ -18,6 +69,7 @@ async function handleCheckoutStripe(cart, path) {
         }
 
         await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
+
     } catch (error) {
         console.error("Error redirecting to checkout:", error);
     }
