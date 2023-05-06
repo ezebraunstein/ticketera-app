@@ -3,7 +3,7 @@ import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
 import './CSS/ButtonCreateEvent.css';
 import ButtonReturn from './ButtonReturn';
-import ButtonLogin from './ButtonLogin';
+import ButtonLogin from './ButtonLogIn';
 import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
