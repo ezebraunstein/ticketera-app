@@ -3,7 +3,7 @@ import palaLogo from '../images/pala.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
 import './CSS/ButtonCreateEvent.css';
 import ButtonReturn from './ButtonReturn';
-import ButtonLogin from './ButtonLogin';
+import ButtonLogIn from './ButtonLogIn';
 import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
@@ -63,7 +63,7 @@ const Header = () => {
         </a>)}
 
       <div className='box-1'>
-        {url !== '/create-user' && (user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogin />))}
+        {url !== '/create-user' && (user ? (url === '/' ? <ButtonCreateEvent /> : <ButtonReturn />) : (<ButtonLogIn />))}
         {url !== '/create-user' && user && <ButtonOwnerEvents />}
         {user && <ButtonLogout />}
       </div>
