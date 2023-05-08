@@ -1,10 +1,10 @@
 import "./CSS/Footer.css";
-import palaLogo from '../images/pala.png';
+import palaLogo from '../images/pala2.png';
 
 export const Footer = (prop) => {
   return (
     <footer className="footerClass">
-      <div>
+      <div className="footerContainer">
         <span className="footerText">
           &copy; Cooperativa Fort - 2023
         </span>

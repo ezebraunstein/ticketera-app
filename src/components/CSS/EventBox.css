@@ -58,7 +58,7 @@
   font-size: 14px;
   text-align: center;
   /* background: #0bb475; */
-  background: #4654e1;
+  background: #E68F52;
   display: block;
   float: left;
   padding: 10px 15px;
@@ -73,5 +73,5 @@
 
 .btnBuy:hover {
   color: white;
-  background-color: #222c92;
+  background-color: #B1CD4A;
 }

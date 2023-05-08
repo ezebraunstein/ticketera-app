@@ -7,25 +7,35 @@
 
 .eventTitles {
     display: inline-block;
-    color:rgba(34,44,146,1);
+    color: rgb(0, 0, 0);
 }
 
 .eventClass {
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
     font-family: 'Proxima Soft', sans-serif;
-    padding: 20px;
+    padding: 2rem 2rem 4rem 2rem;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(70, 84, 225, 0.7);
-    width: 50%;
-    margin: auto;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+    max-width: 90%;
+    margin: 1rem auto;
     position: relative;
     top: 50px;
+    flex: 1;
+    box-sizing: border-box;
 }
+
+@media (min-width: 768px) {
+    .eventClass {
+        max-width: 50%;
+        padding: 20px 20px 40px 20px;
+    }
+}
+
 
 .imageTitles {
     padding-bottom: 0.5em;
-    color: rgba(34,44,146,1);
+    color: rgb(0, 0, 0);
 }
 
 .cart-dropdown {
@@ -46,26 +56,193 @@
     transition: all 0.3s;
     position: relative;
     border-radius: 5px;
-    background-color: rgba(70,84,225,1);
+    background-color: rgba(70, 84, 225, 1);
     font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
-    Arial, sans-serif;
+        Arial, sans-serif;
     font-weight: bold;
     font-size: 14px;
     text-align: center;
 }
 
 .btn-Edit:hover {
-    color:white;
-    background-color: rgba(34,44,146,1);
+    color: white;
+    background-color: rgba(34, 44, 146, 1);
 }
 
 .imgEvent {
     border-radius: 10px;
     border-style: solid;
     border-width: 3px;
-    border-color: rgba(34,44,146,1);
+    border-color: rgba(34, 44, 146, 1);
 }
 
 .editIcon {
     padding-left: 5px;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+main {
+    flex: 1;
+}
+
+.btn-Buy {
+    font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    background: #E68F52;
+    display: block;
+    padding: 10px 15px;
+    width: auto;
+    color: #000;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 0;
+    margin: 0 auto;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.btn-Buy:hover {
+    color: white;
+    background-color: #B1CD4A;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* Adjust the space between the buttons */
+}
+
+.btn-Modal-Buy,
+.btn-Modal-Back {
+    font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 15px;
+    width: auto;
+    color: #000;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 0;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.btn-Modal-Buy {
+    background: #8fac24;
+}
+
+.btn-Modal-Buy:hover {
+    color: white;
+    background-color: #B1CD4A;
+}
+
+.btn-Modal-Back {
+    background: #ee593c;
+}
+
+.btn-Modal-Back:hover {
+    color: white;
+    background-color: #cd6b4a;
+}
+
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-Remove,
+.btn-Add {
+    font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 15px;
+    width: 100px;
+    height: 40px;
+    line-height: 20px;
+    color: #000;
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 0;
+    margin: 0 15%;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.btn-Remove {
+    background: #E68F52;
+}
+
+.btn-Remove:hover {
+    color: white;
+    background-color: #cf6f2b;
+}
+
+.btn-Add {
+    background: #B1CD4A;
+}
+
+.btn-Add:hover {
+    color: white;
+    background-color: #869e31;
+}
+
+.btn-Remove i,
+.btn-Add i {
+    font-weight: 900;
+    /* Increase the font-weight for bolder icons */
+}
+
+
+.ticket-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.ticket-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ticket-text {
+    font-size: 20px;
+    margin: 0;
 }

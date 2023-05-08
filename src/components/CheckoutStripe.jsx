@@ -55,13 +55,16 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
 
     };
 
+    const expiresAt = Math.floor(Date.now() / 1000) + (30 * 60);
+
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
-            success_url: `http://localhost:3000${path}?status=success`,
-            cancel_url: `http://localhost:3000${path}?status=cancel`,
+            success_url: `http://localhost:3000/checkout/success`,
+            cancel_url: `http://localhost:3000/checkout/failure`,
             email: data.email,
             payment_id: paymentId,
+            expires_at: expiresAt,
         });
 
         if (response.error) {
@@ -92,3 +95,4 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
 }
 
 export default handleCheckoutStripe;
+

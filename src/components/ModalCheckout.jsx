@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import './CSS/Event.css';
+import './CSS/Modal.css';
 
 Modal.setAppElement("#root");
 
@@ -26,8 +28,9 @@ const InputModal = ({ handleModalSubmit }) => {
 
     return (
         <div>
-            <button type="button" class="btn btn-info" onClick={() => setModalIsOpen(true)}>Comprar</button>
+            <button type="button" class="btn-Buy" onClick={() => setModalIsOpen(true)}>Comprar</button>
             <Modal
+                className="custom-modal"
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Input Modal"
@@ -35,7 +38,6 @@ const InputModal = ({ handleModalSubmit }) => {
 
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label htmlFor="name">Nombre:</label>
                         <input
                             class="form-control"
                             type="text"
@@ -43,11 +45,11 @@ const InputModal = ({ handleModalSubmit }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
+                            placeholder="Nombre"
                             required
                         />
                     </div>
                     <div>
-                        <label htmlFor="surname">Apellido:</label>
                         <input
                             class="form-control"
                             type="text"
@@ -55,11 +57,11 @@ const InputModal = ({ handleModalSubmit }) => {
                             name="surname"
                             value={formData.surname}
                             onChange={handleChange}
+                            placeholder="Apellido"
                             required
                         />
                     </div>
                     <div>
-                        <label htmlFor="email">Email:</label>
                         <input
                             class="form-control"
                             type="email"
@@ -67,11 +69,24 @@ const InputModal = ({ handleModalSubmit }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
+                            placeholder="Email"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <input
+                            class="form-control"
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="Repite tu email"
                             required
                         />
                     </div>
                     <div>
-                        <label htmlFor="dni">DNI:</label>
                         <input
                             class="form-control"
                             type="text"
@@ -79,13 +94,15 @@ const InputModal = ({ handleModalSubmit }) => {
                             name="dni"
                             value={formData.dni}
                             onChange={handleChange}
+                            placeholder="DNI"
                             required
                         />
                     </div>
-                    <div></div>
-                    <button type="button" class="btn btn-danger" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
-                    <button class="btn btn-success" type="submit">Continuar con el pago</button>
-
+                    <br />
+                    <div class="btn-container">
+                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                        <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
+                    </div>
                 </form>
             </Modal>
         </div>

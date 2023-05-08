@@ -13,7 +13,7 @@ const ButtonLogin = () => {
   return (
     <div className="box-1">
       <button className="btn btn-one" onClick={onclick} style={{ width: '150px', height: '50px' }}>
-        <span>Log In</span>
+        <span>Iniciar Sesión</span>
       </button>
     </div>
   );

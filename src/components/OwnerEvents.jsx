@@ -1,4 +1,4 @@
-import "./CSS/HomeEvents.css";
+import "./CSS/EventBox.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";

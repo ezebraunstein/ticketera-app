@@ -1,24 +1,45 @@
 import './CSS/Event.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Storage } from "aws-amplify";
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-//import Swal from 'sweetalert2';
-//import { deleteEvent, deleteTypeTicket } from "../graphql/mutations";
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 
 
 const Event = () => {
 
+  //CLOUDFRONT URL
   const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+
+  //PARAMS
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
+
+  //NAVIGATE
   const navigate = useNavigate();
+
+  //API GOOGLE MAPS
+  const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  useEffect(() => {
+    setMapsApiLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (eventData && eventData.locationEvent) {
+      const locationEvent = JSON.parse(eventData.locationEvent);
+      setSelectedLocation(locationEvent);
+    }
+  }, [eventData]);
+
+  useEffect(() => {
+    fetchEventData();
+  }, [eventId]);
 
   const fetchEventData = async () => {
     try {
@@ -50,55 +71,22 @@ const Event = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div key={typeTicket.id}>
-        <h4>{typeTicket.nameTT}</h4>
-        <p>{typeTicket.descriptionTT}</p>
-        <p>Price: {typeTicket.priceTT}</p>
-        <p>Quantity: {typeTicket.quantityTT}</p>
+      <div>
+        <br />
+        <div key={typeTicket.id} class="ticket-container">
+          <div class="ticket-column">
+            <h2 class="ticket-text">{typeTicket.nameTT}</h2>
+          </div>
+          <div class="ticket-column">
+            <h2 class="ticket-text">${typeTicket.priceTT}</h2>
+          </div>
+          <div class="ticket-column">
+            <h2 class="ticket-text">Cantidad {typeTicket.quantityTT}</h2>
+          </div>
+        </div>
       </div>
     ));
   };
-
-  // const handleDeleteEvent = async () => {
-  //   try {
-  //     // 1. Fetch TypeTickets associated with the event
-  //     const typeTicketsData = await API.graphql(
-  //       graphqlOperation(listTypeTickets, {
-  //         filter: { eventID: { eq: eventId } },
-  //       })
-  //     );
-  //     const typeTickets = typeTicketsData.data.listTypeTickets.items;
-
-  //     // 2. Delete associated TypeTickets
-  //     const deleteTypeTicketsPromises = typeTickets.map((typeTicket) =>
-  //       API.graphql(
-  //         graphqlOperation(deleteTypeTicket, { input: { id: typeTicket.id } })
-  //       )
-  //     );
-  //     await Promise.all(deleteTypeTicketsPromises);
-
-  //     // 3. Delete Event
-  //     await API.graphql(
-  //       graphqlOperation(deleteEvent, { input: { id: eventId } })
-  //     );
-
-  //     // 4. Delete related S3 objects
-  //     const bannerKey = `events/${eventId}/banner`;
-  //     const miniBannerKey = `events/${eventId}/miniBanner`;
-  //     await Storage.remove(bannerKey);
-  //     await Storage.remove(miniBannerKey);
-
-  //     // 5. Navigate to the home page
-  //     navigate('/');
-  //   } catch (error) {
-  //     console.error("Error deleting event:", error);
-  //   }
-  // };
-
-
-  useEffect(() => {
-    fetchEventData();
-  }, [eventId]);
 
   if (!eventData) {
     return <div></div>;
@@ -107,31 +95,66 @@ const Event = () => {
   const handleEditEvent = () => {
     navigate(`/edit-event/${eventId}`);
   };
-
+  debugger;
   return (
-    <div className="eventClass">
-      <div>
-        <h4 className="eventTitles"> Nombre del evento: </h4> <span className="eventSpan"> {eventData.nameEvent}</span>
-      </div>
-      <div>
-        <h4 className="eventTitles"> Descripción: </h4> <span className="eventSpan"> {eventData.descriptionEvent}</span>
-      </div>
-      <div>
-        <h4 className="eventTitles"> Fecha de Inicio: </h4> <span className="eventSpan"> {(eventData.startDateE).slice(0, 10)}</span>
-      </div>
-      {/* <div>
-        <h4 className="eventTitles"> Fecha de Fin: </h4> <span className="eventSpan"> {(eventData.endDateE).slice(0, 10)}</span>
-      </div> */}
-      <div>
-        <h4 className="imageTitles"> Imagen de Banner: </h4> <img className="imgEvent" src={eventData.imageUrl} alt="" width="300px" height="300px" />
-      </div>
-      <br />
-      <button className="btn btn-Edit" onClick={handleEditEvent}>
-        Editar Evento
-        <FontAwesomeIcon className="editIcon" icon={faEdit} />
-      </button>
-      {/* <button className="btn btn-primary" onClick={handleDeleteEvent}>Eliminar evento</button> */}
-      {renderTypeTickets()}
+    <div className="content-wrapper">
+      <main>
+        <div className="eventClass">
+          <LoadScript
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+            libraries={["places"]}
+            onLoad={() => setMapsApiLoaded(true)}
+          >
+            {mapsApiLoaded && (
+              <>
+                <div>
+                  <h4 className="eventTitles">{eventData.nameEvent}</h4>
+                </div>
+                <br />
+                <div>
+                  <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
+                </div>
+                <br />
+                <div>
+                  <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
+                </div>
+                <br />
+                <div>
+                  <h4 className="imageTitles"><img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" /></h4>
+                </div>
+                <br />
+                <div>
+                  <h4 className="eventTitles"></h4>
+                  <br />
+                  <GoogleMap
+                    mapContainerStyle={{
+                      width: "100%",
+                      height: "300px",
+                    }}
+                    zoom={15}
+                    center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                  >
+                    {selectedLocation && (
+                      <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                    )}
+                  </GoogleMap>
+                </div>
+                <br />
+                {renderTypeTickets()}
+                <br />
+                <div>
+                  <button className="btn-Buy" onClick={handleEditEvent}>
+                    Editar Evento
+                    <FontAwesomeIcon className="editIcon" icon={faEdit} />
+                  </button>
+                </div>
+                <br />
+                <br />
+              </>
+            )}
+          </LoadScript>
+        </div>
+      </main>
     </div>
   );
 };

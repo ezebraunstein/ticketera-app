@@ -1,48 +1,82 @@
-.labelEvent, .inputEvent, .buttonEvent {
-    font-family: "Proxima Soft", sans-serif;
-  }
-  
-  .labelEvent {
-    color: #4654e1;
-  }
-  
-  .inputEvent {
-    background-color: #fff;
-    color: #4654e1;
-    border: 1px solid #4654e1;
-    padding: 8px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
-  
-  .buttonEvent {
-    background-color: #4654e1;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .buttonEvent:hover {
-    background-color: #3940a1;
-  }
+.labelEvent,
+.inputEvent,
+.buttonEvent {
+  font-family: "Proxima Soft", sans-serif;
+}
 
-  .labelEvent {
-    padding-left: 2%;
-    padding-right: 2%;
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  .inputEvent {
-    display: block;
-    width: 100%;
-  }
+.labelEvent {
+  color: #000000;
+}
 
-  .eventForm {
-    min-height: 100%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-  }
+.inputEvent {
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.buttonEvent {
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonEvent:hover {
+  background-color: #3940a1;
+}
+
+.labelEvent {
+  padding-left: 2%;
+  padding-right: 2%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.inputEvent {
+  display: block;
+  width: 100%;
+}
+
+.eventForm {
+  min-height: 100%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.required-text {
+  color: red;
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.inputEvent::placeholder {
+  color: #999;
+  opacity: 1;
+  /* Firefox */
+}
+
+.labelEvent.custom-file-input {
+  position: relative;
+}
+
+.labelEvent.custom-file-input .input-file-wrapper {
+  display: flex;
+}
+
+.labelEvent.custom-file-input input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.choose-file-btn {
+  margin-left: 8px;
+}

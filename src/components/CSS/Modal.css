@@ -1,0 +1,39 @@
+.custom-modal {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.custom-modal form {
+    display: grid;
+    gap: 20px;
+}
+
+.custom-modal label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.custom-modal input {
+    width: 100%;
+    padding: 2px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.custom-modal input:focus {
+    border-color: #8fac24;
+    outline: none;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

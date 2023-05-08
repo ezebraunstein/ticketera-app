@@ -1,9 +1,9 @@
 .btn1 {
   border-color: rgba(119, 136, 153, .00);
   background: -o-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-	background: -moz-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-	background: -webkit-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-	background: linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
+  background: -moz-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
+  background: -webkit-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
+  background: linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
   line-height: 50px;
   height: 50px;
   text-align: center;
@@ -20,6 +20,71 @@
   margin-right: 0;
   padding-left: 1em;
 }
+
+.btnLogout {
+  border: none;
+  line-height: 50px;
+  height: 50px;
+  text-align: center;
+  width: 150px;
+  cursor: pointer;
+  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica, Arial, sans-serif;
+  position: relative;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #ffffff;
+  transition: all 0.3s;
+}
+
+.btnLogout span {
+  position: relative;
+  z-index: 3;
+  transition: all 0.3s;
+}
+
+.btnLogout::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+  border: 1px solid rgba(158, 12, 12, 1);
+  transform: scale(0.1, 1);
+  border-radius: 5px;
+}
+
+.btnLogout:hover span {
+  letter-spacing: 2px;
+}
+
+.btnLogout:hover::before {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.btnLogout::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  background: linear-gradient(rgba(241, 28, 28, .5), rgba(241, 28, 28, .5), rgba(241, 28, 28, .5));
+}
+
+.btnLogout:hover::after {
+  opacity: 0;
+  transform: scale(0.1, 1);
+}
+
 
 .btn-one {
   color: #fff;
@@ -40,7 +105,7 @@
   width: 100%;
   height: 100%;
   z-index: 1;
-  opacity: 0;
+  opacity: 0.5;
   transition: all 0.3s;
   border-top-width: 1px;
   border-bottom-width: 1px;
@@ -76,91 +141,11 @@
   height: 100%;
   z-index: 1;
   transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
 }
 
 .btn-one:hover::after {
-  opacity: 0;
-  transform: scale(0.1, 1);
-}
-
-.btnLogout {
-  border-color: rgba(119, 136, 153, .00);
-  background: -o-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-	background: -moz-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-	background: -webkit-linear-gradient(rgba(119, 136, 153, .00), rgba(119, 136, 153, .00), rgb(119, 136, 153, .00));
-  background: linear-gradient(rgba(119, 136, 153, .00), rgba(211, 22, 16, 0), rgb(119, 136, 153, .00));
-  line-height: 50px;
-  height: 50px;
-  text-align: center;
-  width: 150px;
-  cursor: pointer;
-  font-family: "proxima-soft", "Proxima Soft", "Proxima Nova Soft", Helvetica,
-    Arial, sans-serif;
-}
-
-.btnLogout{
-  color: rgba(255, 255, 255, 1);
-  transition: all 0.3s;
-  position: relative;
-  border-radius: 5px;
-}
-
-.btnLogout span {
-  transition: all 0.3s;
-}
-
-.btnLogout::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: all 0.3s;
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
-  border-left-width: 1px;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-top-color: rgba(158, 12, 12, 1);
-  border-bottom-color: rgba(158, 12, 12, 1);
-  border-right-color: rgba(158, 12, 12, 1);
-  border-left-color: rgba(158, 12, 12, 1);
-  transform: scale(0.1, 1);
-  border-radius: 5px;
-}
-
-.btnLogout:hover span {
-  letter-spacing: 2px;
-}
-
-.btnLogout:hover::before {
-  opacity: 1;
-  transform: scale(1, 1);
-}
-
-.btnLogout::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  background: linear-gradient(rgba(241, 28, 28, .3), rgba(241, 28, 28, .3), rgba(241, 28, 28, .3));
-}
-
-.btnLogout:hover::after {
   opacity: 0;
   transform: scale(0.1, 1);
 }

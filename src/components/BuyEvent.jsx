@@ -1,29 +1,54 @@
+import './CSS/Event.css';
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
-import ticketCheckout from '../functions/CreateTicket';
 import stripeCheckout from './CheckoutStripe';
 import mercadopagoCheckout from './CheckoutMercadoPago';
+import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
 
 const Event = () => {
 
+  //CLOUDFRONT URL
+  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+
+  //PARAMS
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
 
+  //LOCATION PATH
   const location = useLocation();
   const path = location.pathname;
 
+  //MODAL
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [dni, setDni] = useState('');
-  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+
+  //API GOOGLE MAPS
+  const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  useEffect(() => {
+    setMapsApiLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (eventData && eventData.locationEvent) {
+      const locationEvent = JSON.parse(eventData.locationEvent);
+      setSelectedLocation(locationEvent);
+    }
+  }, [eventData]);
+
+  useEffect(() => {
+    fetchEventData();
+  }, [eventId]);
 
   const handleModalSubmit = async (data) => {
     setName(data.name);
@@ -31,17 +56,13 @@ const Event = () => {
     setEmail(data.email);
     setDni(data.dni);
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('userData', JSON.stringify(data));
+    // localStorage.setItem('cart', JSON.stringify(cart));
+    // localStorage.setItem('userData', JSON.stringify(data));
 
     await stripeCheckout(cart, path, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
 
   };
-
-  useEffect(() => {
-    fetchEventData();
-  }, [eventId]);
 
   const fetchEventData = async () => {
     try {
@@ -78,17 +99,29 @@ const Event = () => {
       const quantity = cartItem ? cartItem.selectedQuantity : 0;
 
       return (
-        <div key={typeTicket.id}>
-          <h4>{typeTicket.nameTT}</h4>
-          <p>Price: {typeTicket.priceTT}</p>
-          <div>
-
-            <button type="button" class="btn btn-danger" onClick={() => addToCart(typeTicket, -1)}>-</button>
-            <span> Quantity: {quantity} </span>
-            <button type="button" class="btn btn-success" onClick={() => addToCart(typeTicket, 1)}>+</button>
+        <div>
+          <br />
+          <div key={typeTicket.id} class="ticket-container">
+            <div class="ticket-column">
+              <h2 class="ticket-text">{typeTicket.nameTT}</h2>
+            </div>
+            <div class="ticket-column">
+              <h2 class="ticket-text">${typeTicket.priceTT}</h2>
+            </div>
+            <div class="ticket-column">
+              <div class="quantity-container">
+                <button type="button" class="btn-Remove" onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
+                <span class="ticket-text"> Cantidad </span>
+                <span class="ticket-text">&nbsp;{quantity} </span>
+                <button type="button" class="btn-Add" onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
           </div>
         </div>
       );
+
+
+
     });
   };
 
@@ -138,30 +171,49 @@ const Event = () => {
   return (
     <div className="eventClass">
       <div>
-        <h3 className="eventTitles"> Nombre del evento: </h3> <span> {eventData.nameEvent}</span>
+        <h4 className="eventTitles">{eventData.nameEvent}</h4>
       </div>
       <div>
-        <h3 className="eventTitles"> Descripción: </h3> <span> {eventData.descriptionEvent}</span>
+        <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
       </div>
       <div>
-        <h3 className="eventTitles"> Fecha de Inicio: </h3> <span> {(eventData.startDateE).slice(0, 10)}</span>
+        <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
       </div>
-      {/* <div>
-        <h3 className="eventTitles"> Fecha de Fin: </h3> <span> {(eventData.endDateE).slice(0, 10)}</span>
-      </div> */}
       <div>
-        <h3 className="imageTitles"> Imagen de Banner: </h3> <img src={eventData.imageUrl} alt="" width="300px" height="300px" />
+        <h4 className="imageTitles"></h4> <img src={eventData.imageUrl} alt="" width="100%" height="300px" />
+      </div>
+      <div>
+        <h4 className="eventTitles"></h4>
+        <br />
+        {mapsApiLoaded && (
+          <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS} libraries={["places"]}>
+            <GoogleMap
+              mapContainerStyle={{
+                width: "100%",
+                height: "300px",
+              }}
+              zoom={15}
+              center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+            >
+              {selectedLocation && (
+                <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+              )}
+            </GoogleMap>
+          </LoadScript>
+        )}
       </div>
       <div>
         {renderTypeTickets()}
       </div>
-      <div className="cart">
+      {/* <div className="cart">
         <button type="button" class="btn btn-primary" onClick={toggleCartVisibility}>Cart</button>
         <div className="cart-dropdown">
           {renderCartDropdown()}
         </div>
-      </div>
+      </div> */}
+      <br />
       <ModalCheckout handleModalSubmit={handleModalSubmit} />
+      <br />
     </div>
   );
 };
