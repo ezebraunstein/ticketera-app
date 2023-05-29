@@ -5,6 +5,7 @@ import { Amplify, API, graphqlOperation } from "aws-amplify";
 import './CSS/TypeTicket.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import awsExports from "../aws-exports";
+import Switch from '@mui/material/Switch';
 
 Amplify.configure(awsExports);
 
@@ -237,8 +238,6 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                         </div>
                     </div>
                 </div>
-
-
                 <br />
                 <div className="form-group row">
                     <div className="col-sm-12 text-center">

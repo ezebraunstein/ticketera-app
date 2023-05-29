@@ -230,7 +230,7 @@ export const createEvent = /* GraphQL */ `
       endDateE
       upDateE
       downDateE
-      userID
+      nameLocationEvent
       TypeTickets {
         items {
           id
@@ -264,6 +264,7 @@ export const createEvent = /* GraphQL */ `
         }
         nextToken
       }
+      userID
       createdAt
       updatedAt
     }
@@ -285,7 +286,7 @@ export const updateEvent = /* GraphQL */ `
       endDateE
       upDateE
       downDateE
-      userID
+      nameLocationEvent
       TypeTickets {
         items {
           id
@@ -319,6 +320,7 @@ export const updateEvent = /* GraphQL */ `
         }
         nextToken
       }
+      userID
       createdAt
       updatedAt
     }
@@ -340,7 +342,7 @@ export const deleteEvent = /* GraphQL */ `
       endDateE
       upDateE
       downDateE
-      userID
+      nameLocationEvent
       TypeTickets {
         items {
           id
@@ -374,6 +376,7 @@ export const deleteEvent = /* GraphQL */ `
         }
         nextToken
       }
+      userID
       createdAt
       updatedAt
     }
@@ -403,6 +406,7 @@ export const createUser = /* GraphQL */ `
           endDateE
           upDateE
           downDateE
+          nameLocationEvent
           userID
           createdAt
           updatedAt
@@ -438,6 +442,7 @@ export const updateUser = /* GraphQL */ `
           endDateE
           upDateE
           downDateE
+          nameLocationEvent
           userID
           createdAt
           updatedAt
@@ -473,6 +478,7 @@ export const deleteUser = /* GraphQL */ `
           endDateE
           upDateE
           downDateE
+          nameLocationEvent
           userID
           createdAt
           updatedAt

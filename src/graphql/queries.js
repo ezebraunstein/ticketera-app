@@ -246,7 +246,7 @@ export const getEvent = /* GraphQL */ `
       endDateE
       upDateE
       downDateE
-      userID
+      nameLocationEvent
       TypeTickets {
         items {
           id
@@ -280,6 +280,7 @@ export const getEvent = /* GraphQL */ `
         }
         nextToken
       }
+      userID
       createdAt
       updatedAt
     }
@@ -303,13 +304,14 @@ export const listEvents = /* GraphQL */ `
         endDateE
         upDateE
         downDateE
-        userID
+        nameLocationEvent
         TypeTickets {
           nextToken
         }
         Payments {
           nextToken
         }
+        userID
         createdAt
         updatedAt
       }
@@ -343,13 +345,14 @@ export const eventsByUserID = /* GraphQL */ `
         endDateE
         upDateE
         downDateE
-        userID
+        nameLocationEvent
         TypeTickets {
           nextToken
         }
         Payments {
           nextToken
         }
+        userID
         createdAt
         updatedAt
       }
@@ -378,6 +381,7 @@ export const getUser = /* GraphQL */ `
           endDateE
           upDateE
           downDateE
+          nameLocationEvent
           userID
           createdAt
           updatedAt

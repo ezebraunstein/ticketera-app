@@ -6,13 +6,13 @@ import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 
 
 const Event = () => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
   const { eventId } = useParams();
@@ -47,7 +47,7 @@ const Event = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imagePath = `public/${event.bannerEvent}`;
+      const imagePath = `${event.bannerEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
@@ -100,59 +100,59 @@ const Event = () => {
     <div className="content-wrapper">
       <main>
         <div className="eventClass">
-          <LoadScript
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={["places"]}
-            onLoad={() => setMapsApiLoaded(true)}
-          >
+          <div>
+            <h4 className="eventTitles">{eventData.nameEvent}</h4>
+          </div>
+          <br />
+          <div>
+            <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
+          </div>
+          <br />
+          <div>
+            <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
+          </div>
+          <br />
+          <div>
+            <h4 className="imageTitles"><img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" /></h4>
+          </div>
+          <br />
+          <div>
+            <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
+          </div>
+          <div>
+            <h4 className="eventTitles"></h4>
+            <br />
             {mapsApiLoaded && (
-              <>
-                <div>
-                  <h4 className="eventTitles">{eventData.nameEvent}</h4>
-                </div>
-                <br />
-                <div>
-                  <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
-                </div>
-                <br />
-                <div>
-                  <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
-                </div>
-                <br />
-                <div>
-                  <h4 className="imageTitles"><img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" /></h4>
-                </div>
-                <br />
-                <div>
-                  <h4 className="eventTitles"></h4>
-                  <br />
-                  <GoogleMap
-                    mapContainerStyle={{
-                      width: "100%",
-                      height: "300px",
-                    }}
-                    zoom={15}
-                    center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-                  >
-                    {selectedLocation && (
-                      <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-                    )}
-                  </GoogleMap>
-                </div>
-                <br />
-                {renderTypeTickets()}
-                <br />
-                <div>
-                  <button className="btn-Buy" onClick={handleEditEvent}>
-                    Editar Evento
-                    <FontAwesomeIcon className="editIcon" icon={faEdit} />
-                  </button>
-                </div>
-                <br />
-                <br />
-              </>
+              <LoadScriptNext
+                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+                libraries={["places"]}
+                onLoad={() => setMapsApiLoaded(true)}>
+                <GoogleMap
+                  mapContainerStyle={{
+                    width: "100%",
+                    height: "300px",
+                  }}
+                  zoom={17}
+                  center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+                >
+                  {selectedLocation && (
+                    <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                  )}
+                </GoogleMap>
+              </LoadScriptNext>
             )}
-          </LoadScript>
+          </div>
+          <br />
+          {renderTypeTickets()}
+          <br />
+          <div>
+            <button className="btn-Buy" onClick={handleEditEvent}>
+              Editar Evento
+              <FontAwesomeIcon className="editIcon" icon={faEdit} />
+            </button>
+          </div>
+          <br />
+          <br />
         </div>
       </main>
     </div>

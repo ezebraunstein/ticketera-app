@@ -7,12 +7,13 @@ import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import stripeCheckout from './CheckoutStripe';
 import mercadopagoCheckout from './CheckoutMercadoPago';
-import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
+import { CircularProgress } from '@mui/material';
 
 const Event = () => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
   const { eventId } = useParams();
@@ -20,6 +21,7 @@ const Event = () => {
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   //LOCATION PATH
   const location = useLocation();
@@ -56,9 +58,7 @@ const Event = () => {
     setEmail(data.email);
     setDni(data.dni);
 
-    // localStorage.setItem('cart', JSON.stringify(cart));
-    // localStorage.setItem('userData', JSON.stringify(data));
-
+    setIsSubmitting(true);
     await stripeCheckout(cart, path, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
 
@@ -71,7 +71,7 @@ const Event = () => {
       );
 
       const event = eventResult.data.getEvent;
-      const imagePath = `public/${event.bannerEvent}`;
+      const imagePath = `${event.bannerEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
@@ -119,9 +119,6 @@ const Event = () => {
           </div>
         </div>
       );
-
-
-
     });
   };
 
@@ -167,7 +164,7 @@ const Event = () => {
   if (!eventData) {
     return <div></div>;
   }
-
+  debugger;
   return (
     <div className="eventClass">
       <div>
@@ -182,11 +179,18 @@ const Event = () => {
       <div>
         <h4 className="imageTitles"></h4> <img src={eventData.imageUrl} alt="" width="100%" height="300px" />
       </div>
+      <br />
+      <div>
+        <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
+      </div>
       <div>
         <h4 className="eventTitles"></h4>
         <br />
         {mapsApiLoaded && (
-          <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS} libraries={["places"]}>
+          <LoadScriptNext
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+            libraries={["places"]}
+            onLoad={() => setMapsApiLoaded(true)}>
             <GoogleMap
               mapContainerStyle={{
                 width: "100%",
@@ -199,7 +203,7 @@ const Event = () => {
                 <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
               )}
             </GoogleMap>
-          </LoadScript>
+          </LoadScriptNext>
         )}
       </div>
       <div>
@@ -214,6 +218,11 @@ const Event = () => {
       <br />
       <ModalCheckout handleModalSubmit={handleModalSubmit} />
       <br />
+      {isSubmitting && (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 };

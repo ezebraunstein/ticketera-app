@@ -6,12 +6,12 @@ import { getEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { listTypeTickets } from '../graphql/queries';
 import CreateTypeTicket from './CreateTypeTicket';
-import { GoogleMap, LoadScript, MarkerF } from "@react-google-maps/api";
+import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 
 const EditEvent = () => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d3bs2q3jr96pao.cloudfront.net';
+  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
   const { eventId } = useParams();
@@ -43,7 +43,7 @@ const EditEvent = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imagePath = `public/${event.bannerEvent}`;
+      const imagePath = `${event.bannerEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
@@ -87,7 +87,7 @@ const EditEvent = () => {
   const handleTypeTicketCreated = (newTypeTicket) => {
     setTypeTickets((prevTypeTickets) => [...prevTypeTickets, newTypeTicket]);
   };
-  
+
   if (!eventData) {
     return <div></div>;
   }
@@ -116,7 +116,10 @@ const EditEvent = () => {
             <h4 className="eventTitles"></h4>
             <br />
             {mapsApiLoaded && (
-              <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS} libraries={["places"]}>
+              <LoadScriptNext
+                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+                libraries={["places"]}
+                onLoad={() => setMapsApiLoaded(true)}>
                 <GoogleMap
                   mapContainerStyle={{
                     width: "100%",
@@ -129,7 +132,7 @@ const EditEvent = () => {
                     <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
                   )}
                 </GoogleMap>
-              </LoadScript>
+              </LoadScriptNext>
             )}
           </div>
           <br />

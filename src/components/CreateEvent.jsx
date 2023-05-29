@@ -1,32 +1,50 @@
 import './CSS/CreateEvent.css';
 import { useState, useEffect, useLayoutEffect } from "react";
-import { Storage } from 'aws-amplify';
 import { createEvent } from "../graphql/mutations";
 import { v4 as uuid } from "uuid";
 import { API, graphqlOperation } from "aws-amplify";
-import Swal from 'sweetalert2';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import checkUser from './CheckUser';
 import { useNavigate } from 'react-router-dom';
 import CreateUser from './CreateUser';
-import { GoogleMap, LoadScript, Marker, StandaloneSearchBox } from "@react-google-maps/api";
+import { GoogleMap, LoadScriptNext, Marker, StandaloneSearchBox } from "@react-google-maps/api";
+import CircularProgress from '@mui/material/CircularProgress';
+import { Alert, AlertTitle } from '@mui/material';
 import '@aws-amplify/ui-react/styles.css';
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import axios from 'axios';
+
+const s3Client = new S3Client({
+  region: "sa-east-1",
+  credentials: {
+    accessKeyId: process.env.REACT_APP_ACCESS_KEY,
+    secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
+  }
+});
 
 function AddEvent({ user }) {
 
+  //PARAMS
   const [eventData, setEventData] = useState({});
   const [bannerFile, setBannerFile] = useState(null);
   const [miniBannerFile, setMiniBannerFile] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const [showYourComponent, setShowYourComponent] = useState(false);
 
-  const [mapsApiLoaded, setMapsApiLoaded] = useState(true); //FALSE?
+  //MUI ALERT
+  const [successAlert, setSuccessAlert] = useState(false);
+  const [errorAlert, setErrorAlert] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  //API GOOGLE MAPS
+  const [mapsApiLoaded, setMapsApiLoaded] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const googleMapsLibraries = ["places"];
+  const [locationName, setLocationName] = useState("");
 
-  const [showYourComponent, setShowYourComponent] = useState(false);
-
-  const navigate = useNavigate();
+  const username = user.username;
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -88,14 +106,13 @@ function AddEvent({ user }) {
     event.preventDefault();
     setIsSubmitting(true);
 
-    Swal.fire({
-      title: 'Creando evento...',
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      onBeforeOpen: () => {
-        Swal.showLoading();
-      },
-    });
+    // const formData = new FormData();
+    // formData.append('eventData', JSON.stringify(eventData));
+    // formData.append('selectedLocation', JSON.stringify(selectedLocation));
+    // formData.append('locationName', locationName);
+    // formData.append('username', username);
+    // formData.append('bannerFile', bannerFile);
+    // formData.append('miniBannerFile', miniBannerFile); 
 
     const createEventInput = {
       id: uuid(),
@@ -108,23 +125,32 @@ function AddEvent({ user }) {
       endDateE: new Date(eventData.endDateE),
       upDateE: new Date(),
       downDateE: new Date(),
+      nameLocationEvent: locationName,
       userID: user.username
 
     };
 
     if (bannerFile) {
       const bannerKey = `events/${createEventInput.id}/banner`;
-      await Storage.put(bannerKey, bannerFile, {
-        contentType: 'image/jpeg'
-      });
+      const uploadParams = {
+        Bucket: 'melo-tickets-bucket',
+        Key: bannerKey,
+        Body: bannerFile,
+        ContentType: 'image/jpeg'
+      };
+      await s3Client.send(new PutObjectCommand(uploadParams));
       createEventInput.bannerEvent = bannerKey;
     }
 
     if (miniBannerFile) {
       const miniBannerKey = `events/${createEventInput.id}/miniBanner`;
-      await Storage.put(miniBannerKey, miniBannerFile, {
-        contentType: 'image/jpeg'
-      });
+      const uploadParams = {
+        Bucket: 'melo-tickets-bucket',
+        Key: miniBannerKey,
+        Body: miniBannerFile,
+        ContentType: 'image/jpeg'
+      };
+      await s3Client.send(new PutObjectCommand(uploadParams));
       createEventInput.miniBannerEvent = miniBannerKey;
     }
 
@@ -133,19 +159,22 @@ function AddEvent({ user }) {
       await API.graphql(
         graphqlOperation(createEvent, { input: createEventInput }))
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Evento creado con éxito.',
-        showConfirmButton: true,
-        confirmButtonText: 'Aceptar'
-      }).then(() => {
-        navigate(`/edit-event/${createEventInput.id}`)
-      });
+      // const response = await axios.post('https://swvzgfarowllzh7irgp4l6vdim0qsqtd.lambda-url.us-east-1.on.aws/', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
+
+      setSuccessAlert(true);
+
+      setTimeout(() => {
+        navigate(`/edit-event/${createEventInput.id}`);
+      }, 1000);
+
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al crear el evento.',
-      });
+
+      setErrorAlert(true);
+
     } finally {
       setIsSubmitting(false);
     }
@@ -170,7 +199,10 @@ function AddEvent({ user }) {
           <label className='labelEvent'>
             Ubicación:
             {mapsApiLoaded && (
-              <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS} libraries={googleMapsLibraries}>
+              <LoadScriptNext
+                googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+                libraries={googleMapsLibraries}
+                onLoad={() => setMapsApiLoaded(true)}>
                 <StandaloneSearchBox
                   onLoad={(ref) => setMapRef(ref)}
                   onPlacesChanged={() => {
@@ -180,6 +212,7 @@ function AddEvent({ user }) {
                         lat: place.geometry.location.lat(),
                         lng: place.geometry.location.lng(),
                       });
+                      setLocationName(place.name);
                     }
                   }}
                 >
@@ -205,7 +238,7 @@ function AddEvent({ user }) {
                     <Marker position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
                   )}
                 </GoogleMap>
-              </LoadScript>
+              </LoadScriptNext>
             )}
           </label>
           <label className='labelEvent'>
@@ -228,15 +261,6 @@ function AddEvent({ user }) {
               placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
             />
           </label>
-          {/* <label className="endDateE">
-            Fecha Fin:
-            <input className='inputEvent'
-              type="date"
-              name="endDateE"
-              value={eventData.endDateE}
-              onChange={handleInputChange}
-            />
-          </label> */}
           <label className='labelEvent'>
             Imagen Flyer Grande:
             <input className='inputEvent'
@@ -259,6 +283,23 @@ function AddEvent({ user }) {
             <button className='btn-Buy' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !bannerFile || isSubmitting}>Agregar Evento</button>
           </label>
         </form>
+        {isSubmitting && (
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+            <CircularProgress />
+          </div>
+        )}
+        {successAlert && (
+          <Alert variant="filled" severity="success">
+            <AlertTitle>Éxito!</AlertTitle>
+            Evento creado con éxito!
+          </Alert>
+        )}
+        {errorAlert && (
+          <Alert variant="filled" severity="error">
+            <AlertTitle>Error!</AlertTitle>
+            Error al crear el evento!
+          </Alert>
+        )}
       </div>
     </>
   );

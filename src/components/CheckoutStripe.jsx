@@ -20,7 +20,7 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
     const emailBuyer = data.email;
     const dniBuyer = data.dni;
     const eventId = eventData.id;
-    const eventName = eventData.name;
+    const eventName = eventData.nameEvent;
     const paymentId = uuid();
     const updatedPrice = ((lineItems.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0)) / 100) * 1.75;
 
@@ -56,7 +56,7 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
     };
 
     const expiresAt = Math.floor(Date.now() / 1000) + (30 * 60);
-
+    debugger;
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
@@ -65,6 +65,7 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
             email: data.email,
             payment_id: paymentId,
             expires_at: expiresAt,
+            locale: 'es',
         });
 
         if (response.error) {
@@ -77,9 +78,27 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
         console.error("Error redirecting to checkout:", error);
     }
 
+    // function convertCartToLineItems() {
+    //     return cart.map((item) => {
+    //         const updatedPrice = (item.priceTT * 1.15) / 1.75;
+    //         return {
+
+    //             price_data: {
+    //                 currency: 'ars',
+    //                 product_data: {
+    //                     name: item.nameTT,
+    //                     images: [eventData.imageUrl]
+    //                 },
+    //                 unit_amount: Math.round(updatedPrice * 100),
+    //             },
+    //             quantity: item.selectedQuantity,
+    //         };
+    //     });
+    // }
+
     function convertCartToLineItems() {
-        return cart.map((item) => {
-            const updatedPrice = (item.priceTT * 1.15) / 1.75;
+        const items = cart.map((item) => {
+            const updatedPrice = item.priceTT / 1.75
             return {
                 price_data: {
                     currency: 'ars',
@@ -91,7 +110,25 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
                 quantity: item.selectedQuantity,
             };
         });
+
+        const totalAmount = (items.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0));
+        const feeAmount = Math.round(totalAmount * 0.15);
+
+        const feeItem = {
+            price_data: {
+                currency: 'ars',
+                product_data: {
+                    name: 'Cargo por servicio 15%',
+                },
+                unit_amount: feeAmount,
+            },
+            quantity: 1,
+        };
+
+        items.push(feeItem);
+        return items;
     }
+
 }
 
 export default handleCheckoutStripe;
