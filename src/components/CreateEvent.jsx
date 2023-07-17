@@ -155,7 +155,7 @@ function AddEvent({ user }) {
     }
 
     try {
-
+      debugger;
       await API.graphql(
         graphqlOperation(createEvent, { input: createEventInput }))
 
