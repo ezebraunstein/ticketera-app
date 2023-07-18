@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import CircularProgress from '@mui/material/CircularProgress';
-import { Alert, AlertTitle } from '@mui/material';
 import './CSS/TypeTicket.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 
 function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
-
-    //MUI ALERT
-    //const [isSubmitting, setIsSubmitting] = useState(false);
-    const [successAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
-    const [loading, setLoading] = useState(true);
 
     const [typeTicketData, setTypeTicketData] = useState({});
 
@@ -35,7 +27,6 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
     const handleSubmit = async (typeTicket) => {
         typeTicket.preventDefault();
-        setIsSubmitting(true);
 
         const createTypeTicketInput = {
             id: uuid(),
@@ -55,18 +46,8 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                 },
             });
 
-            setSuccessAlert(true);
-
-            setTimeout(() => {
-                navigate(`/edit-event/${createEventInput.id}`);
-            }, 1000);
-
         } catch (error) {
-
-            setErrorAlert(true);
-
-        } finally {
-            setIsSubmitting(false);
+            console.log(error);
         }
         if (onTypeTicketCreated) {
             onTypeTicketCreated(createTypeTicketInput);
@@ -197,24 +178,6 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                     </div>
                 </div>
             </form>
-
-            {isSubmitting && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
-                    <CircularProgress />
-                </div>
-            )}
-            {successAlert && (
-                <Alert variant="filled" severity="success">
-                    <AlertTitle>Éxito!</AlertTitle>
-                    Tipo Ticket creado con éxito!
-                </Alert>
-            )}
-            {errorAlert && (
-                <Alert variant="filled" severity="error">
-                    <AlertTitle>Error!</AlertTitle>
-                    Error al crear el Tipo Ticket!
-                </Alert>
-            )}
         </div>
     );
 };
