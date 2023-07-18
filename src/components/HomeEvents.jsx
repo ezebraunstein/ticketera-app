@@ -43,7 +43,6 @@ const HomeEvents = () => {
                     const imagePath = `${event.bannerEvent}`;
                     const imageUrl = `${cloudFrontUrl}/${imagePath}`;
                     event.imageUrl = imageUrl;
-                    debugger;
                     return event;
                 })
             );

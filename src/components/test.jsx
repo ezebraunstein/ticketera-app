@@ -1,6 +1,5 @@
 import './CSS/CreateEvent.css';
 import { useState, useEffect, useLayoutEffect } from "react";
-import { v4 as uuid } from "uuid";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import checkUser from './CheckUser';
 import { useNavigate } from 'react-router-dom';
@@ -104,6 +103,24 @@ function AddEvent({ user }) {
         event.preventDefault();
         setIsSubmitting(true);
 
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+        let bannerFileBase64 = await toBase64(bannerFile);
+        let miniBannerFileBase64 = await toBase64(miniBannerFile);
+
+        const formData = new FormData();
+        formData.append('eventData', JSON.stringify(eventData));
+        formData.append('selectedLocation', JSON.stringify(selectedLocation));
+        formData.append('locationName', locationName);
+        formData.append('username', username);
+        formData.append('bannerFile', bannerFileBase64);
+        formData.append('miniBannerFile', miniBannerFileBase64);
+
         const createEventInput = {
             id: uuid(),
             nameEvent: eventData.nameEvent,
@@ -112,40 +129,19 @@ function AddEvent({ user }) {
             bannerEvent: "",
             miniBannerEvent: "",
             startDateE: new Date(eventData.startDateE),
+            endDateE: new Date(eventData.endDateE),
             upDateE: new Date(),
             downDateE: new Date(),
             nameLocationEvent: locationName,
             userID: user.username
+
         };
 
-        if (bannerFile) {
-            const bannerKey = `events/${createEventInput.id}/banner`;
-            const uploadParams = {
-                Bucket: 'melo-tickets-bucket',
-                Key: bannerKey,
-                Body: bannerFile,
-                ContentType: 'image/jpeg'
-            };
-            await s3Client.send(new PutObjectCommand(uploadParams));
-            createEventInput.bannerEvent = bannerKey;
-        }
-
-        if (miniBannerFile) {
-            const miniBannerKey = `events/${createEventInput.id}/miniBanner`;
-            const uploadParams = {
-                Bucket: 'melo-tickets-bucket',
-                Key: miniBannerKey,
-                Body: miniBannerFile,
-                ContentType: 'image/jpeg'
-            };
-            await s3Client.send(new PutObjectCommand(uploadParams));
-            createEventInput.miniBannerEvent = miniBannerKey;
-        }
-
         try {
-            const response = await axios.post('https://swvzgfarowllzh7irgp4l6vdim0qsqtd.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
+
+            const response = await axios.post('https://swvzgfarowllzh7irgp4l6vdim0qsqtd.lambda-url.us-east-1.on.aws/', formData, {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                 },
             });
 
