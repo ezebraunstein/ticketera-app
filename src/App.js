@@ -11,6 +11,7 @@ import EditEvent from "./components/EditEvent";
 import Login from "./components/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
+import Charts from './components/Charts'
 import LayoutPublica from "./components/LayoutPublica";
 import './App.css';
 import '@aws-amplify/ui-react/styles.css';
@@ -27,6 +28,11 @@ function App() {
           </Layout>
         }
         />
+        <Route path="/charts" element={
+          <Layout>
+            <Charts />
+          </Layout>
+        } />
         <Route path="/login" element={
           <Layout>
             <Login />
