@@ -388,6 +388,7 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      publica
       createdAt
       updatedAt
     }
@@ -410,6 +411,7 @@ export const listUsers = /* GraphQL */ `
         Events {
           nextToken
         }
+        publica
         createdAt
         updatedAt
       }

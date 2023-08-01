@@ -39,8 +39,9 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
             endDateTT: new Date(typeTicketData.endDateTT),
             eventID: eventId
         };
+        debugger;
         try {
-            const response = await axios.post('https://z3ugo4nnbix764rh7lnsymkb540sldrc.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
+            const response = await axios.post('https://6yncwz3d23b2iyt337sa4trgsy0deldh.lambda-url.us-east-1.on.aws/', JSON.stringify({ createTypeTicketInput: createTypeTicketInput }), {
                 headers: {
                     'Content-Type': 'application/json',
                 },

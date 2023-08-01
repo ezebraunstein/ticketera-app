@@ -10,10 +10,10 @@ const checkUser = async (user) => {
     );
 
     if (userData.data.getUser !== null) {
-        console.log ("El usuario existe");
+        console.log("El usuario existe");
         return true;
     } else {
-        console.log ("El usuario no existe");
+        console.log("El usuario no existe");
         return false;
     }
 };

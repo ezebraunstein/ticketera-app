@@ -413,6 +413,7 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      publica
       createdAt
       updatedAt
     }
@@ -449,6 +450,7 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      publica
       createdAt
       updatedAt
     }
@@ -485,6 +487,7 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      publica
       createdAt
       updatedAt
     }

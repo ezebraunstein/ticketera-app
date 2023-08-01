@@ -1,8 +1,6 @@
-import "./App.css";
-import '@aws-amplify/ui-react/styles.css';
+import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import Slider from "./components/Slider";
-import SearchBar from "./components/SearchBar";
 import HomeEvents from "./components/HomeEvents";
 import CreateEvent from "./components/CreateEvent";
 import CreateTypeTicket from "./components/CreateTypeTicket";
@@ -13,6 +11,10 @@ import EditEvent from "./components/EditEvent";
 import Login from "./components/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
+import LayoutPublica from "./components/LayoutPublica";
+import './App.css';
+import '@aws-amplify/ui-react/styles.css';
+
 
 function App() {
   return (
@@ -79,6 +81,11 @@ function App() {
           <Layout>
             <h1>Failure!</h1>
           </Layout>
+        } />
+        <Route path="/publica-events" element={
+          <LayoutPublica>
+            <h1>RRPP</h1>
+          </LayoutPublica>
         } />
       </Routes>
     </div>

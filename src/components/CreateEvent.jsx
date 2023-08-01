@@ -143,7 +143,7 @@ function AddEvent({ user }) {
         }
 
         try {
-            const response = await axios.post('https://swvzgfarowllzh7irgp4l6vdim0qsqtd.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
+            const response = await axios.post('https://z5wba3v4bvkxdytxba23ma2ajm0qcjed.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
                 headers: {
                     'Content-Type': 'application/json',
                 },
