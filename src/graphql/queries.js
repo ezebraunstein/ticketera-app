@@ -1,6 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getRRPP = /* GraphQL */ `
+  query GetRRPP($id: ID!) {
+    getRRPP(id: $id) {
+      id
+      nameRRPP
+      surnameRRPP
+      dniRRPP
+      emailRRPP
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRRPPS = /* GraphQL */ `
+  query ListRRPPS(
+    $filter: ModelRRPPFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRRPPS(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        nameRRPP
+        surnameRRPP
+        dniRRPP
+        emailRRPP
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getPayment = /* GraphQL */ `
   query GetPayment($id: ID!) {
     getPayment(id: $id) {
@@ -80,8 +113,18 @@ export const getTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
+      RRPP {
+        id
+        nameRRPP
+        surnameRRPP
+        dniRRPP
+        emailRRPP
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      ticketRRPPId
     }
   }
 `;
@@ -99,8 +142,18 @@ export const listTickets = /* GraphQL */ `
         dniTicket
         emailTicket
         typeticketID
+        RRPP {
+          id
+          nameRRPP
+          surnameRRPP
+          dniRRPP
+          emailRRPP
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        ticketRRPPId
       }
       nextToken
     }
@@ -128,8 +181,18 @@ export const ticketsByTypeticketID = /* GraphQL */ `
         dniTicket
         emailTicket
         typeticketID
+        RRPP {
+          id
+          nameRRPP
+          surnameRRPP
+          dniRRPP
+          emailRRPP
+          createdAt
+          updatedAt
+        }
         createdAt
         updatedAt
+        ticketRRPPId
       }
       nextToken
     }
@@ -159,6 +222,7 @@ export const getTypeTicket = /* GraphQL */ `
           typeticketID
           createdAt
           updatedAt
+          ticketRRPPId
         }
         nextToken
       }
@@ -368,7 +432,6 @@ export const getUser = /* GraphQL */ `
       surnameUser
       dniUser
       emailUser
-      aliasUser
       Events {
         items {
           id
@@ -388,7 +451,6 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      publica
       createdAt
       updatedAt
     }
@@ -407,11 +469,9 @@ export const listUsers = /* GraphQL */ `
         surnameUser
         dniUser
         emailUser
-        aliasUser
         Events {
           nextToken
         }
-        publica
         createdAt
         updatedAt
       }

@@ -6,7 +6,7 @@ import '@aws-amplify/ui-react/styles.css';
 import './CSS/ButtonCreateEvent.css';
 import './CSS/Header.css';
 
-const HeaderPublica = () => {
+const HeaderRRPP = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const HeaderPublica = () => {
   );
 };
 
-export default HeaderPublica;
+export default HeaderRRPP;
 
 
 

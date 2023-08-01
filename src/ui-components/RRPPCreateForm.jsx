@@ -8,10 +8,10 @@
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { User } from "../models";
+import { RRPP } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function UserCreateForm(props) {
+export default function RRPPCreateForm(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -23,30 +23,30 @@ export default function UserCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    nameUser: "",
-    surnameUser: "",
-    dniUser: "",
-    emailUser: "",
+    nameRRPP: "",
+    surnameRRPP: "",
+    dniRRPP: "",
+    emailRRPP: "",
   };
-  const [nameUser, setNameUser] = React.useState(initialValues.nameUser);
-  const [surnameUser, setSurnameUser] = React.useState(
-    initialValues.surnameUser
+  const [nameRRPP, setNameRRPP] = React.useState(initialValues.nameRRPP);
+  const [surnameRRPP, setSurnameRRPP] = React.useState(
+    initialValues.surnameRRPP
   );
-  const [dniUser, setDniUser] = React.useState(initialValues.dniUser);
-  const [emailUser, setEmailUser] = React.useState(initialValues.emailUser);
+  const [dniRRPP, setDniRRPP] = React.useState(initialValues.dniRRPP);
+  const [emailRRPP, setEmailRRPP] = React.useState(initialValues.emailRRPP);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setNameUser(initialValues.nameUser);
-    setSurnameUser(initialValues.surnameUser);
-    setDniUser(initialValues.dniUser);
-    setEmailUser(initialValues.emailUser);
+    setNameRRPP(initialValues.nameRRPP);
+    setSurnameRRPP(initialValues.surnameRRPP);
+    setDniRRPP(initialValues.dniRRPP);
+    setEmailRRPP(initialValues.emailRRPP);
     setErrors({});
   };
   const validations = {
-    nameUser: [{ type: "Required" }],
-    surnameUser: [{ type: "Required" }],
-    dniUser: [{ type: "Required" }],
-    emailUser: [{ type: "Required" }, { type: "Email" }],
+    nameRRPP: [{ type: "Required" }],
+    surnameRRPP: [{ type: "Required" }],
+    dniRRPP: [{ type: "Required" }],
+    emailRRPP: [{ type: "Required" }, { type: "Email" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -74,10 +74,10 @@ export default function UserCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          nameUser,
-          surnameUser,
-          dniUser,
-          emailUser,
+          nameRRPP,
+          surnameRRPP,
+          dniRRPP,
+          emailRRPP,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -107,7 +107,7 @@ export default function UserCreateForm(props) {
               modelFields[key] = undefined;
             }
           });
-          await DataStore.save(new User(modelFields));
+          await DataStore.save(new RRPP(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -120,120 +120,120 @@ export default function UserCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "UserCreateForm")}
+      {...getOverrideProps(overrides, "RRPPCreateForm")}
       {...rest}
     >
       <TextField
-        label="Name user"
+        label="Name rrpp"
         isRequired={true}
         isReadOnly={false}
-        value={nameUser}
+        value={nameRRPP}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nameUser: value,
-              surnameUser,
-              dniUser,
-              emailUser,
+              nameRRPP: value,
+              surnameRRPP,
+              dniRRPP,
+              emailRRPP,
             };
             const result = onChange(modelFields);
-            value = result?.nameUser ?? value;
+            value = result?.nameRRPP ?? value;
           }
-          if (errors.nameUser?.hasError) {
-            runValidationTasks("nameUser", value);
+          if (errors.nameRRPP?.hasError) {
+            runValidationTasks("nameRRPP", value);
           }
-          setNameUser(value);
+          setNameRRPP(value);
         }}
-        onBlur={() => runValidationTasks("nameUser", nameUser)}
-        errorMessage={errors.nameUser?.errorMessage}
-        hasError={errors.nameUser?.hasError}
-        {...getOverrideProps(overrides, "nameUser")}
+        onBlur={() => runValidationTasks("nameRRPP", nameRRPP)}
+        errorMessage={errors.nameRRPP?.errorMessage}
+        hasError={errors.nameRRPP?.hasError}
+        {...getOverrideProps(overrides, "nameRRPP")}
       ></TextField>
       <TextField
-        label="Surname user"
+        label="Surname rrpp"
         isRequired={true}
         isReadOnly={false}
-        value={surnameUser}
+        value={surnameRRPP}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nameUser,
-              surnameUser: value,
-              dniUser,
-              emailUser,
+              nameRRPP,
+              surnameRRPP: value,
+              dniRRPP,
+              emailRRPP,
             };
             const result = onChange(modelFields);
-            value = result?.surnameUser ?? value;
+            value = result?.surnameRRPP ?? value;
           }
-          if (errors.surnameUser?.hasError) {
-            runValidationTasks("surnameUser", value);
+          if (errors.surnameRRPP?.hasError) {
+            runValidationTasks("surnameRRPP", value);
           }
-          setSurnameUser(value);
+          setSurnameRRPP(value);
         }}
-        onBlur={() => runValidationTasks("surnameUser", surnameUser)}
-        errorMessage={errors.surnameUser?.errorMessage}
-        hasError={errors.surnameUser?.hasError}
-        {...getOverrideProps(overrides, "surnameUser")}
+        onBlur={() => runValidationTasks("surnameRRPP", surnameRRPP)}
+        errorMessage={errors.surnameRRPP?.errorMessage}
+        hasError={errors.surnameRRPP?.hasError}
+        {...getOverrideProps(overrides, "surnameRRPP")}
       ></TextField>
       <TextField
-        label="Dni user"
+        label="Dni rrpp"
         isRequired={true}
         isReadOnly={false}
         type="number"
         step="any"
-        value={dniUser}
+        value={dniRRPP}
         onChange={(e) => {
           let value = isNaN(parseInt(e.target.value))
             ? e.target.value
             : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
-              nameUser,
-              surnameUser,
-              dniUser: value,
-              emailUser,
+              nameRRPP,
+              surnameRRPP,
+              dniRRPP: value,
+              emailRRPP,
             };
             const result = onChange(modelFields);
-            value = result?.dniUser ?? value;
+            value = result?.dniRRPP ?? value;
           }
-          if (errors.dniUser?.hasError) {
-            runValidationTasks("dniUser", value);
+          if (errors.dniRRPP?.hasError) {
+            runValidationTasks("dniRRPP", value);
           }
-          setDniUser(value);
+          setDniRRPP(value);
         }}
-        onBlur={() => runValidationTasks("dniUser", dniUser)}
-        errorMessage={errors.dniUser?.errorMessage}
-        hasError={errors.dniUser?.hasError}
-        {...getOverrideProps(overrides, "dniUser")}
+        onBlur={() => runValidationTasks("dniRRPP", dniRRPP)}
+        errorMessage={errors.dniRRPP?.errorMessage}
+        hasError={errors.dniRRPP?.hasError}
+        {...getOverrideProps(overrides, "dniRRPP")}
       ></TextField>
       <TextField
-        label="Email user"
+        label="Email rrpp"
         isRequired={true}
         isReadOnly={false}
-        value={emailUser}
+        value={emailRRPP}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              nameUser,
-              surnameUser,
-              dniUser,
-              emailUser: value,
+              nameRRPP,
+              surnameRRPP,
+              dniRRPP,
+              emailRRPP: value,
             };
             const result = onChange(modelFields);
-            value = result?.emailUser ?? value;
+            value = result?.emailRRPP ?? value;
           }
-          if (errors.emailUser?.hasError) {
-            runValidationTasks("emailUser", value);
+          if (errors.emailRRPP?.hasError) {
+            runValidationTasks("emailRRPP", value);
           }
-          setEmailUser(value);
+          setEmailRRPP(value);
         }}
-        onBlur={() => runValidationTasks("emailUser", emailUser)}
-        errorMessage={errors.emailUser?.errorMessage}
-        hasError={errors.emailUser?.hasError}
-        {...getOverrideProps(overrides, "emailUser")}
+        onBlur={() => runValidationTasks("emailRRPP", emailRRPP)}
+        errorMessage={errors.emailRRPP?.errorMessage}
+        hasError={errors.emailRRPP?.hasError}
+        {...getOverrideProps(overrides, "emailRRPP")}
       ></TextField>
       <Flex
         justifyContent="space-between"

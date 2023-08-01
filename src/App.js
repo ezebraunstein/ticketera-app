@@ -12,7 +12,7 @@ import Login from "./components/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'
-import LayoutPublica from "./components/LayoutPublica";
+import LayoutRRPP from "./components/LayoutRRPP";
 import './App.css';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -89,9 +89,9 @@ function App() {
           </Layout>
         } />
         <Route path="/publica-events" element={
-          <LayoutPublica>
+          <Layout>
             <h1>RRPP</h1>
-          </LayoutPublica>
+          </Layout>
         } />
       </Routes>
     </div>

@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { User } from "../models";
 export declare type ValidationResponse = {
@@ -18,16 +18,12 @@ export declare type UserUpdateFormInputValues = {
     surnameUser?: string;
     dniUser?: number;
     emailUser?: string;
-    aliasUser?: string;
-    publica?: boolean;
 };
 export declare type UserUpdateFormValidationValues = {
     nameUser?: ValidationFunction<string>;
     surnameUser?: ValidationFunction<string>;
     dniUser?: ValidationFunction<number>;
     emailUser?: ValidationFunction<string>;
-    aliasUser?: ValidationFunction<string>;
-    publica?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserUpdateFormOverridesProps = {
@@ -36,8 +32,6 @@ export declare type UserUpdateFormOverridesProps = {
     surnameUser?: PrimitiveOverrideProps<TextFieldProps>;
     dniUser?: PrimitiveOverrideProps<TextFieldProps>;
     emailUser?: PrimitiveOverrideProps<TextFieldProps>;
-    aliasUser?: PrimitiveOverrideProps<TextFieldProps>;
-    publica?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type UserUpdateFormProps = React.PropsWithChildren<{
     overrides?: UserUpdateFormOverridesProps | undefined | null;

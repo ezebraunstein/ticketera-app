@@ -1,15 +1,15 @@
 import React from 'react';
-import HeaderPublica from './HeaderPublica';
+import HeaderRRPP from './HeaderRRPP';
 import Footer from './Footer';
 
-const LayoutPublica = ({ children }) => {
+const LayoutRRPP = ({ children }) => {
     return (
         <div className="layout">
-            <HeaderPublica />
+            <HeaderRRPP />
             <main className="content">{children}</main>
             <Footer />
         </div>
     );
 };
 
-export default LayoutPublica;
+export default LayoutRRPP;

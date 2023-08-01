@@ -6,13 +6,7 @@
 
 /* eslint-disable */
 import * as React from "react";
-import {
-  Button,
-  Flex,
-  Grid,
-  SwitchField,
-  TextField,
-} from "@aws-amplify/ui-react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -34,8 +28,6 @@ export default function UserUpdateForm(props) {
     surnameUser: "",
     dniUser: "",
     emailUser: "",
-    aliasUser: "",
-    publica: false,
   };
   const [nameUser, setNameUser] = React.useState(initialValues.nameUser);
   const [surnameUser, setSurnameUser] = React.useState(
@@ -43,8 +35,6 @@ export default function UserUpdateForm(props) {
   );
   const [dniUser, setDniUser] = React.useState(initialValues.dniUser);
   const [emailUser, setEmailUser] = React.useState(initialValues.emailUser);
-  const [aliasUser, setAliasUser] = React.useState(initialValues.aliasUser);
-  const [publica, setPublica] = React.useState(initialValues.publica);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -54,8 +44,6 @@ export default function UserUpdateForm(props) {
     setSurnameUser(cleanValues.surnameUser);
     setDniUser(cleanValues.dniUser);
     setEmailUser(cleanValues.emailUser);
-    setAliasUser(cleanValues.aliasUser);
-    setPublica(cleanValues.publica);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(user);
@@ -72,8 +60,6 @@ export default function UserUpdateForm(props) {
     surnameUser: [{ type: "Required" }],
     dniUser: [{ type: "Required" }],
     emailUser: [{ type: "Required" }, { type: "Email" }],
-    aliasUser: [{ type: "Required" }],
-    publica: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -105,8 +91,6 @@ export default function UserUpdateForm(props) {
           surnameUser,
           dniUser,
           emailUser,
-          aliasUser,
-          publica,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -166,8 +150,6 @@ export default function UserUpdateForm(props) {
               surnameUser,
               dniUser,
               emailUser,
-              aliasUser,
-              publica,
             };
             const result = onChange(modelFields);
             value = result?.nameUser ?? value;
@@ -195,8 +177,6 @@ export default function UserUpdateForm(props) {
               surnameUser: value,
               dniUser,
               emailUser,
-              aliasUser,
-              publica,
             };
             const result = onChange(modelFields);
             value = result?.surnameUser ?? value;
@@ -228,8 +208,6 @@ export default function UserUpdateForm(props) {
               surnameUser,
               dniUser: value,
               emailUser,
-              aliasUser,
-              publica,
             };
             const result = onChange(modelFields);
             value = result?.dniUser ?? value;
@@ -257,8 +235,6 @@ export default function UserUpdateForm(props) {
               surnameUser,
               dniUser,
               emailUser: value,
-              aliasUser,
-              publica,
             };
             const result = onChange(modelFields);
             value = result?.emailUser ?? value;
@@ -273,64 +249,6 @@ export default function UserUpdateForm(props) {
         hasError={errors.emailUser?.hasError}
         {...getOverrideProps(overrides, "emailUser")}
       ></TextField>
-      <TextField
-        label="Alias user"
-        isRequired={true}
-        isReadOnly={false}
-        value={aliasUser}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              nameUser,
-              surnameUser,
-              dniUser,
-              emailUser,
-              aliasUser: value,
-              publica,
-            };
-            const result = onChange(modelFields);
-            value = result?.aliasUser ?? value;
-          }
-          if (errors.aliasUser?.hasError) {
-            runValidationTasks("aliasUser", value);
-          }
-          setAliasUser(value);
-        }}
-        onBlur={() => runValidationTasks("aliasUser", aliasUser)}
-        errorMessage={errors.aliasUser?.errorMessage}
-        hasError={errors.aliasUser?.hasError}
-        {...getOverrideProps(overrides, "aliasUser")}
-      ></TextField>
-      <SwitchField
-        label="Publica"
-        defaultChecked={false}
-        isDisabled={false}
-        isChecked={publica}
-        onChange={(e) => {
-          let value = e.target.checked;
-          if (onChange) {
-            const modelFields = {
-              nameUser,
-              surnameUser,
-              dniUser,
-              emailUser,
-              aliasUser,
-              publica: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.publica ?? value;
-          }
-          if (errors.publica?.hasError) {
-            runValidationTasks("publica", value);
-          }
-          setPublica(value);
-        }}
-        onBlur={() => runValidationTasks("publica", publica)}
-        errorMessage={errors.publica?.errorMessage}
-        hasError={errors.publica?.hasError}
-        {...getOverrideProps(overrides, "publica")}
-      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

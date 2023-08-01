@@ -5,5 +5,7 @@
  **************************************************************************/
 
 export { default as studioTheme } from "./studioTheme";
+export { default as RRPPCreateForm } from "./RRPPCreateForm";
+export { default as RRPPUpdateForm } from "./RRPPUpdateForm";
 export { default as UserCreateForm } from "./UserCreateForm";
 export { default as UserUpdateForm } from "./UserUpdateForm";

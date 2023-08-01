@@ -1,6 +1,54 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createRRPP = /* GraphQL */ `
+  mutation CreateRRPP(
+    $input: CreateRRPPInput!
+    $condition: ModelRRPPConditionInput
+  ) {
+    createRRPP(input: $input, condition: $condition) {
+      id
+      nameRRPP
+      surnameRRPP
+      dniRRPP
+      emailRRPP
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRRPP = /* GraphQL */ `
+  mutation UpdateRRPP(
+    $input: UpdateRRPPInput!
+    $condition: ModelRRPPConditionInput
+  ) {
+    updateRRPP(input: $input, condition: $condition) {
+      id
+      nameRRPP
+      surnameRRPP
+      dniRRPP
+      emailRRPP
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRRPP = /* GraphQL */ `
+  mutation DeleteRRPP(
+    $input: DeleteRRPPInput!
+    $condition: ModelRRPPConditionInput
+  ) {
+    deleteRRPP(input: $input, condition: $condition) {
+      id
+      nameRRPP
+      surnameRRPP
+      dniRRPP
+      emailRRPP
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createPayment = /* GraphQL */ `
   mutation CreatePayment(
     $input: CreatePaymentInput!
@@ -70,8 +118,18 @@ export const createTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
+      RRPP {
+        id
+        nameRRPP
+        surnameRRPP
+        dniRRPP
+        emailRRPP
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      ticketRRPPId
     }
   }
 `;
@@ -87,8 +145,18 @@ export const updateTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
+      RRPP {
+        id
+        nameRRPP
+        surnameRRPP
+        dniRRPP
+        emailRRPP
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      ticketRRPPId
     }
   }
 `;
@@ -104,8 +172,18 @@ export const deleteTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
+      RRPP {
+        id
+        nameRRPP
+        surnameRRPP
+        dniRRPP
+        emailRRPP
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      ticketRRPPId
     }
   }
 `;
@@ -136,6 +214,7 @@ export const createTypeTicket = /* GraphQL */ `
           typeticketID
           createdAt
           updatedAt
+          ticketRRPPId
         }
         nextToken
       }
@@ -171,6 +250,7 @@ export const updateTypeTicket = /* GraphQL */ `
           typeticketID
           createdAt
           updatedAt
+          ticketRRPPId
         }
         nextToken
       }
@@ -206,6 +286,7 @@ export const deleteTypeTicket = /* GraphQL */ `
           typeticketID
           createdAt
           updatedAt
+          ticketRRPPId
         }
         nextToken
       }
@@ -393,7 +474,6 @@ export const createUser = /* GraphQL */ `
       surnameUser
       dniUser
       emailUser
-      aliasUser
       Events {
         items {
           id
@@ -413,7 +493,6 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
-      publica
       createdAt
       updatedAt
     }
@@ -430,7 +509,6 @@ export const updateUser = /* GraphQL */ `
       surnameUser
       dniUser
       emailUser
-      aliasUser
       Events {
         items {
           id
@@ -450,7 +528,6 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      publica
       createdAt
       updatedAt
     }
@@ -467,7 +544,6 @@ export const deleteUser = /* GraphQL */ `
       surnameUser
       dniUser
       emailUser
-      aliasUser
       Events {
         items {
           id
@@ -487,7 +563,6 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
-      publica
       createdAt
       updatedAt
     }

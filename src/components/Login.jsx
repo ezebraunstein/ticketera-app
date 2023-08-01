@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import checkUser from './CheckUser';
-import checkPublica from './CheckPublica';
+import checkRRPP from './CheckRRPP';
 import '@aws-amplify/ui-react/styles.css';
 
 const Login = ({ user }) => {
@@ -12,21 +12,24 @@ const Login = ({ user }) => {
     useEffect(() => {
         if (user) {
             const checkData = async () => {
-                const [userExistsResult, userPublicaResult] = await Promise.all([
+                const [userExistsResult, RRPPExistsResult] = await Promise.all([
                     checkUser(user),
-                    checkPublica(user),
+                    checkRRPP(user),
                 ]);
-
-                if (userExistsResult) {
-                    if (userPublicaResult) {
-                        navigate(`/publica-events`);
-                    } else {
-                        navigate(`/`);
-                    }
+                debugger;
+                if (userExistsResult === true) {
+                    navigate(`/`);
+                    console.log("User Existe");
+                } else if (RRPPExistsResult === true) {
+                    navigate(`/publica-events`);
+                    console.log("RRPP Existe");
                 } else {
                     navigate(`/create-user`);
+                    console.log("No existe");
                 }
+
             };
+
             checkData();
         }
     }, [user, navigate]);
