@@ -1,6 +1,138 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getRRPPEvent = /* GraphQL */ `
+  query GetRRPPEvent($id: ID!) {
+    getRRPPEvent(id: $id) {
+      id
+      Event {
+        id
+        nameEvent
+        locationEvent
+        descriptionEvent
+        bannerEvent
+        miniBannerEvent
+        startDateE
+        endDateE
+        upDateE
+        downDateE
+        nameLocationEvent
+        TypeTickets {
+          nextToken
+        }
+        Payments {
+          nextToken
+        }
+        userID
+        
+        # 
+      }
+      totalSold
+      rrppID
+      Tickets {
+        items {
+          id
+          qrTicket
+          validTicket
+          dniTicket
+          emailTicket
+          typeticketID
+          rrppeventID
+          # 
+          # 
+        }
+        nextToken
+      }
+      # 
+      # 
+      rRPPEventEventId
+    }
+  }
+`;
+export const listRRPPEvents = /* GraphQL */ `
+  query ListRRPPEvents(
+    $filter: ModelRRPPEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRRPPEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        Event {
+          id
+          nameEvent
+          locationEvent
+          descriptionEvent
+          bannerEvent
+          miniBannerEvent
+          startDateE
+          endDateE
+          upDateE
+          downDateE
+          nameLocationEvent
+          userID
+          
+          
+        }
+        totalSold
+        rrppID
+        Tickets {
+          nextToken
+        }
+        
+        
+        rRPPEventEventId
+      }
+      nextToken
+    }
+  }
+`;
+export const rRPPEventsByRrppID = /* GraphQL */ `
+  query RRPPEventsByRrppID(
+    $rrppID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRRPPEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    rRPPEventsByRrppID(
+      rrppID: $rrppID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        Event {
+          id
+          nameEvent
+          locationEvent
+          descriptionEvent
+          bannerEvent
+          miniBannerEvent
+          startDateE
+          endDateE
+          upDateE
+          downDateE
+          nameLocationEvent
+          userID
+          
+          
+        }
+        totalSold
+        rrppID
+        Tickets {
+          nextToken
+        }
+        
+        
+        rRPPEventEventId
+      }
+      nextToken
+    }
+  }
+`;
 export const getRRPP = /* GraphQL */ `
   query GetRRPP($id: ID!) {
     getRRPP(id: $id) {
@@ -9,8 +141,19 @@ export const getRRPP = /* GraphQL */ `
       surnameRRPP
       dniRRPP
       emailRRPP
-      createdAt
-      updatedAt
+      RRPPEvents {
+        items {
+          id
+          totalSold
+          rrppID
+          
+          
+          rRPPEventEventId
+        }
+        nextToken
+      }
+      
+      
     }
   }
 `;
@@ -27,8 +170,11 @@ export const listRRPPS = /* GraphQL */ `
         surnameRRPP
         dniRRPP
         emailRRPP
-        createdAt
-        updatedAt
+        RRPPEvents {
+          nextToken
+        }
+        
+        
       }
       nextToken
     }
@@ -44,8 +190,8 @@ export const getPayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      createdAt
-      updatedAt
+      
+      
       eventID
     }
   }
@@ -65,8 +211,8 @@ export const listPayments = /* GraphQL */ `
         dniBuyer
         amount
         eventName
-        createdAt
-        updatedAt
+        
+        
         eventID
       }
       nextToken
@@ -96,8 +242,8 @@ export const paymentsByEventID = /* GraphQL */ `
         dniBuyer
         amount
         eventName
-        createdAt
-        updatedAt
+        
+        
         eventID
       }
       nextToken
@@ -113,18 +259,9 @@ export const getTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
-      RRPP {
-        id
-        nameRRPP
-        surnameRRPP
-        dniRRPP
-        emailRRPP
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      ticketRRPPId
+      rrppeventID
+      
+      
     }
   }
 `;
@@ -142,18 +279,9 @@ export const listTickets = /* GraphQL */ `
         dniTicket
         emailTicket
         typeticketID
-        RRPP {
-          id
-          nameRRPP
-          surnameRRPP
-          dniRRPP
-          emailRRPP
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-        ticketRRPPId
+        rrppeventID
+        
+        
       }
       nextToken
     }
@@ -181,18 +309,39 @@ export const ticketsByTypeticketID = /* GraphQL */ `
         dniTicket
         emailTicket
         typeticketID
-        RRPP {
-          id
-          nameRRPP
-          surnameRRPP
-          dniRRPP
-          emailRRPP
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
-        ticketRRPPId
+        rrppeventID
+        
+        
+      }
+      nextToken
+    }
+  }
+`;
+export const ticketsByRrppeventID = /* GraphQL */ `
+  query TicketsByRrppeventID(
+    $rrppeventID: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelTicketFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ticketsByRrppeventID(
+      rrppeventID: $rrppeventID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        qrTicket
+        validTicket
+        dniTicket
+        emailTicket
+        typeticketID
+        rrppeventID
+        
+        
       }
       nextToken
     }
@@ -220,14 +369,14 @@ export const getTypeTicket = /* GraphQL */ `
           dniTicket
           emailTicket
           typeticketID
-          createdAt
-          updatedAt
-          ticketRRPPId
+          rrppeventID
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -253,8 +402,8 @@ export const listTypeTickets = /* GraphQL */ `
         Tickets {
           nextToken
         }
-        createdAt
-        updatedAt
+        
+        
       }
       nextToken
     }
@@ -290,8 +439,8 @@ export const typeTicketsByEventID = /* GraphQL */ `
         Tickets {
           nextToken
         }
-        createdAt
-        updatedAt
+        
+        
       }
       nextToken
     }
@@ -324,8 +473,8 @@ export const getEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
@@ -338,15 +487,15 @@ export const getEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          createdAt
-          updatedAt
+          
+          
           eventID
         }
         nextToken
       }
       userID
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -376,8 +525,8 @@ export const listEvents = /* GraphQL */ `
           nextToken
         }
         userID
-        createdAt
-        updatedAt
+        
+        
       }
       nextToken
     }
@@ -417,8 +566,8 @@ export const eventsByUserID = /* GraphQL */ `
           nextToken
         }
         userID
-        createdAt
-        updatedAt
+        
+        
       }
       nextToken
     }
@@ -446,13 +595,13 @@ export const getUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -472,8 +621,8 @@ export const listUsers = /* GraphQL */ `
         Events {
           nextToken
         }
-        createdAt
-        updatedAt
+        
+        
       }
       nextToken
     }

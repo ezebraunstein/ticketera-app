@@ -9,7 +9,7 @@ import { LazyLoading, LazyLoadingDisabled, AsyncCollection } from "@aws-amplify/
 type EagerTicket = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Ticket, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly qrTicket: string;
@@ -17,14 +17,14 @@ type EagerTicket = {
   readonly dniTicket: number;
   readonly emailTicket: string;
   readonly typeticketID: string;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyTicket = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Ticket, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly qrTicket: string;
@@ -32,7 +32,7 @@ type LazyTicket = {
   readonly dniTicket: number;
   readonly emailTicket: string;
   readonly typeticketID: string;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
@@ -45,7 +45,7 @@ export declare const Ticket: (new (init: ModelInit<Ticket>) => Ticket) & {
 type EagerTypeTicket = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<TypeTicket, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameTT: string;
@@ -59,14 +59,14 @@ type EagerTypeTicket = {
   readonly downDateTT?: string | null;
   readonly eventID: string;
   readonly Tickets?: (Ticket | null)[] | null;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyTypeTicket = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<TypeTicket, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameTT: string;
@@ -80,7 +80,7 @@ type LazyTypeTicket = {
   readonly downDateTT?: string | null;
   readonly eventID: string;
   readonly Tickets: AsyncCollection<Ticket>;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
@@ -93,7 +93,7 @@ export declare const TypeTicket: (new (init: ModelInit<TypeTicket>) => TypeTicke
 type EagerEvent = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Event, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameEvent: string;
@@ -107,14 +107,14 @@ type EagerEvent = {
   readonly downDateE?: string | null;
   readonly userID: string;
   readonly TypeTickets?: (TypeTicket | null)[] | null;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyEvent = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<Event, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameEvent: string;
@@ -128,7 +128,7 @@ type LazyEvent = {
   readonly downDateE?: string | null;
   readonly userID: string;
   readonly TypeTickets: AsyncCollection<TypeTicket>;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
@@ -141,7 +141,7 @@ export declare const Event: (new (init: ModelInit<Event>) => Event) & {
 type EagerUser = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameUser: string;
@@ -150,14 +150,14 @@ type EagerUser = {
   readonly emailUser: string;
   readonly aliasUser: string;
   readonly Events?: (Event | null)[] | null;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 
 type LazyUser = {
   readonly [__modelMeta__]: {
     identifier: ManagedIdentifier<User, 'id'>;
-    readOnlyFields: 'createdAt' | 'updatedAt';
+    readOnlyFields: '' | 'updatedAt';
   };
   readonly id: string;
   readonly nameUser: string;
@@ -166,7 +166,7 @@ type LazyUser = {
   readonly emailUser: string;
   readonly aliasUser: string;
   readonly Events: AsyncCollection<Event>;
-  readonly createdAt?: string | null;
+  readonly?: string | null;
   readonly updatedAt?: string | null;
 }
 

@@ -1,6 +1,159 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createRRPPEvent = /* GraphQL */ `
+  mutation CreateRRPPEvent(
+    $input: CreateRRPPEventInput!
+    $condition: ModelRRPPEventConditionInput
+  ) {
+    createRRPPEvent(input: $input, condition: $condition) {
+      id
+      Event {
+        id
+        nameEvent
+        locationEvent
+        descriptionEvent
+        bannerEvent
+        miniBannerEvent
+        startDateE
+        endDateE
+        upDateE
+        downDateE
+        nameLocationEvent
+        TypeTickets {
+          nextToken
+        }
+        Payments {
+          nextToken
+        }
+        userID
+        
+        
+      }
+      totalSold
+      rrppID
+      Tickets {
+        items {
+          id
+          qrTicket
+          validTicket
+          dniTicket
+          emailTicket
+          typeticketID
+          rrppeventID
+          
+          
+        }
+        nextToken
+      }
+      
+      
+      rRPPEventEventId
+    }
+  }
+`;
+export const updateRRPPEvent = /* GraphQL */ `
+  mutation UpdateRRPPEvent(
+    $input: UpdateRRPPEventInput!
+    $condition: ModelRRPPEventConditionInput
+  ) {
+    updateRRPPEvent(input: $input, condition: $condition) {
+      id
+      Event {
+        id
+        nameEvent
+        locationEvent
+        descriptionEvent
+        bannerEvent
+        miniBannerEvent
+        startDateE
+        endDateE
+        upDateE
+        downDateE
+        nameLocationEvent
+        TypeTickets {
+          nextToken
+        }
+        Payments {
+          nextToken
+        }
+        userID
+        
+        
+      }
+      totalSold
+      rrppID
+      Tickets {
+        items {
+          id
+          qrTicket
+          validTicket
+          dniTicket
+          emailTicket
+          typeticketID
+          rrppeventID
+          
+          
+        }
+        nextToken
+      }
+      
+      
+      rRPPEventEventId
+    }
+  }
+`;
+export const deleteRRPPEvent = /* GraphQL */ `
+  mutation DeleteRRPPEvent(
+    $input: DeleteRRPPEventInput!
+    $condition: ModelRRPPEventConditionInput
+  ) {
+    deleteRRPPEvent(input: $input, condition: $condition) {
+      id
+      Event {
+        id
+        nameEvent
+        locationEvent
+        descriptionEvent
+        bannerEvent
+        miniBannerEvent
+        startDateE
+        endDateE
+        upDateE
+        downDateE
+        nameLocationEvent
+        TypeTickets {
+          nextToken
+        }
+        Payments {
+          nextToken
+        }
+        userID
+        
+        
+      }
+      totalSold
+      rrppID
+      Tickets {
+        items {
+          id
+          qrTicket
+          validTicket
+          dniTicket
+          emailTicket
+          typeticketID
+          rrppeventID
+          
+          
+        }
+        nextToken
+      }
+      
+      
+      rRPPEventEventId
+    }
+  }
+`;
 export const createRRPP = /* GraphQL */ `
   mutation CreateRRPP(
     $input: CreateRRPPInput!
@@ -12,8 +165,19 @@ export const createRRPP = /* GraphQL */ `
       surnameRRPP
       dniRRPP
       emailRRPP
-      createdAt
-      updatedAt
+      RRPPEvents {
+        items {
+          id
+          totalSold
+          rrppID
+          
+          
+          rRPPEventEventId
+        }
+        nextToken
+      }
+      
+      
     }
   }
 `;
@@ -28,8 +192,19 @@ export const updateRRPP = /* GraphQL */ `
       surnameRRPP
       dniRRPP
       emailRRPP
-      createdAt
-      updatedAt
+      RRPPEvents {
+        items {
+          id
+          totalSold
+          rrppID
+          
+          
+          rRPPEventEventId
+        }
+        nextToken
+      }
+      
+      
     }
   }
 `;
@@ -44,8 +219,19 @@ export const deleteRRPP = /* GraphQL */ `
       surnameRRPP
       dniRRPP
       emailRRPP
-      createdAt
-      updatedAt
+      RRPPEvents {
+        items {
+          id
+          totalSold
+          rrppID
+          
+          
+          rRPPEventEventId
+        }
+        nextToken
+      }
+      
+      
     }
   }
 `;
@@ -62,8 +248,8 @@ export const createPayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      createdAt
-      updatedAt
+      
+      
       eventID
     }
   }
@@ -81,8 +267,8 @@ export const updatePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      createdAt
-      updatedAt
+      
+      
       eventID
     }
   }
@@ -100,8 +286,8 @@ export const deletePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      createdAt
-      updatedAt
+      
+      
       eventID
     }
   }
@@ -118,18 +304,9 @@ export const createTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
-      RRPP {
-        id
-        nameRRPP
-        surnameRRPP
-        dniRRPP
-        emailRRPP
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      ticketRRPPId
+      rrppeventID
+      
+      
     }
   }
 `;
@@ -145,18 +322,9 @@ export const updateTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
-      RRPP {
-        id
-        nameRRPP
-        surnameRRPP
-        dniRRPP
-        emailRRPP
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      ticketRRPPId
+      rrppeventID
+      
+      
     }
   }
 `;
@@ -172,18 +340,9 @@ export const deleteTicket = /* GraphQL */ `
       dniTicket
       emailTicket
       typeticketID
-      RRPP {
-        id
-        nameRRPP
-        surnameRRPP
-        dniRRPP
-        emailRRPP
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-      ticketRRPPId
+      rrppeventID
+      
+      
     }
   }
 `;
@@ -212,14 +371,14 @@ export const createTypeTicket = /* GraphQL */ `
           dniTicket
           emailTicket
           typeticketID
-          createdAt
-          updatedAt
-          ticketRRPPId
+          rrppeventID
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -248,14 +407,14 @@ export const updateTypeTicket = /* GraphQL */ `
           dniTicket
           emailTicket
           typeticketID
-          createdAt
-          updatedAt
-          ticketRRPPId
+          rrppeventID
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -284,14 +443,14 @@ export const deleteTypeTicket = /* GraphQL */ `
           dniTicket
           emailTicket
           typeticketID
-          createdAt
-          updatedAt
-          ticketRRPPId
+          rrppeventID
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -325,8 +484,8 @@ export const createEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
@@ -339,15 +498,15 @@ export const createEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          createdAt
-          updatedAt
+          
+          
           eventID
         }
         nextToken
       }
       userID
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -381,8 +540,8 @@ export const updateEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
@@ -395,15 +554,15 @@ export const updateEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          createdAt
-          updatedAt
+          
+          
           eventID
         }
         nextToken
       }
       userID
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -437,8 +596,8 @@ export const deleteEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
@@ -451,15 +610,15 @@ export const deleteEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          createdAt
-          updatedAt
+          
+          
           eventID
         }
         nextToken
       }
       userID
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -488,13 +647,13 @@ export const createUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -523,13 +682,13 @@ export const updateUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;
@@ -558,13 +717,13 @@ export const deleteUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          createdAt
-          updatedAt
+          
+          
         }
         nextToken
       }
-      createdAt
-      updatedAt
+      
+      
     }
   }
 `;

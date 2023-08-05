@@ -45,8 +45,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "": {
+                    "name": "",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,
@@ -192,8 +192,8 @@ export const schema = {
                         ]
                     }
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "": {
+                    "name": "",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,
@@ -339,8 +339,8 @@ export const schema = {
                         ]
                     }
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "": {
+                    "name": "",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,
@@ -451,8 +451,8 @@ export const schema = {
                         ]
                     }
                 },
-                "createdAt": {
-                    "name": "createdAt",
+                "": {
+                    "name": "",
                     "isArray": false,
                     "type": "AWSDateTime",
                     "isRequired": false,

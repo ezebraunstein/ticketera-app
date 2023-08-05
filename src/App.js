@@ -13,6 +13,9 @@ import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'
 import LayoutRRPP from "./components/LayoutRRPP";
+import ModalRRPPEvent from "./components/ModalRRPPEvent";
+import RRPPEvents from "./components/RRPPEvents";
+import RRPPEvent from "./components/RRPPEvent";
 import './App.css';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -73,7 +76,7 @@ function App() {
             <EditEvent />
           </Layout>
         } />
-        <Route path="/buy-ticket/:eventId" element={
+        <Route path="/buy-ticket/:eventId/:rrppEventId?" element={
           <Layout>
             <BuyEvent />
           </Layout>
@@ -90,7 +93,12 @@ function App() {
         } />
         <Route path="/publica-events" element={
           <Layout>
-            <h1>RRPP</h1>
+            <RRPPEvents />
+          </Layout>
+        } />
+        <Route path="/publica-events/:rrppEventId" element={
+          <Layout>
+            <RRPPEvent />
           </Layout>
         } />
       </Routes>

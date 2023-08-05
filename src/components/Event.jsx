@@ -15,7 +15,7 @@ const Event = () => {
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
-  const { eventId } = useParams();
+  const { eventId, rrppEventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
 
@@ -95,7 +95,16 @@ const Event = () => {
   const handleEditEvent = () => {
     navigate(`/edit-event/${eventId}`);
   };
-  debugger;
+
+  const copyEventIdToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(eventId);
+      alert('Event ID copied to clipboard');
+    } catch (err) {
+      console.error('Failed to copy event id: ', err);
+    }
+  };
+
   return (
     <div className="content-wrapper">
       <main>
@@ -110,6 +119,11 @@ const Event = () => {
           <br />
           <div>
             <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
+          </div>
+          <div>
+            <button className="btn-Copy" onClick={copyEventIdToClipboard}>
+              Copiar Código RRPP
+            </button>
           </div>
           <br />
           <div>

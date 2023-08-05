@@ -13,7 +13,7 @@ AWS.config.update({
 
 const stripe = window.Stripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC);
 
-async function handleCheckoutStripe(cart, path, data, eventData) {
+async function handleCheckoutStripe(cart, data, eventData) {
 
     const lineItems = convertCartToLineItems(cart);
     const cartJson = JSON.stringify(cart);
@@ -45,7 +45,7 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
 
         const updateTypeTicketInput = {
             id: itemID,
-            quantityTT: itemQuantity,
+            quantityTT: itemQuantity
         };
 
         await API.graphql({
@@ -56,7 +56,7 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
     };
 
     const expiresAt = Math.floor(Date.now() / 1000) + (30 * 60);
-    debugger;
+
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
@@ -77,24 +77,6 @@ async function handleCheckoutStripe(cart, path, data, eventData) {
     } catch (error) {
         console.error("Error redirecting to checkout:", error);
     }
-
-    // function convertCartToLineItems() {
-    //     return cart.map((item) => {
-    //         const updatedPrice = (item.priceTT * 1.15) / 1.75;
-    //         return {
-
-    //             price_data: {
-    //                 currency: 'ars',
-    //                 product_data: {
-    //                     name: item.nameTT,
-    //                     images: [eventData.imageUrl]
-    //                 },
-    //                 unit_amount: Math.round(updatedPrice * 100),
-    //             },
-    //             quantity: item.selectedQuantity,
-    //         };
-    //     });
-    // }
 
     function convertCartToLineItems() {
         const items = cart.map((item) => {

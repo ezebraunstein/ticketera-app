@@ -16,7 +16,7 @@ const Event = () => {
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
-  const { eventId } = useParams();
+  const { eventId, rrppEventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
@@ -59,7 +59,8 @@ const Event = () => {
     setDni(data.dni);
 
     setIsSubmitting(true);
-    await stripeCheckout(cart, path, data, eventData);
+    debugger;
+    await stripeCheckout(cart, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
 
   };
@@ -133,7 +134,7 @@ const Event = () => {
       }
       setCart(updatedCart);
     } else if (quantity > 0) {
-      setCart([...cart, { ...typeTicket, selectedQuantity: quantity }]);
+      setCart([...cart, { ...typeTicket, selectedQuantity: quantity, rrppEventId: rrppEventId }]);
     }
   };
 
@@ -164,7 +165,7 @@ const Event = () => {
   if (!eventData) {
     return <div></div>;
   }
-  debugger;
+
   return (
     <div className="eventClass">
       <div>
@@ -221,6 +222,11 @@ const Event = () => {
       {isSubmitting && (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
           <CircularProgress />
+        </div>
+      )}
+      {rrppEventId && (
+        <div>
+          <p>You are using the link from rrppID: {rrppEventId}</p>
         </div>
       )}
     </div>

@@ -42,8 +42,6 @@ function AddEvent({ user }) {
     const googleMapsLibraries = ["places"];
     const [locationName, setLocationName] = useState("");
 
-    const username = user.username;
-
     const getCurrentLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(

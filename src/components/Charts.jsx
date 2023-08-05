@@ -4,7 +4,7 @@ import { listPayments } from '../graphql/queries';
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faGaugeHigh} from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import { Helmet } from 'react-helmet';
 import { Bar, Line, Pie, Doughnut } from 'react-chartjs-2';
 import {
@@ -14,8 +14,8 @@ import {
   LinearScale,
   PointElement,
   BarElement,
-  LineElement, 
-  LineController, 
+  LineElement,
+  LineController,
   Title,
   Tooltip,
   Legend,
@@ -27,15 +27,15 @@ const Charts = ({ user }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedChartInfo, setSelectedChartInfo] = useState(null);
 
-    // Add the event handler for chart click
-    const handleChartClick = (chartData, chartOptions, chartType) => {
-      setSelectedChartInfo({ data: chartData, options: chartOptions, type: chartType });
-      setIsModalOpen(true);
-    };
-  
+  // Add the event handler for chart click
+  const handleChartClick = (chartData, chartOptions, chartType) => {
+    setSelectedChartInfo({ data: chartData, options: chartOptions, type: chartType });
+    setIsModalOpen(true);
+  };
+
   const getEventLocationsData = (events) => {
     const eventCounts = {};
-  
+
     events.forEach((event) => {
       const eventName = event.nameLocationEvent;
       if (eventCounts[eventName]) {
@@ -44,7 +44,7 @@ const Charts = ({ user }) => {
         eventCounts[eventName] = 1;
       }
     });
-  
+
     const data = {
       labels: Object.keys(eventCounts),
       datasets: [
@@ -62,7 +62,7 @@ const Charts = ({ user }) => {
         },
       ],
     };
-  
+
     return data;
   };
 
@@ -111,13 +111,13 @@ const Charts = ({ user }) => {
   const [lineData, setLineData] = useState(null);
   const [ticketData, setTicketData] = useState(null);
   const [eventLocations, setEventLocations] = useState(null);
-  
+
   const fetchEvents = async () => {
     try {
       const eventsData = await API.graphql(graphqlOperation(listEvents));
       const eventsList = eventsData.data.listEvents.items;
       const filterEventsList = eventsList.filter((event) => event.userID === user.username);
-      
+
 
       // Fetch payments data for the user's events
       const allPaymentsData = await API.graphql(graphqlOperation(listPayments));
@@ -167,28 +167,28 @@ const Charts = ({ user }) => {
       setEvents(eventsWithPayments);
 
       // Calculate count of completed payments for each event for Chart 3
-    const eventsWithPaymentsNew = filterEventsList.map((event) => {
-      const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id);
-      const completedPaymentsCount = eventPayments.filter(
-        (payment) => payment.paymentStatus === 'COMPLETED'
-      ).length;
-      return { ...event, completedPaymentsCount };
-    });
+      const eventsWithPaymentsNew = filterEventsList.map((event) => {
+        const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id);
+        const completedPaymentsCount = eventPayments.filter(
+          (payment) => payment.paymentStatus === 'COMPLETED'
+        ).length;
+        return { ...event, completedPaymentsCount };
+      });
 
-    // Prepare data for Chart 3 (Pie Chart)
-    const data3 = {
-      labels: eventsWithPaymentsNew.map((event) => event.nameEvent),
-      datasets: [
-        {
-          data: eventsWithPaymentsNew.map((event) => event.completedPaymentsCount),
-          backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'], // You can add more colors if needed
-          hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'],
-        },
-      ],
-    };
+      // Prepare data for Chart 3 (Pie Chart)
+      const data3 = {
+        labels: eventsWithPaymentsNew.map((event) => event.nameEvent),
+        datasets: [
+          {
+            data: eventsWithPaymentsNew.map((event) => event.completedPaymentsCount),
+            backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'], // You can add more colors if needed
+            hoverBackgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#33FFCC', '#FF99FF'],
+          },
+        ],
+      };
 
-    // Set the data for Chart 3
-    setTicketData(data3);
+      // Set the data for Chart 3
+      setTicketData(data3);
 
     } catch (error) {
       console.log("", error);
@@ -205,8 +205,8 @@ const Charts = ({ user }) => {
     LinearScale,
     PointElement,
     BarElement,
-    LineElement, 
-    LineController, 
+    LineElement,
+    LineController,
     Title,
     Tooltip,
     Legend,
@@ -258,154 +258,154 @@ const Charts = ({ user }) => {
       },
     },
   };
-  
+
   const options3 = {
     maintainAspectRatio: false,
     responsive: true,
-    };
+  };
 
-    const bubbleOptions = {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: false, // Hide the legend since we are using custom labels
-        },
-        tooltip: {
-          callbacks: {
-            label: (context) => {
-              const label = context.label || '';
-              const value = context.parsed.y || 0;
-              return `${label}: ${value} events`;
-            },
+  const bubbleOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false, // Hide the legend since we are using custom labels
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.parsed.y || 0;
+            return `${label}: ${value} events`;
           },
         },
       },
-      scales: {
-        y: {
-          min: 0,
-          max: 10, // Adjust the maximum value based on your data
-        },
-        x: {
-          ticks: { color: 'rgba(0, 220, 195)' },
-        },
+    },
+    scales: {
+      y: {
+        min: 0,
+        max: 10, // Adjust the maximum value based on your data
       },
-    };
-
-    return (
-      <div style={containerStyle}>
-        <Helmet>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" />
-        </Helmet>
-        <h1 style={{ ...textStyle, fontFamily: 'Titan One, cursive', color: '#869e31' }}> 
-        <FontAwesomeIcon icon={faGaugeHigh} beat style={{color: "#1f513a", marginRight: '16px'}} />
-         Dashboard  
-        <FontAwesomeIcon icon={faGaugeHigh} beat style={{color: "#1f513a", marginLeft: '16px'}} />
-        </h1>
-        <div style={rowStyle}>
-          <div style={quadrantStyle}>
-            {/* Chart 1 */}
-            {eventNames && (
-              <div style={chartStyle}>
-                <Bar data={midata} options={misoptions} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
-              </div>
-            )}
-          </div>
-          <div style={quadrantStyle}>
-            {/* Chart 2 */}
-            {lineData && (
-              <div style={chartStyle}>
-                <Line data={lineData} options={lineOptions} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
-              </div>
-            )}
-          </div>
-        </div>
-        <div style={rowStyle}>
-          <div style={quadrantStyle}>
-            {/* Chart 3 */}
-            {ticketData && (
-              <div style={chartStyle}>
-                <Pie data={ticketData} options={options3} onClick={() => handleChartClick(ticketData, options3, 'Pie')} />
-              </div>
-            )}
-          </div>
-          <div style={quadrantStyle}>
-            {/* Chart 4 */}
-            {eventLocations && (
-              <div>
-                <div style={chartStyle}>
-                  <Doughnut data={eventLocations} options={bubbleOptions} onClick={() => handleChartClick(eventLocations, bubbleOptions, 'Doughnut')} />
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-        {/* Add the Modal component here */}
-        {isModalOpen && (
-          <Modal onClose={() => setIsModalOpen(false)} selectedChartInfo={selectedChartInfo} />
-        )}
-      </div>
-    );
+      x: {
+        ticks: { color: 'rgba(0, 220, 195)' },
+      },
+    },
   };
 
-  const Modal = ({ onClose, selectedChartInfo }) => {
-    return (
+  return (
+    <div style={containerStyle}>
+      <Helmet>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" />
+      </Helmet>
+      <h1 style={{ ...textStyle, fontFamily: 'Titan One, cursive', color: '#869e31' }}>
+        <FontAwesomeIcon icon={faGaugeHigh} beat style={{ color: "#1f513a", marginRight: '16px' }} />
+        Dashboard
+        <FontAwesomeIcon icon={faGaugeHigh} beat style={{ color: "#1f513a", marginLeft: '16px' }} />
+      </h1>
+      <div style={rowStyle}>
+        <div style={quadrantStyle}>
+          {/* Chart 1 */}
+          {eventNames && (
+            <div style={chartStyle}>
+              <Bar data={midata} options={misoptions} onClick={() => handleChartClick(midata, misoptions, 'Bar')} />
+            </div>
+          )}
+        </div>
+        <div style={quadrantStyle}>
+          {/* Chart 2 */}
+          {lineData && (
+            <div style={chartStyle}>
+              <Line data={lineData} options={lineOptions} onClick={() => handleChartClick(lineData, lineOptions, 'Line')} />
+            </div>
+          )}
+        </div>
+      </div>
+      <div style={rowStyle}>
+        <div style={quadrantStyle}>
+          {/* Chart 3 */}
+          {ticketData && (
+            <div style={chartStyle}>
+              <Pie data={ticketData} options={options3} onClick={() => handleChartClick(ticketData, options3, 'Pie')} />
+            </div>
+          )}
+        </div>
+        <div style={quadrantStyle}>
+          {/* Chart 4 */}
+          {eventLocations && (
+            <div>
+              <div style={chartStyle}>
+                <Doughnut data={eventLocations} options={bubbleOptions} onClick={() => handleChartClick(eventLocations, bubbleOptions, 'Doughnut')} />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Add the Modal component here */}
+      {isModalOpen && (
+        <Modal onClose={() => setIsModalOpen(false)} selectedChartInfo={selectedChartInfo} />
+      )}
+    </div>
+  );
+};
+
+const Modal = ({ onClose, selectedChartInfo }) => {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        background: 'rgba(0, 0, 0, 0.8)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
       <div
         style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(0, 0, 0, 0.8)',
+          background: 'white',
+          padding: '20px',
+          borderRadius: '8px',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+          width: '80%', // Adjust the width of the modal as needed
+          height: '80%', // Adjust the height of the modal as needed
           display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          flexDirection: 'column', // Use flex column to align the chart in the center
         }}
       >
-        <div
-          style={{
-            background: 'white',
-            padding: '20px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-            width: '80%', // Adjust the width of the modal as needed
-            height: '80%', // Adjust the height of the modal as needed
-            display: 'flex',
-            flexDirection: 'column', // Use flex column to align the chart in the center
-          }}
-        >
-          {/* Conditionally render the appropriate chart inside the modal based on the chart type */}
-          {selectedChartInfo && selectedChartInfo.type === 'Bar' && (
-            <div style={{ width: '100%', height: '100%' }}>
-              {/* Render the Bar chart with the selected data and options */}
-              <Bar data={selectedChartInfo.data} options={selectedChartInfo.options} />
-            </div>
-          )}
-          {selectedChartInfo && selectedChartInfo.type === 'Line' && (
-            <div style={{ width: '100%', height: '100%' }}>
-              {/* Render the Line chart with the selected data and options */}
-              <Line data={selectedChartInfo.data} options={selectedChartInfo.options} />
-            </div>
-          )}
-          {selectedChartInfo && selectedChartInfo.type === 'Pie' && (
-            <div style={{ width: '100%', height: '100%' }}>
-              {/* Render the Pie chart with the selected data and options */}
-              <Pie data={selectedChartInfo.data} options={selectedChartInfo.options} />
-            </div>
-          )}
-          {selectedChartInfo && selectedChartInfo.type === 'Doughnut' && (
-            <div style={{ width: '100%', height: '95%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              {/* Render the Doughnut chart with the selected data and options */}
-              <Doughnut data={selectedChartInfo.data} options={selectedChartInfo.options} />
-            </div>
-          )}
-          <button onClick={onClose} style={{ marginTop: '10px' }} className="btn-Buy">
-            <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '8px' }} />
-            Volver
-          </button>
-        </div>
+        {/* Conditionally render the appropriate chart inside the modal based on the chart type */}
+        {selectedChartInfo && selectedChartInfo.type === 'Bar' && (
+          <div style={{ width: '100%', height: '100%' }}>
+            {/* Render the Bar chart with the selected data and options */}
+            <Bar data={selectedChartInfo.data} options={selectedChartInfo.options} />
+          </div>
+        )}
+        {selectedChartInfo && selectedChartInfo.type === 'Line' && (
+          <div style={{ width: '100%', height: '100%' }}>
+            {/* Render the Line chart with the selected data and options */}
+            <Line data={selectedChartInfo.data} options={selectedChartInfo.options} />
+          </div>
+        )}
+        {selectedChartInfo && selectedChartInfo.type === 'Pie' && (
+          <div style={{ width: '100%', height: '100%' }}>
+            {/* Render the Pie chart with the selected data and options */}
+            <Pie data={selectedChartInfo.data} options={selectedChartInfo.options} />
+          </div>
+        )}
+        {selectedChartInfo && selectedChartInfo.type === 'Doughnut' && (
+          <div style={{ width: '100%', height: '95%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {/* Render the Doughnut chart with the selected data and options */}
+            <Doughnut data={selectedChartInfo.data} options={selectedChartInfo.options} />
+          </div>
+        )}
+        <button onClick={onClose} style={{ marginTop: '10px' }} className="btn-Buy">
+          <FontAwesomeIcon icon={faArrowLeft} style={{ marginRight: '8px' }} />
+          Volver
+        </button>
       </div>
-    );
-  };
-    
+    </div>
+  );
+};
+
 export default withAuthenticator(Charts);
