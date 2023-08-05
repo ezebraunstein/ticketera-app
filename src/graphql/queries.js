@@ -25,7 +25,7 @@ export const getRRPPEvent = /* GraphQL */ `
         }
         userID
         
-        # 
+        
       }
       totalSold
       rrppID
@@ -38,13 +38,13 @@ export const getRRPPEvent = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          # 
-          # 
+          
+          
         }
         nextToken
       }
-      # 
-      # 
+      
+      
       rRPPEventEventId
     }
   }
@@ -190,9 +190,11 @@ export const getPayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      
-      
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -211,9 +213,11 @@ export const listPayments = /* GraphQL */ `
         dniBuyer
         amount
         eventName
-        
-        
+        createdDate
+        updatedDate
         eventID
+        
+        
       }
       nextToken
     }
@@ -242,9 +246,11 @@ export const paymentsByEventID = /* GraphQL */ `
         dniBuyer
         amount
         eventName
-        
-        
+        createdDate
+        updatedDate
         eventID
+        
+        
       }
       nextToken
     }
@@ -487,9 +493,11 @@ export const getEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          
-          
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }

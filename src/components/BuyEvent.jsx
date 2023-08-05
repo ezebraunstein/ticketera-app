@@ -1,12 +1,12 @@
 import './CSS/Event.css';
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import stripeCheckout from './CheckoutStripe';
-import mercadopagoCheckout from './CheckoutMercadoPago';
+//import mercadopagoCheckout from './CheckoutMercadoPago';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
 
@@ -20,18 +20,14 @@ const Event = () => {
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
-  const [cartVisible, setCartVisible] = useState(false);
+  //const [cartVisible, setCartVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  //LOCATION PATH
-  const location = useLocation();
-  const path = location.pathname;
-
-  //MODAL
-  const [name, setName] = useState('');
-  const [surname, setSurname] = useState('');
-  const [email, setEmail] = useState('');
-  const [dni, setDni] = useState('');
+  // //MODAL
+  // const [name, setName] = useState('');
+  // const [surname, setSurname] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [dni, setDni] = useState('');
 
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
@@ -53,10 +49,10 @@ const Event = () => {
   }, [eventId]);
 
   const handleModalSubmit = async (data) => {
-    setName(data.name);
-    setSurname(data.surname);
-    setEmail(data.email);
-    setDni(data.dni);
+    // setName(data.name);
+    // setSurname(data.surname);
+    // setEmail(data.email);
+    // setDni(data.dni);
 
     setIsSubmitting(true);
     debugger;
@@ -138,29 +134,29 @@ const Event = () => {
     }
   };
 
-  const renderCartDropdown = () => {
-    if (!cartVisible) return null;
-    debugger;
+  // const renderCartDropdown = () => {
+  //   if (!cartVisible) return null;
+  //   debugger;
 
-    return cart.map((item) => {
-      const typeTicket = typeTickets.find(tt => tt.id === item.id);
-      const quantity = typeTicket ? item.selectedQuantity : 0;
+  //   return cart.map((item) => {
+  //     const typeTicket = typeTickets.find(tt => tt.id === item.id);
+  //     const quantity = typeTicket ? item.selectedQuantity : 0;
 
-      return (
-        <div key={item.id}>
-          <h4>{item.nameTT}</h4>
-          <p>Quantity: {quantity}</p>
-          <p>Price: {item.priceTT * item.selectedQuantity}</p>
-        </div>
-      );
-    });
-  };
+  //     return (
+  //       <div key={item.id}>
+  //         <h4>{item.nameTT}</h4>
+  //         <p>Quantity: {quantity}</p>
+  //         <p>Price: {item.priceTT * item.selectedQuantity}</p>
+  //       </div>
+  //     );
+  //   });
+  // };
 
-  const toggleCartVisibility = () => {
-    setCartVisible(!cartVisible);
-    const cartDropdown = document.querySelector('.cart-dropdown');
-    cartDropdown.classList.toggle('visible');
-  };
+  // const toggleCartVisibility = () => {
+  //   setCartVisible(!cartVisible);
+  //   const cartDropdown = document.querySelector('.cart-dropdown');
+  //   cartDropdown.classList.toggle('visible');
+  // };
 
   if (!eventData) {
     return <div></div>;
@@ -172,20 +168,19 @@ const Event = () => {
         <h4 className="eventTitles">{eventData.nameEvent}</h4>
       </div>
       <div>
-        <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
-      </div>
-      <div>
         <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
       </div>
       <div>
-        <h4 className="imageTitles"></h4> <img src={eventData.imageUrl} alt="" width="100%" height="300px" />
+        <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
       </div>
-      <br />
+      <div>
+        <img src={eventData.imageUrl} alt="" width="100%" height="300px" />
+      </div>
+      {/* <br />
       <div>
         <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
-      </div>
+      </div> */}
       <div>
-        <h4 className="eventTitles"></h4>
         <br />
         {mapsApiLoaded && (
           <LoadScriptNext

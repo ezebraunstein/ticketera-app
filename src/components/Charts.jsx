@@ -149,7 +149,7 @@ const Charts = ({ user }) => {
           const eventPayments = allPaymentsList.filter((payment) => payment.eventID === event.id);
           const dailyIncomes = last5Days.map((day) => {
             const income = eventPayments.reduce((acc, payment) => {
-              return acc + (payment.createdAt.slice(0, 10) === day ? payment.amount : 0);
+              return acc + (payment.createdDate.slice(0, 10) === day ? payment.amount : 0);
             }, 0);
             return income;
           });

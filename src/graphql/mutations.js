@@ -248,9 +248,11 @@ export const createPayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      
-      
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -267,9 +269,11 @@ export const updatePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      
-      
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -286,9 +290,11 @@ export const deletePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      
-      
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -498,9 +504,11 @@ export const createEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          
-          
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }
@@ -554,9 +562,11 @@ export const updateEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          
-          
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }
@@ -610,9 +620,11 @@ export const deleteEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          
-          
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }

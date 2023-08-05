@@ -15,7 +15,7 @@ const Event = () => {
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
   //PARAMS
-  const { eventId, rrppEventId } = useParams();
+  const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
 
@@ -112,29 +112,26 @@ const Event = () => {
           <div>
             <h4 className="eventTitles">{eventData.nameEvent}</h4>
           </div>
-          <br />
+          <div>
+            <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
+          </div>
           <div>
             <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
           </div>
           <br />
           <div>
-            <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
-          </div>
-          <div>
-            <button className="btn-Copy" onClick={copyEventIdToClipboard}>
+            <button className="btn-Buy" onClick={copyEventIdToClipboard}>
               Copiar Código RRPP
             </button>
           </div>
           <br />
           <div>
-            <h4 className="imageTitles"><img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" /></h4>
+            <img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" />
           </div>
-          <br />
-          <div>
+          {/* <div>
             <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
-          </div>
+          </div> */}
           <div>
-            <h4 className="eventTitles"></h4>
             <br />
             {mapsApiLoaded && (
               <LoadScriptNext

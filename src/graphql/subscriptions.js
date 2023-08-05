@@ -26,8 +26,8 @@ export const onCreateRRPPEvent = /* GraphQL */ `
           nextToken
         }
         userID
-        #
-        # 
+        
+        
       }
       totalSold
       rrppID
@@ -40,13 +40,13 @@ export const onCreateRRPPEvent = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
       rRPPEventEventId
     }
   }
@@ -76,8 +76,8 @@ export const onUpdateRRPPEvent = /* GraphQL */ `
           nextToken
         }
         userID
-        #
-        #
+        
+        
       }
       totalSold
       rrppID
@@ -90,13 +90,13 @@ export const onUpdateRRPPEvent = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
       rRPPEventEventId
     }
   }
@@ -126,8 +126,8 @@ export const onDeleteRRPPEvent = /* GraphQL */ `
           nextToken
         }
         userID
-        #
-        #
+        
+        
       }
       totalSold
       rrppID
@@ -140,13 +140,13 @@ export const onDeleteRRPPEvent = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
       rRPPEventEventId
     }
   }
@@ -164,14 +164,14 @@ export const onCreateRRPP = /* GraphQL */ `
           id
           totalSold
           rrppID
-          #
-          #
+          
+          
           rRPPEventEventId
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -188,14 +188,14 @@ export const onUpdateRRPP = /* GraphQL */ `
           id
           totalSold
           rrppID
-          #
-          #
+          
+          
           rRPPEventEventId
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -212,14 +212,14 @@ export const onDeleteRRPP = /* GraphQL */ `
           id
           totalSold
           rrppID
-          #
-          #
+          
+          
           rRPPEventEventId
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -233,9 +233,11 @@ export const onCreatePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      #
-      #
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -249,9 +251,11 @@ export const onUpdatePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      #
-      #
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -265,9 +269,11 @@ export const onDeletePayment = /* GraphQL */ `
       dniBuyer
       amount
       eventName
-      #
-      #
+      createdDate
+      updatedDate
       eventID
+      
+      
     }
   }
 `;
@@ -281,8 +287,8 @@ export const onCreateTicket = /* GraphQL */ `
       emailTicket
       typeticketID
       rrppeventID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -296,8 +302,8 @@ export const onUpdateTicket = /* GraphQL */ `
       emailTicket
       typeticketID
       rrppeventID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -311,8 +317,8 @@ export const onDeleteTicket = /* GraphQL */ `
       emailTicket
       typeticketID
       rrppeventID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -341,13 +347,13 @@ export const onCreateTypeTicket = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -376,13 +382,13 @@ export const onUpdateTypeTicket = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -411,13 +417,13 @@ export const onDeleteTypeTicket = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -448,8 +454,8 @@ export const onCreateEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          #
-          #
+          
+          
         }
         nextToken
       }
@@ -462,15 +468,17 @@ export const onCreateEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          #
-          #
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }
       userID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -501,8 +509,8 @@ export const onUpdateEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          #
-          #
+          
+          
         }
         nextToken
       }
@@ -515,15 +523,17 @@ export const onUpdateEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          #
-          #
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }
       userID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -554,8 +564,8 @@ export const onDeleteEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          #
-          #
+          
+          
         }
         nextToken
       }
@@ -568,15 +578,17 @@ export const onDeleteEvent = /* GraphQL */ `
           dniBuyer
           amount
           eventName
-          #
-          #
+          createdDate
+          updatedDate
           eventID
+          
+          
         }
         nextToken
       }
       userID
-      #
-      #
+      
+      
     }
   }
 `;
@@ -602,13 +614,13 @@ export const onCreateUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -634,13 +646,13 @@ export const onUpdateUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;
@@ -666,13 +678,13 @@ export const onDeleteUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          #
-          #
+          
+          
         }
         nextToken
       }
-      #
-      #
+      
+      
     }
   }
 `;

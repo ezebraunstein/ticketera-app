@@ -32,8 +32,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
         dniBuyer: dniBuyer,
         amount: updatedPrice,
         eventName: eventName,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdDate: new Date().toISOString(),
+        updatedDate: new Date().toISOString(),
         eventID: eventId,
     };
 

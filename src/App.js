@@ -12,8 +12,6 @@ import Login from "./components/Login";
 import BuyEvent from './components/BuyEvent';
 import Layout from "./components/Layout";
 import Charts from './components/Charts'
-import LayoutRRPP from "./components/LayoutRRPP";
-import ModalRRPPEvent from "./components/ModalRRPPEvent";
 import RRPPEvents from "./components/RRPPEvents";
 import RRPPEvent from "./components/RRPPEvent";
 import './App.css';

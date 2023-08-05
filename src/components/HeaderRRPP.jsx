@@ -41,6 +41,7 @@ const HeaderRRPP = () => {
 
   const url = window.location.pathname;
 
+  const isRRPPEventPage = url.startsWith("/publica-events") && url !== "/publica-events";
 
   return (
     <header>
@@ -60,6 +61,7 @@ const HeaderRRPP = () => {
         </a>)}
 
       <div className='box-1'>
+        {isRRPPEventPage && <button className="btn btn-one" onClick={() => window.location.href = '/publica-events'}>Go Back</button>}
         {user && <ButtonLogout />}
       </div>
     </header>
