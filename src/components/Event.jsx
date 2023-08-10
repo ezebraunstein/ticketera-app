@@ -1,12 +1,13 @@
 import './CSS/Event.css';
+import './CSS/Ticket.css';
+import './CSS/ButtonMain.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
+
 
 
 const Event = () => {
@@ -71,7 +72,7 @@ const Event = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div>
+      <div className='eventClass'>
         <br />
         <div key={typeTicket.id} class="ticket-container">
           <div class="ticket-column">
@@ -81,7 +82,7 @@ const Event = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Cantidad {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text">Cantidad disponible:  {typeTicket.quantityTT}</h2>
           </div>
         </div>
       </div>
@@ -96,43 +97,27 @@ const Event = () => {
     navigate(`/edit-event/${eventId}`);
   };
 
-  const copyEventIdToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(eventId);
-      alert('Event ID copied to clipboard');
-    } catch (err) {
-      console.error('Failed to copy event id: ', err);
-    }
+  const redirectRRPP = () => {
+    navigate(`/events/${eventId}/rrpp`);
   };
 
   return (
-    <div className="content-wrapper">
-      <main>
-        <div className="eventClass">
+    <main>
+      <div className="eventClass">
+        <div>
+          <h4 className="eventName"> {eventData.nameEvent}</h4>
+        </div>
+        <div>
+          <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+        </div>
+        {eventData.descriptionEvent && (
           <div>
-            <h4 className="eventTitles">{eventData.nameEvent}</h4>
+            <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
           </div>
-          <div>
-            <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
-          </div>
-          <div>
-            <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
-          </div>
-          <br />
-          <div>
-            <button className="btn-Buy" onClick={copyEventIdToClipboard}>
-              Copiar Código RRPP
-            </button>
-          </div>
-          <br />
-          <div>
-            <img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300" />
-          </div>
-          {/* <div>
-            <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
-          </div> */}
-          <div>
-            <br />
+        )}
+        <div>
+          <div style={{ display: "flex", padding: "10px" }}>
+            <img className="imgEvent" src={eventData.imageUrl} />
             {mapsApiLoaded && (
               <LoadScriptNext
                 googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -140,10 +125,12 @@ const Event = () => {
                 onLoad={() => setMapsApiLoaded(true)}>
                 <GoogleMap
                   mapContainerStyle={{
-                    width: "100%",
+                    width: "40%",
                     height: "300px",
+                    marginLeft: "10px",
+                    borderRadius: "10px"
                   }}
-                  zoom={17}
+                  zoom={15}
                   center={selectedLocation || { lat: -34.397, lng: 150.644 }}
                 >
                   {selectedLocation && (
@@ -153,20 +140,21 @@ const Event = () => {
               </LoadScriptNext>
             )}
           </div>
-          <br />
-          {renderTypeTickets()}
-          <br />
-          <div>
-            <button className="btn-Buy" onClick={handleEditEvent}>
-              Editar Evento
-              <FontAwesomeIcon className="editIcon" icon={faEdit} />
-            </button>
-          </div>
-          <br />
-          <br />
         </div>
-      </main>
-    </div>
+        {renderTypeTickets()}
+        <br />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <button className="btnMain" onClick={handleEditEvent} style={{ marginRight: '50px' }}>
+            Editar Evento
+          </button>
+          <button className="btnMain" onClick={redirectRRPP}>
+            Ventas Públicas
+          </button>
+        </div>
+        <br />
+        <br />
+      </div>
+    </main>
   );
 };
 

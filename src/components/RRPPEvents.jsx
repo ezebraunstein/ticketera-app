@@ -5,6 +5,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react';
 import { useNavigate } from 'react-router-dom';
 import ModalRRPPEvent from './ModalRRPPEvent';
 import './CSS/EventBox.css';
+import './CSS/ButtonMain.css'
 
 const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
@@ -47,21 +48,17 @@ const RRPPEvents = ({ user }) => {
     };
 
     const handleButtonClick = (rrppEventId) => {
-        navigate(`/publica-events/${rrppEventId}`);
+        navigate(`/rrpp-events/${rrppEventId}`);
     };
 
     return (
         <div id="boxes">
-            <h1 className="featuredEvents">Eventos RRPP</h1>
+            <h1 className="title">Mis Eventos RRPP</h1>
             <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
             <div className="container" style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {rrppEvents.map((rrppEvent) => (
-                    <div
-                        key={rrppEvent.id}
-                        className="box"
-                        style={{ flexBasis: '25%', marginBottom: '20px' }}
-                    >
-                        <img src={rrppEvent.Event.imageUrl} alt={rrppEvent.Event.nameEvent} />
+                    <div key={rrppEvent.id} className="box" style={{ flexBasis: '25%', marginBottom: '20px' }}>
+                        <img src={rrppEvent.Event.imageUrl} />
                         <h3>{rrppEvent.Event.nameEvent}</h3>
                         <button onClick={() => handleButtonClick(rrppEvent.id)} className="btnBuy">
                             <i className="icon-ticket"></i>Acceder

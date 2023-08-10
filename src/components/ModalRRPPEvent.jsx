@@ -51,9 +51,9 @@ const LinkEventModal = ({ user, onEventLinked }) => {
     return (
         <div>
             <br />
-            <br />
-            <br />
-            <button type="button" class="btn-Buy" onClick={() => setModalIsOpen(true)}>Link Event</button>
+            <div style={{ textAlign: 'center' }}>
+                <button type="button" class="btnMain" onClick={() => setModalIsOpen(true)}>Unirme a Evento</button>
+            </div>
             <Modal
                 className="custom-modal"
                 isOpen={modalIsOpen}
@@ -69,16 +69,16 @@ const LinkEventModal = ({ user, onEventLinked }) => {
                             name="eventId"
                             value={eventId}
                             onChange={handleChange}
-                            placeholder="Event ID"
+                            placeholder="CÓDIGO DE EVENTO"
                             required
                         />
                     </div>
-                    <br />
-                    <div class="btn-container">
-                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Cancel</button>
-                        <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Link Event</button>
-                    </div>
                 </form>
+                <br />
+                <div class="btn-container">
+                    <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Cancelar</button>
+                    <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Unirme a Evento</button>
+                </div>
             </Modal>
         </div>
     );

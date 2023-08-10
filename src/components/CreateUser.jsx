@@ -47,7 +47,7 @@ function App({ user }) {
       if (typeUser === 'rrpp') {
         await API.graphql(
           graphqlOperation(createRRPP, { input: createRRPPInput }));
-        navigate(`/publica-events`);
+        navigate(`/rrpp-events`);
       } else if (typeUser === 'producer') {
         await API.graphql(
           graphqlOperation(createUser, { input: createUserInput }));
@@ -78,7 +78,7 @@ function App({ user }) {
   };
 
   return (
-    <div>
+    <div className="eventClass">
       <form className="eventForm" onSubmit={handleSubmit}>
         <label className="labelEvent">Nombre/s:
           <input className='inputEvent'
@@ -105,7 +105,7 @@ function App({ user }) {
           ></input>
         </label>
         <label className='labelEvent'>Tipo de usuario:
-          <select className='form-control'
+          <select className='inputEvent'
             name="typeUser"
             value={typeUser}
             onChange={handleTypeUserChange}
@@ -114,11 +114,14 @@ function App({ user }) {
             <option value="rrpp">RRPP</option>
           </select>
         </label>
-        <label className='labelEvent'>
-          <button className='btn btn-primary' type="submit" disabled={!isFormValid}>
+        <br />
+        <div style={{ textAlign: 'centered' }}>
+          <button className='btnMain' type="submit" disabled={!isFormValid}>
             Agregar Usuario
           </button>
-        </label>
+        </div>
+        <br />
+        <br />
       </form>
     </div>
   );

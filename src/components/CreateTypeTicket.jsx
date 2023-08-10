@@ -65,7 +65,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
     };
 
     return (
-        <div>
+        <div className="eventClass">
             <form onSubmit={handleSubmit} className="create-type-ticket-form">
                 <div className="form-group row">
                     <label htmlFor="nameTT" className="col-sm-3 col-form-label">Nombre:</label>
@@ -76,7 +76,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="nameTT"
                             value={typeTicketData.nameTT}
-                            placeholder="Nombre del tipo de entrada (obligatorio)"
+                            placeholder="Nombre del tipo de entrada*"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -91,7 +91,22 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="priceTT"
                             value={typeTicketData.priceTT}
-                            placeholder="Monto del tipo de entrada (obligatorio)"
+                            placeholder="Monto del tipo de entrada*"
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+                <br />
+                <div className="form-group row">
+                    <label htmlFor="quantityTT" className="col-sm-3 col-form-label">Cantidad:</label>
+                    <div className="col-sm-9">
+                        <input
+                            type="int"
+                            name="quantityTT"
+                            className="form-control"
+                            id="quantityTT"
+                            value={typeTicketData.quantityTT}
+                            placeholder="Cantidad de entradas*"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -107,21 +122,6 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             id="descriptionTT"
                             value={typeTicketData.descriptionTT}
                             placeholder="Descripción del tipo de entrada (opcional)"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                </div>
-                <br />
-                <div className="form-group row">
-                    <label htmlFor="quantityTT" className="col-sm-3 col-form-label">Cantidad:</label>
-                    <div className="col-sm-9">
-                        <input
-                            type="int"
-                            name="quantityTT"
-                            className="form-control"
-                            id="quantityTT"
-                            value={typeTicketData.quantityTT}
-                            placeholder="Cantidad de entradas (obligatorio)"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -173,7 +173,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                 <br />
                 <div className="form-group row">
                     <div className="col-sm-12 text-center">
-                        <button type="submit" className="btn-Buy">
+                        <button type="submit" className="btnMain">
                             Agregar Tipo Ticket
                         </button>
                     </div>

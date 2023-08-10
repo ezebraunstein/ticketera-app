@@ -71,14 +71,14 @@ const HomeEvents = () => {
                 </div>
             )} */}
             <div id="boxes">
-                <h1 className="featuredEvents">🎉Eventos Destacados🎉</h1>
+                <h1 className="title">Eventos Destacados</h1>
                 <SearchBar onSearch={handleSearch} />
                 <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
                     {filteredEvents.map((event) => (
                         <div key={event.id} className="box" style={{ flexBasis: "25%", marginBottom: "20px" }}>
                             <img src={event.imageUrl} alt={event.nameEvent} />
                             <h3>{event.nameEvent}</h3>
-                            <p>{event.descriptionEvent}</p>
+                            {/* <p>{event.descriptionEvent}</p> */}
                             <button onClick={() => goToBuyEvent(event.id)} className="btnBuy">Comprar Tickets</button>
                         </div>
                     ))}

@@ -1,4 +1,5 @@
 import "./CSS/EventBox.css";
+import "./CSS/Ticket.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
@@ -44,7 +45,7 @@ const OwnerEvents = ({ user }) => {
 
   return (
     <div id="boxes">
-      <h1 className="featuredEvents">🎉Mis Eventos🎉</h1>
+      <h1 className="title">Mis Eventos</h1>
       <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
         {events.map((event) => (
           <div
@@ -54,7 +55,6 @@ const OwnerEvents = ({ user }) => {
           >
             <img src={event.imageUrl} alt={event.nameEvent} />
             <h3>{event.nameEvent}</h3>
-            <p>{event.descriptionEvent}</p>
             <button onClick={() => handleButtonClick(event)} className="btnBuy">
               <i className="icon-ticket"></i>Acceder
             </button>

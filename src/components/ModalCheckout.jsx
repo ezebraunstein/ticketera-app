@@ -28,7 +28,7 @@ const InputModal = ({ handleModalSubmit }) => {
 
     return (
         <div>
-            <button type="button" class="btn-Buy" onClick={() => setModalIsOpen(true)}>Comprar</button>
+            <button type="button" class="btnMain" onClick={() => setModalIsOpen(true)}>Comprar</button>
             <Modal
                 className="custom-modal"
                 isOpen={modalIsOpen}
@@ -98,12 +98,12 @@ const InputModal = ({ handleModalSubmit }) => {
                             required
                         />
                     </div>
-                    <br />
-                    <div class="btn-container">
-                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
-                        <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
-                    </div>
                 </form>
+                <br />
+                <div class="btn-container">
+                    <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                    <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
+                </div>
             </Modal>
         </div>
     );

@@ -1,7 +1,7 @@
 import './CSS/Event.css';
+import "./CSS/Ticket.css";
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Storage } from "aws-amplify";
 import { getEvent } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { listTypeTickets } from '../graphql/queries';
@@ -67,7 +67,7 @@ const EditEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div>
+      <div className="eventClass">
         <br />
         <div key={typeTicket.id} class="ticket-container">
           <div class="ticket-column">
@@ -93,28 +93,22 @@ const EditEvent = () => {
   }
 
   return (
-    <div className="content-wrapper">
-      <main>
-        <div className="eventClass">
+    <main>
+      <div className="eventClass">
+        <div>
+          <h4 className="eventName"> {eventData.nameEvent}</h4>
+        </div>
+        <div>
+          <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
+        </div>
+        {eventData.descriptionEvent && (
           <div>
-            <h4 className="eventTitles"> Nombre del evento: </h4> <span className="eventSpan"> {eventData.nameEvent}</span>
+            <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
           </div>
-          <br />
-          <div>
-            <h4 className="eventTitles"> Descripción: </h4> <span className="eventSpan"> {eventData.descriptionEvent}</span>
-          </div>
-          <br />
-          <div>
-            <h4 className="eventTitles"> Fecha de Inicio: </h4> <span className="eventSpan"> {(eventData.startDateE).slice(0, 10)}</span>
-          </div>
-          <br />
-          <div>
-            <h4 className="imageTitles"> Imagen de Banner: </h4> <img className="imgEvent" src={eventData.imageUrl} alt="" width="100%" height="300px" />
-          </div>
-          <br />
-          <div>
-            <h4 className="eventTitles"></h4>
-            <br />
+        )}
+        <div>
+          <div style={{ display: "flex", padding: "10px" }}>
+            <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
             {mapsApiLoaded && (
               <LoadScriptNext
                 googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -122,8 +116,10 @@ const EditEvent = () => {
                 onLoad={() => setMapsApiLoaded(true)}>
                 <GoogleMap
                   mapContainerStyle={{
-                    width: "100%",
+                    width: "40%",
                     height: "300px",
+                    marginLeft: "10px",
+                    borderRadius: "10px"
                   }}
                   zoom={15}
                   center={selectedLocation || { lat: -34.397, lng: 150.644 }}
@@ -135,14 +131,14 @@ const EditEvent = () => {
               </LoadScriptNext>
             )}
           </div>
-          <br />
-          {renderTypeTickets()}
-          <br />
-          <br />
-          <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
         </div>
-      </main>
-    </div>
+        {renderTypeTickets()}
+        <br />
+        <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
+        <br />
+        <br />
+      </div>
+    </main>
   );
 };
 

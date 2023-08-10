@@ -96,7 +96,7 @@ const Event = () => {
       const quantity = cartItem ? cartItem.selectedQuantity : 0;
 
       return (
-        <div>
+        <div className="eventClass">
           <br />
           <div key={typeTicket.id} class="ticket-container">
             <div class="ticket-column">
@@ -165,54 +165,48 @@ const Event = () => {
   return (
     <div className="eventClass">
       <div>
-        <h4 className="eventTitles">{eventData.nameEvent}</h4>
+        <h4 className="eventName"> {eventData.nameEvent}</h4>
       </div>
       <div>
-        <h4 className="eventTitles">{(eventData.startDateE).slice(0, 10)}</h4>
+        <h4 className="eventDate"> {(eventData.startDateE).slice(0, 10)}</h4>
       </div>
+      {eventData.descriptionEvent && (
+        <div>
+          <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
+        </div>
+      )}
       <div>
-        <h4 className="eventTitles">{eventData.descriptionEvent}</h4>
-      </div>
-      <div>
-        <img src={eventData.imageUrl} alt="" width="100%" height="300px" />
-      </div>
-      {/* <br />
-      <div>
-        <h4 className="eventTitles">{eventData.nameLocationEvent}</h4>
-      </div> */}
-      <div>
-        <br />
-        {mapsApiLoaded && (
-          <LoadScriptNext
-            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
-            libraries={["places"]}
-            onLoad={() => setMapsApiLoaded(true)}>
-            <GoogleMap
-              mapContainerStyle={{
-                width: "100%",
-                height: "300px",
-              }}
-              zoom={15}
-              center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-            >
-              {selectedLocation && (
-                <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
-              )}
-            </GoogleMap>
-          </LoadScriptNext>
-        )}
+        <div style={{ display: "flex", padding: "10px" }}>
+          <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
+          {mapsApiLoaded && (
+            <LoadScriptNext
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
+              libraries={["places"]}
+              onLoad={() => setMapsApiLoaded(true)}>
+              <GoogleMap
+                mapContainerStyle={{
+                  width: "40%",
+                  height: "300px",
+                  marginLeft: "10px",
+                  borderRadius: "10px"
+                }}
+                zoom={15}
+                center={selectedLocation || { lat: -34.397, lng: 150.644 }}
+              >
+                {selectedLocation && (
+                  <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
+                )}
+              </GoogleMap>
+            </LoadScriptNext>
+          )}
+        </div>
       </div>
       <div>
         {renderTypeTickets()}
       </div>
-      {/* <div className="cart">
-        <button type="button" class="btn btn-primary" onClick={toggleCartVisibility}>Cart</button>
-        <div className="cart-dropdown">
-          {renderCartDropdown()}
-        </div>
-      </div> */}
       <br />
       <ModalCheckout handleModalSubmit={handleModalSubmit} />
+      <br />
       <br />
       {isSubmitting && (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
@@ -221,7 +215,7 @@ const Event = () => {
       )}
       {rrppEventId && (
         <div>
-          <p>You are using the link from rrppID: {rrppEventId}</p>
+          <p>Estás usando el link de: {rrppEventId}</p>
         </div>
       )}
     </div>

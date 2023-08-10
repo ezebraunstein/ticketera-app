@@ -24,8 +24,6 @@ export const getRRPPEvent = /* GraphQL */ `
           nextToken
         }
         userID
-        
-        
       }
       totalSold
       rrppID
@@ -38,13 +36,9 @@ export const getRRPPEvent = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          
-          
         }
         nextToken
       }
-      
-      
       rRPPEventEventId
     }
   }
@@ -71,16 +65,12 @@ export const listRRPPEvents = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          
-          
         }
         totalSold
         rrppID
         Tickets {
           nextToken
         }
-        
-        
         rRPPEventEventId
       }
       nextToken
@@ -117,16 +107,12 @@ export const rRPPEventsByRrppID = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          
-          
         }
         totalSold
         rrppID
         Tickets {
           nextToken
         }
-        
-        
         rRPPEventEventId
       }
       nextToken
@@ -146,14 +132,10 @@ export const getRRPP = /* GraphQL */ `
           id
           totalSold
           rrppID
-          
-          
           rRPPEventEventId
         }
         nextToken
       }
-      
-      
     }
   }
 `;
@@ -173,8 +155,6 @@ export const listRRPPS = /* GraphQL */ `
         RRPPEvents {
           nextToken
         }
-        
-        
       }
       nextToken
     }
@@ -193,8 +173,6 @@ export const getPayment = /* GraphQL */ `
       createdDate
       updatedDate
       eventID
-      
-      
     }
   }
 `;
@@ -216,8 +194,6 @@ export const listPayments = /* GraphQL */ `
         createdDate
         updatedDate
         eventID
-        
-        
       }
       nextToken
     }
@@ -249,8 +225,6 @@ export const paymentsByEventID = /* GraphQL */ `
         createdDate
         updatedDate
         eventID
-        
-        
       }
       nextToken
     }
@@ -266,8 +240,6 @@ export const getTicket = /* GraphQL */ `
       emailTicket
       typeticketID
       rrppeventID
-      
-      
     }
   }
 `;
@@ -286,8 +258,6 @@ export const listTickets = /* GraphQL */ `
         emailTicket
         typeticketID
         rrppeventID
-        
-        
       }
       nextToken
     }
@@ -316,8 +286,6 @@ export const ticketsByTypeticketID = /* GraphQL */ `
         emailTicket
         typeticketID
         rrppeventID
-        
-        
       }
       nextToken
     }
@@ -346,8 +314,6 @@ export const ticketsByRrppeventID = /* GraphQL */ `
         emailTicket
         typeticketID
         rrppeventID
-        
-        
       }
       nextToken
     }
@@ -376,13 +342,9 @@ export const getTypeTicket = /* GraphQL */ `
           emailTicket
           typeticketID
           rrppeventID
-          
-          
         }
         nextToken
       }
-      
-      
     }
   }
 `;
@@ -408,8 +370,6 @@ export const listTypeTickets = /* GraphQL */ `
         Tickets {
           nextToken
         }
-        
-        
       }
       nextToken
     }
@@ -445,8 +405,6 @@ export const typeTicketsByEventID = /* GraphQL */ `
         Tickets {
           nextToken
         }
-        
-        
       }
       nextToken
     }
@@ -479,8 +437,6 @@ export const getEvent = /* GraphQL */ `
           upDateTT
           downDateTT
           eventID
-          
-          
         }
         nextToken
       }
@@ -496,14 +452,10 @@ export const getEvent = /* GraphQL */ `
           createdDate
           updatedDate
           eventID
-          
-          
         }
         nextToken
       }
       userID
-      
-      
     }
   }
 `;
@@ -533,8 +485,6 @@ export const listEvents = /* GraphQL */ `
           nextToken
         }
         userID
-        
-        
       }
       nextToken
     }
@@ -574,8 +524,6 @@ export const eventsByUserID = /* GraphQL */ `
           nextToken
         }
         userID
-        
-        
       }
       nextToken
     }
@@ -603,13 +551,9 @@ export const getUser = /* GraphQL */ `
           downDateE
           nameLocationEvent
           userID
-          
-          
         }
         nextToken
       }
-      
-      
     }
   }
 `;
@@ -629,8 +573,6 @@ export const listUsers = /* GraphQL */ `
         Events {
           nextToken
         }
-        
-        
       }
       nextToken
     }

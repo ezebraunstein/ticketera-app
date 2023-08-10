@@ -21,7 +21,7 @@ const Login = ({ user }) => {
                     navigate(`/`);
                     console.log("User Existe");
                 } else if (RRPPExistsResult === true) {
-                    navigate(`/publica-events`);
+                    navigate(`/rrpp-events`);
                     console.log("RRPP Existe");
                 } else {
                     navigate(`/create-user`);

@@ -1,82 +1,69 @@
 .labelEvent,
-.inputEvent,
-.buttonEvent {
-  font-family: "Proxima Soft", sans-serif;
+.inputEvent {
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 .labelEvent {
   color: #000000;
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 25px;
+  text-align: left;
+
 }
 
 .inputEvent {
+  width: 100%;
   background-color: #fff;
   color: #000000;
   border: 1px solid #000000;
-  padding: 8px;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 10px;
   margin-bottom: 10px;
-}
-
-.buttonEvent {
-  background-color: #000000;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.buttonEvent:hover {
-  background-color: #3940a1;
-}
-
-.labelEvent {
-  padding-left: 2%;
-  padding-right: 2%;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.inputEvent {
-  display: block;
-  width: 100%;
-}
-
-.eventForm {
-  min-height: 100%;
-  padding-top: 2%;
-  padding-bottom: 2%;
-}
-
-.required-text {
-  color: red;
-  font-size: 0.8em;
-  margin-left: 5px;
+  font-size: 25px;
+  font-size: 25px;
 }
 
 .inputEvent::placeholder {
   color: #999;
   opacity: 1;
-  /* Firefox */
 }
 
-.labelEvent.custom-file-input {
-  position: relative;
-}
-
-.labelEvent.custom-file-input .input-file-wrapper {
+.label-container {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.labelEvent.custom-file-input input[type="file"] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  cursor: pointer;
+
+.label-container>div:first-child {
+  flex: 1;
+  max-width: 49%;
+  padding-right: 1%;
+
 }
 
-.choose-file-btn {
-  margin-left: 8px;
+.label-container>div:last-child {
+  flex: 1;
+  max-width: 49%;
+  padding-left: 1%;
+}
+
+.input-container {
+  width: 60%;
+  float: left;
+
+}
+
+.map-container {
+  width: 60%;
+  float: right;
+  padding-left: 30px;
+}
+
+.eventForm::after {
+  content: "";
+  display: table;
+  clear: both;
 }

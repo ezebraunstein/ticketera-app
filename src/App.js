@@ -14,6 +14,7 @@ import Layout from "./components/Layout";
 import Charts from './components/Charts'
 import RRPPEvents from "./components/RRPPEvents";
 import RRPPEvent from "./components/RRPPEvent";
+import RRPPData from "./components/RRPPData";
 import './App.css';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -69,6 +70,11 @@ function App() {
             <Event />
           </Layout>
         } />
+        <Route path="/events/:eventId/rrpp" element={
+          <Layout>
+            <RRPPData />
+          </Layout>
+        } />
         <Route path="/edit-event/:eventId" element={
           <Layout>
             <EditEvent />
@@ -89,12 +95,12 @@ function App() {
             <h1>Failure!</h1>
           </Layout>
         } />
-        <Route path="/publica-events" element={
+        <Route path="/rrpp-events" element={
           <Layout>
             <RRPPEvents />
           </Layout>
         } />
-        <Route path="/publica-events/:rrppEventId" element={
+        <Route path="/rrpp-events/:rrppEventId" element={
           <Layout>
             <RRPPEvent />
           </Layout>
