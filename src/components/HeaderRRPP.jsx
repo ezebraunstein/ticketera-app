@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import palaLogo from '../images/pala.png';
+import meloLogo from '../images/MeloLogo.png';
 import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import './CSS/ButtonCreateEvent.css';
-import './CSS/Header.css';
 
 const HeaderRRPP = () => {
   const [user, setUser] = useState(null);
@@ -41,7 +39,7 @@ const HeaderRRPP = () => {
 
   const url = window.location.pathname;
 
-  const isRRPPEventPage = url.startsWith("/publica-events") && url !== "/publica-events";
+  const isRRPPEventPage = url.startsWith("/rrpp-events") && url !== "/rrpp-events";
 
   return (
     <header>
@@ -50,18 +48,18 @@ const HeaderRRPP = () => {
 
       {url === '/create-user' && (
         <a>
-          <img className="logo" src={palaLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
         </a>)}
 
       {/* Caso contrario, si */}
 
       {url !== '/create-user' && (
         <a>
-          <img className="logo" src={palaLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
         </a>)}
 
       <div className='box-1'>
-        {isRRPPEventPage && <button className="btn btn-one" onClick={() => window.location.href = '/publica-events'}>Go Back</button>}
+        {isRRPPEventPage && <button className="btnHeader" onClick={() => window.location.href = '/rrpp-events'}>Atrás</button>}
         {user && <ButtonLogout />}
       </div>
     </header>

@@ -1,9 +1,8 @@
 import React from 'react';
-import './CSS/ButtonCreateEvent.css';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonCreateEvent = () => {
-  
+
   const navigate = useNavigate();
 
   function onclick() {
@@ -12,7 +11,7 @@ const ButtonCreateEvent = () => {
 
   return (
     <div className="box-1">
-      <button className="btn btn-one" onClick={onclick}>
+      <button className="btnHeader" onClick={onclick}>
         <span>Crear Evento</span>
       </button>
     </div>

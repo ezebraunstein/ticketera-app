@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 
 const Layout = ({ children }) => {
     const location = useLocation();
-    const isRRPPRoute = location.pathname.includes("/publica-events"); 
+    const isRRPPRoute = location.pathname.includes("/rrpp-events");
 
     return (
         <div className="layout">

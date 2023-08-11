@@ -4,8 +4,8 @@ import { listRRPPEvents } from '../graphql/queries';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { useNavigate } from 'react-router-dom';
 import ModalRRPPEvent from './ModalRRPPEvent';
-import './CSS/EventBox.css';
-import './CSS/ButtonMain.css'
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
 
@@ -14,6 +14,8 @@ const RRPPEvents = ({ user }) => {
     const navigate = useNavigate();
     const [rrppEvents, setRrppEvents] = useState([]);
     const [refreshKey, setRefreshKey] = useState(0);
+    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         fetchRrppEvents();
@@ -30,7 +32,7 @@ const RRPPEvents = ({ user }) => {
                     filter: { rrppID: { eq: user.username } },
                 })
             );
-
+            debugger;
             const rrppEventsList = rrppEventsData.data.listRRPPEvents.items;
             const rrppEventsWithImages = await Promise.all(
                 rrppEventsList.map(async (rrppEvent) => {
@@ -42,8 +44,10 @@ const RRPPEvents = ({ user }) => {
                 })
             );
             setRrppEvents(rrppEventsWithImages);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching rrpp events', error);
+            setLoading(false);
         }
     };
 
@@ -51,16 +55,22 @@ const RRPPEvents = ({ user }) => {
         navigate(`/rrpp-events/${rrppEventId}`);
     };
 
+    if (loading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+            <CircularProgress />
+        </div>
+    }
+
     return (
         <div id="boxes">
-            <h1 className="title">Mis Eventos RRPP</h1>
+            <h1 className="eventBoxTitle">Mis Eventos RRPP</h1>
             <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
-            <div className="container" style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div className="eventBoxContainer">
                 {rrppEvents.map((rrppEvent) => (
-                    <div key={rrppEvent.id} className="box" style={{ flexBasis: '25%', marginBottom: '20px' }}>
+                    <div key={rrppEvent.id} className="eventBox">
                         <img src={rrppEvent.Event.imageUrl} />
                         <h3>{rrppEvent.Event.nameEvent}</h3>
-                        <button onClick={() => handleButtonClick(rrppEvent.id)} className="btnBuy">
+                        <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
                             <i className="icon-ticket"></i>Acceder
                         </button>
                     </div>

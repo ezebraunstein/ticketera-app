@@ -1,14 +1,10 @@
-import './CSS/Event.css';
-import './CSS/Ticket.css';
-import './CSS/ButtonMain.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import { useState, useEffect } from 'react';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
-
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Event = () => {
 
@@ -19,6 +15,8 @@ const Event = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   //NAVIGATE
   const navigate = useNavigate();
@@ -55,6 +53,7 @@ const Event = () => {
       fetchTypeTickets();
     } catch (error) {
       console.error("Error fetching event:", error);
+      setLoading(false);
     }
   };
 
@@ -65,8 +64,10 @@ const Event = () => {
       }));
       const typeTicketsList = typeTicketsData.data.listTypeTickets.items;
       setTypeTickets(typeTicketsList);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching type tickets:", error);
+      setLoading(false);
     }
   };
 
@@ -82,7 +83,7 @@ const Event = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Cantidad disponible:  {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text">Disponibles:  {typeTicket.quantityTT}</h2>
           </div>
         </div>
       </div>
@@ -100,6 +101,12 @@ const Event = () => {
   const redirectRRPP = () => {
     navigate(`/events/${eventId}/rrpp`);
   };
+
+  if (loading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+      <CircularProgress />
+    </div>
+  }
 
   return (
     <main>

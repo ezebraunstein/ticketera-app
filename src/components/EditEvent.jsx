@@ -1,5 +1,3 @@
-import './CSS/Event.css';
-import "./CSS/Ticket.css";
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';

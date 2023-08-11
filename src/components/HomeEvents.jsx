@@ -1,4 +1,3 @@
-import "./CSS/EventBox.css";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
@@ -48,10 +47,8 @@ const HomeEvents = () => {
             );
             setEvents(eventsWithImages);
             setFilteredEvents(eventsWithImages);
-            setLoading(false);
         } catch (error) {
             console.log("", error);
-            setLoading(false);
         }
     };
 
@@ -64,27 +61,19 @@ const HomeEvents = () => {
     }, []);
 
     return (
-        <>
-            {/* {loading && (
-                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.5)', zIndex: 999 }}>
-                    <CircularProgress />
-                </div>
-            )} */}
-            <div id="boxes">
-                <h1 className="title">Eventos Destacados</h1>
-                <SearchBar onSearch={handleSearch} />
-                <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
-                    {filteredEvents.map((event) => (
-                        <div key={event.id} className="box" style={{ flexBasis: "25%", marginBottom: "20px" }}>
-                            <img src={event.imageUrl} alt={event.nameEvent} />
-                            <h3>{event.nameEvent}</h3>
-                            {/* <p>{event.descriptionEvent}</p> */}
-                            <button onClick={() => goToBuyEvent(event.id)} className="btnBuy">Comprar Tickets</button>
-                        </div>
-                    ))}
-                </div>
+        <div id="boxes">
+            <h1 className="eventBoxTitle">Eventos Destacados</h1>
+            <SearchBar onSearch={handleSearch} />
+            <div className="eventBoxContainer">
+                {filteredEvents.map((event) => (
+                    <div key={event.id} className="eventBox">
+                        <img src={event.imageUrl} alt={event.nameEvent} />
+                        <h3>{event.nameEvent}</h3>
+                        <button onClick={() => goToBuyEvent(event.id)} className="eventBoxBtnBuy">Comprar Tickets</button>
+                    </div>
+                ))}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -1,25 +1,3 @@
-import "./CSS/SearchBar.css";
-
-// const SearchBar = ({ updateSearchTerm }) => {
-//   return (
-//     <div className="divSearchBar">
-//       <form role="search" id="form" className="searchBar">
-//         <input
-//           className="searchInput"
-//           type="search"
-//           id="query"
-//           name="q"
-//           placeholder="Buscar Eventos..."
-//           aria-label="Search through site content"
-//           onChange={(e) => updateSearchTerm(e.target.value)}
-//         />
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SearchBar;
-
 const SearchBar = ({ onSearch }) => {
   const handleInputChange = (e) => {
     onSearch(e.target.value);

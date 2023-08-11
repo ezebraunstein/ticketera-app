@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import './CSS/Event.css';
-import './CSS/Modal.css';
 
 Modal.setAppElement("#root");
 
@@ -73,7 +71,6 @@ const InputModal = ({ handleModalSubmit }) => {
                             required
                         />
                     </div>
-
                     <div>
                         <input
                             class="form-control"
@@ -98,12 +95,12 @@ const InputModal = ({ handleModalSubmit }) => {
                             required
                         />
                     </div>
+                    <br />
+                    <div class="btn-container">
+                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
+                        <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
+                    </div>
                 </form>
-                <br />
-                <div class="btn-container">
-                    <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
-                    <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
-                </div>
             </Modal>
         </div>
     );

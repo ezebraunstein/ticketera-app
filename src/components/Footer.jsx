@@ -1,14 +1,13 @@
-import "./CSS/Footer.css";
-import palaLogo from '../images/pala2.png';
+import meloLoguito from '../images/MeloLoguito.png';
 
-export const Footer = (prop) => {
+export const Footer = () => {
   return (
     <footer className="footerClass">
       <div className="footerContainer">
         <span className="footerText">
-          &copy; Cooperativa Fort - 2023
+          &copy; Melo Tickets - 2023
         </span>
-        <img className="logo" src={palaLogo} alt="LA PALA" width="25px" />
+        <img className="logo" src={meloLoguito} alt='' width="60px" />
       </div>
     </footer>
   );

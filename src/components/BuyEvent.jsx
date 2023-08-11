@@ -1,4 +1,3 @@
-import './CSS/Event.css';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -10,7 +9,7 @@ import stripeCheckout from './CheckoutStripe';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { CircularProgress } from '@mui/material';
 
-const Event = () => {
+const BuyEvent = () => {
 
   //CLOUDFRONT URL
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
@@ -22,12 +21,6 @@ const Event = () => {
   const [cart, setCart] = useState([]);
   //const [cartVisible, setCartVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // //MODAL
-  // const [name, setName] = useState('');
-  // const [surname, setSurname] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [dni, setDni] = useState('');
 
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
@@ -49,10 +42,6 @@ const Event = () => {
   }, [eventId]);
 
   const handleModalSubmit = async (data) => {
-    // setName(data.name);
-    // setSurname(data.surname);
-    // setEmail(data.email);
-    // setDni(data.dni);
 
     setIsSubmitting(true);
     debugger;
@@ -96,7 +85,7 @@ const Event = () => {
       const quantity = cartItem ? cartItem.selectedQuantity : 0;
 
       return (
-        <div className="eventClass">
+        <div>
           <br />
           <div key={typeTicket.id} class="ticket-container">
             <div class="ticket-column">
@@ -108,8 +97,7 @@ const Event = () => {
             <div class="ticket-column">
               <div class="quantity-container">
                 <button type="button" class="btn-Remove" onClick={() => addToCart(typeTicket, -1)}><i class="fas fa-minus"></i></button>
-                <span class="ticket-text"> Cantidad </span>
-                <span class="ticket-text">&nbsp;{quantity} </span>
+                <span class="ticket-text">&nbsp;{quantity}&nbsp;</span>
                 <button type="button" class="btn-Add" onClick={() => addToCart(typeTicket, 1)}><i class="fas fa-plus"></i></button>
               </div>
             </div>
@@ -133,30 +121,6 @@ const Event = () => {
       setCart([...cart, { ...typeTicket, selectedQuantity: quantity, rrppEventId: rrppEventId }]);
     }
   };
-
-  // const renderCartDropdown = () => {
-  //   if (!cartVisible) return null;
-  //   debugger;
-
-  //   return cart.map((item) => {
-  //     const typeTicket = typeTickets.find(tt => tt.id === item.id);
-  //     const quantity = typeTicket ? item.selectedQuantity : 0;
-
-  //     return (
-  //       <div key={item.id}>
-  //         <h4>{item.nameTT}</h4>
-  //         <p>Quantity: {quantity}</p>
-  //         <p>Price: {item.priceTT * item.selectedQuantity}</p>
-  //       </div>
-  //     );
-  //   });
-  // };
-
-  // const toggleCartVisibility = () => {
-  //   setCartVisible(!cartVisible);
-  //   const cartDropdown = document.querySelector('.cart-dropdown');
-  //   cartDropdown.classList.toggle('visible');
-  // };
 
   if (!eventData) {
     return <div></div>;
@@ -222,4 +186,4 @@ const Event = () => {
   );
 };
 
-export default Event;
+export default BuyEvent;

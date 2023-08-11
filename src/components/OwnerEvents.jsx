@@ -1,18 +1,17 @@
-import "./CSS/EventBox.css";
-import "./CSS/Ticket.css";
-import { API, graphqlOperation, Storage } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
 import { listEvents } from "../graphql/queries";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import CircularProgress from '@mui/material/CircularProgress';
 import '@aws-amplify/ui-react/styles.css';
-
 
 const OwnerEvents = ({ user }) => {
 
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchEvents = async () => {
     try {
@@ -30,8 +29,10 @@ const OwnerEvents = ({ user }) => {
         })
       );
       setEvents(eventsWithImages);
+      setLoading(false);
     } catch (error) {
       console.log("", error);
+      setLoading(false);
     }
   };
 
@@ -43,19 +44,21 @@ const OwnerEvents = ({ user }) => {
     navigate(`/events/${event.id}`);
   }
 
+  if (loading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+      <CircularProgress />
+    </div>
+  }
+
   return (
     <div id="boxes">
-      <h1 className="title">Mis Eventos</h1>
-      <div className="container" style={{ display: "flex", flexWrap: "wrap" }}>
+      <h1 className="eventBoxTitle">Mis Eventos</h1>
+      <div className="eventBoxContainer">
         {events.map((event) => (
-          <div
-            key={event.id}
-            className="box"
-            style={{ flexBasis: "25%", marginBottom: "20px" }}
-          >
+          <div key={event.id} className="eventBox">
             <img src={event.imageUrl} alt={event.nameEvent} />
             <h3>{event.nameEvent}</h3>
-            <button onClick={() => handleButtonClick(event)} className="btnBuy">
+            <button onClick={() => handleButtonClick(event)} className="eventBoxBtnBuy">
               <i className="icon-ticket"></i>Acceder
             </button>
           </div>

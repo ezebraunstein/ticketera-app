@@ -1,4 +1,3 @@
-import './CSS/CreateEvent.css';
 import { useState, useEffect, useLayoutEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -8,9 +7,9 @@ import CreateUser from './CreateUser';
 import { GoogleMap, LoadScriptNext, Marker, StandaloneSearchBox } from "@react-google-maps/api";
 import CircularProgress from '@mui/material/CircularProgress';
 import { Alert, AlertTitle } from '@mui/material';
-import '@aws-amplify/ui-react/styles.css';
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import axios from 'axios';
+import '@aws-amplify/ui-react/styles.css';
 
 const s3Client = new S3Client({
     region: "sa-east-1",

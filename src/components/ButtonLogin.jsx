@@ -1,5 +1,4 @@
 import React from 'react';
-import './CSS/ButtonCreateEvent.css';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonLogin = () => {
@@ -12,7 +11,7 @@ const ButtonLogin = () => {
 
   return (
     <div className="box-1">
-      <button className="btn btn-one" onClick={onclick} style={{ width: '150px', height: '50px' }}>
+      <button className="btnHeader" onClick={onclick}>
         <span>Iniciar Sesión</span>
       </button>
     </div>

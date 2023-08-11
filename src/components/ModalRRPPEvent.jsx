@@ -3,8 +3,6 @@ import Modal from "react-modal";
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { v4 as uuid } from "uuid";
 import axios from "axios";
-import './CSS/Event.css';
-import './CSS/Modal.css';
 
 Modal.setAppElement("#root");
 
@@ -24,7 +22,7 @@ const LinkEventModal = ({ user, onEventLinked }) => {
             rrppID: user.username,
             eventID: eventId
         };
-        debugger;
+
         try {
             const response = await axios.post('https://gmq4wjgi4ajfxd5dg7rqitkixy0wxmxh.lambda-url.us-east-1.on.aws/', JSON.stringify({ rrppEventInput: rrppEventInput }), {
                 headers: {
@@ -73,12 +71,12 @@ const LinkEventModal = ({ user, onEventLinked }) => {
                             required
                         />
                     </div>
+                    <br />
+                    <div class="btn-container">
+                        <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Cancelar</button>
+                        <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Unirme a Evento</button>
+                    </div>
                 </form>
-                <br />
-                <div class="btn-container">
-                    <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Cancelar</button>
-                    <button className="btn-Modal-Buy" type="submit" disabled={!eventId}>Unirme a Evento</button>
-                </div>
             </Modal>
         </div>
     );

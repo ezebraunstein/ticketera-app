@@ -1,5 +1,3 @@
-import './CSS/Event.css';
-import './CSS/ButtonMain.css'
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
 import { getEvent } from '../graphql/queries';
@@ -10,7 +8,7 @@ import { getRRPPEvent } from '../graphql/queries';
 import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 import { Snackbar } from '@mui/material';
 import Alert from '@mui/material/Alert';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const RRPPEvent = () => {
@@ -23,6 +21,8 @@ const RRPPEvent = () => {
   const [eventData, setEventData] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
 
   //API GOOGLE MAPS
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
@@ -45,8 +45,10 @@ const RRPPEvent = () => {
       const eventId = rrppEvent.Event.id;
       const typeCounts = await fetchTicketsAndCountByType(rrppEventId);
       await fetchEventData(eventId, typeCounts);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching RRPP event:", error);
+      setLoading(false);
     }
   };
 
@@ -106,7 +108,7 @@ const RRPPEvent = () => {
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Cantidad vendida: {typeTicket.count}</h2>
+            <h2 class="ticket-text">Vendidos: {typeTicket.count}</h2>
           </div>
         </div>
       </div>
@@ -129,6 +131,12 @@ const RRPPEvent = () => {
     }
     setSnackbarOpen(false);
   };
+
+  if (loading) {
+    return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+      <CircularProgress />
+    </div>
+  }
 
   if (!eventData) {
     return <div></div>;

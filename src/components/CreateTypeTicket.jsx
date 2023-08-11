@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuid } from "uuid";
-import './CSS/TypeTicket.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
@@ -76,7 +76,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="nameTT"
                             value={typeTicketData.nameTT}
-                            placeholder="Nombre del tipo de entrada*"
+                            placeholder="Obligatorio*"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -91,7 +91,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="priceTT"
                             value={typeTicketData.priceTT}
-                            placeholder="Monto del tipo de entrada*"
+                            placeholder="Obligatorio*"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -106,7 +106,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="quantityTT"
                             value={typeTicketData.quantityTT}
-                            placeholder="Cantidad de entradas*"
+                            placeholder="Obligatorio*"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -121,7 +121,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                             className="form-control"
                             id="descriptionTT"
                             value={typeTicketData.descriptionTT}
-                            placeholder="Descripción del tipo de entrada (opcional)"
+                            placeholder="(Opcional)"
                             onChange={handleInputChange}
                         />
                     </div>
@@ -178,6 +178,7 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
                         </button>
                     </div>
                 </div>
+                <br />
             </form>
         </div>
     );

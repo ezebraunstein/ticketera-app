@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import palaLogo from '../images/pala.png';
+import meloLogo from '../images/MeloLogo.png';
 import ButtonCreateEvent from './ButtonCreateEvent';
 import ButtonReturn from './ButtonReturn';
 import ButtonLogin from './ButtonLogin';
@@ -7,8 +7,8 @@ import ButtonLogout from './ButtonLogout';
 import { Auth, Hub } from 'aws-amplify';
 import ButtonOwnerEvents from './ButtonOwnerEvents';
 import '@aws-amplify/ui-react/styles.css';
-import './CSS/ButtonCreateEvent.css';
-import './CSS/Header.css';
+
+
 
 const Header = () => {
   const [user, setUser] = useState(null);
@@ -53,14 +53,14 @@ const Header = () => {
 
       {url === '/create-user' && (
         <a>
-          <img className="logo" src={palaLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
         </a>)}
 
       {/* Caso contrario, si */}
 
       {url !== '/create-user' && (
         <a href='/'>
-          <img className="logo" src={palaLogo} alt="LA PALA" width="400px" />
+          <img className="logo" src={meloLogo} alt="LA PALA" width="400px" />
         </a>)}
 
       <div className='box-1'>
