@@ -14,8 +14,8 @@ AWS.config.update({
 });
 
 //const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
-const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
-
+//const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 async function handleCheckoutStripe(cart, data, eventData) {
 
     const lineItems = convertCartToLineItems(cart);
@@ -63,8 +63,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
-            success_url: `http://localhost:3000/checkout/success`,
-            cancel_url: `http://localhost:3000/checkout/failure`,
+            success_url: `https://front.d25hgj6mmosto5.amplifyapp.com/checkout/success`,
+            cancel_url: `https://front.d25hgj6mmosto5.amplifyapp.com/checkout/failure`,
             email: data.email,
             payment_id: paymentId,
             expires_at: expiresAt,
@@ -81,7 +81,7 @@ async function handleCheckoutStripe(cart, data, eventData) {
             console.error("Failed to initialize Stripe");
             return;
         }
-        
+
         await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
 
     } catch (error) {
