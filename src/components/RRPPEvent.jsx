@@ -29,6 +29,8 @@ const RRPPEvent = () => {
   const [mapsApiLoaded, setMapsApiLoaded] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
+  const baseUrl = `${window.location.protocol}//${window.location.host}`;
+
   useEffect(() => {
     setMapsApiLoaded(true);
   }, []);
@@ -117,7 +119,7 @@ const RRPPEvent = () => {
   };
 
   const copyEventLinkToClipboard = async () => {
-    const link = `http://localhost:3000/buy-ticket/${eventData.id}/${rrppEventId}`;
+    const link = `${baseUrl}/buy-ticket/${eventData.id}/${rrppEventId}`;
     try {
       await navigator.clipboard.writeText(link);
       setSnackbarOpen(true);
