@@ -8,7 +8,8 @@ const InputModal = ({ handleModalSubmit }) => {
     const [formData, setFormData] = useState({
         name: "",
         surname: "",
-        email: "",
+        email1: "",
+        email2: "",
         dni: "",
     });
 
@@ -64,8 +65,8 @@ const InputModal = ({ handleModalSubmit }) => {
                             class="form-control"
                             type="email"
                             id="email"
-                            name="email"
-                            value={formData.email}
+                            name="email1"
+                            value={formData.email1}
                             onChange={handleChange}
                             placeholder="Email"
                             required
@@ -74,10 +75,11 @@ const InputModal = ({ handleModalSubmit }) => {
                     <div>
                         <input
                             class="form-control"
+                            style={{ color: formData.email1 === formData.email2 ? 'black' : 'red' }}
                             type="email"
                             id="email"
-                            name="email"
-                            value={formData.email}
+                            name="email2"
+                            value={formData.email2}
                             onChange={handleChange}
                             placeholder="Repite tu email"
                             required
@@ -90,15 +92,25 @@ const InputModal = ({ handleModalSubmit }) => {
                             id="dni"
                             name="dni"
                             value={formData.dni}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                // Allow only numeric input on-the-fly
+                                const regex = /^[0-9]*$/;
+                                if (regex.test(e.target.value) || e.target.value === "") {
+                                    handleChange(e);
+                                }
+                            }}
                             placeholder="DNI"
                             required
+                            pattern="\d{8}"
+                            maxLength="8"
+                            minLength="8"
+                            inputMode="numeric" // to show the numeric keypad on mobile devices
                         />
                     </div>
                     <br />
                     <div class="btn-container">
                         <button type="button" class="btn-Modal-Back" onClick={() => setModalIsOpen(false)}>Volver Atrás</button>
-                        <button class="btn-Modal-Buy" type="submit" disabled={!formData.email || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
+                        <button class="btn-Modal-Buy" type="submit" disabled={!formData.email1 || !formData.email2 || formData.email1 !== formData.email2 || !formData.dni || !formData.name || !formData.surname}>Continuar con el pago</button>
                     </div>
                 </form>
             </Modal>
