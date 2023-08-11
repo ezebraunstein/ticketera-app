@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import CreateUser from './CreateUser';
 import { GoogleMap, LoadScriptNext, Marker, StandaloneSearchBox } from "@react-google-maps/api";
 import CircularProgress from '@mui/material/CircularProgress';
-import { Alert, AlertTitle } from '@mui/material';
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import axios from 'axios';
+import { Snackbar } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import '@aws-amplify/ui-react/styles.css';
 
 const s3Client = new S3Client({
@@ -39,9 +40,11 @@ function AddEvent({ user }) {
     const [showYourComponent, setShowYourComponent] = useState(false);
 
     //MUI ALERT
-    const [successAlert, setSuccessAlert] = useState(false);
-    const [errorAlert, setErrorAlert] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
     //API GOOGLE MAPS
     const [mapsApiLoaded, setMapsApiLoaded] = useState(true);
@@ -106,6 +109,10 @@ function AddEvent({ user }) {
         }));
     };
 
+    const closeSnackbar = () => {
+        setSnackbarOpen(false);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsSubmitting(true);
@@ -155,7 +162,9 @@ function AddEvent({ user }) {
                 },
             });
 
-            setSuccessAlert(true);
+            setSnackbarMessage('Evento creado con éxito!');
+            setSnackbarSeverity('success');
+            setSnackbarOpen(true);
 
             setTimeout(() => {
                 navigate(`/edit-event/${createEventInput.id}`);
@@ -163,7 +172,9 @@ function AddEvent({ user }) {
 
         } catch (error) {
 
-            setErrorAlert(true);
+            setSnackbarMessage('Error al crear el evento!');
+            setSnackbarSeverity('error');
+            setSnackbarOpen(true);
 
         } finally {
             setIsSubmitting(false);
@@ -292,23 +303,11 @@ function AddEvent({ user }) {
                 </form>
                 <br />
                 <br />
-                {isSubmitting && (
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
-                        <CircularProgress />
-                    </div>
-                )}
-                {successAlert && (
-                    <Alert variant="filled" severity="success">
-                        <AlertTitle>Éxito!</AlertTitle>
-                        Evento creado con éxito!
+                <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={closeSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                    <Alert onClose={closeSnackbar} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                        {snackbarMessage}
                     </Alert>
-                )}
-                {errorAlert && (
-                    <Alert variant="filled" severity="error">
-                        <AlertTitle>Error!</AlertTitle>
-                        Error al crear el evento!
-                    </Alert>
-                )}
+                </Snackbar>
             </div>
         </>
     );

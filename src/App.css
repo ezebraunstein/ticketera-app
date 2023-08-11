@@ -1160,3 +1160,71 @@ header {
     opacity: 0;
     transform: scale(0.1, 1);
 }
+
+/*CREATE USER*/
+
+.labelCreateUser,
+.inputCreateUser {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.labelCreateUser {
+    color: #000000;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 25px;
+    text-align: left;
+
+}
+
+.inputCreateUser {
+    width: 100%;
+    background-color: #fff;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.inputCreateUser::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+
+    .labelCreateUser,
+    .inputCreateUser {
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .labelCreateUser {
+        color: #000000;
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 60px;
+        text-align: left;
+
+    }
+
+    .inputCreateUser {
+        width: 100%;
+        background-color: #fff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 80px;
+    }
+
+    .inputCreateUser::placeholder {
+        color: #999;
+        opacity: 1;
+    }
+}

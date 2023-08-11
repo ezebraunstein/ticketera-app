@@ -196,7 +196,7 @@ const RRPPEvent = () => {
         <br />
         <br />
         <br />
-        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
           <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
             Link copiado!
           </Alert>

@@ -53,18 +53,8 @@ function App({ user }) {
           graphqlOperation(createUser, { input: createUserInput }));
         navigate(`/`);
       }
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuario creado con éxito.',
-        showConfirmButton: true,
-        confirmButtonText: 'Aceptar'
-      });
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error al crear el usuario.',
-      });
+      console.error("Error creating user", error);
     }
   };
 
@@ -80,32 +70,32 @@ function App({ user }) {
   return (
     <div className="eventClass">
       <form className="eventForm" onSubmit={handleSubmit}>
-        <label className="labelEvent">Nombre/s:
-          <input className='inputEvent'
+        <label className="labelCreateUser">Nombre/s:
+          <input className="inputCreateUser"
             placeholder="Nombre"
             name="nameUser"
             value={userData.nameUser || ''}
             onChange={handleInputChange}
           ></input>
         </label>
-        <label className='labelEvent'>Apellido/s:
-          <input className='inputEvent'
+        <label className="labelCreateUser">Apellido/s:
+          <input className="inputCreateUser"
             placeholder="Apellido"
             name="surnameUser"
             value={userData.surnameUser || ''}
             onChange={handleInputChange}
           ></input>
         </label>
-        <label className='labelEvent'>DNI:
-          <input className='inputEvent'
+        <label className="labelCreateUser">DNI:
+          <input className="inputCreateUser"
             placeholder="DNI"
             name="dniUser"
             value={userData.dniUser || ''}
             onChange={handleInputChange}
           ></input>
         </label>
-        <label className='labelEvent'>Tipo de usuario:
-          <select className='inputEvent'
+        <label className="labelCreateUser">Tipo de usuario:
+          <select className="inputCreateUser"
             name="typeUser"
             value={typeUser}
             onChange={handleTypeUserChange}
