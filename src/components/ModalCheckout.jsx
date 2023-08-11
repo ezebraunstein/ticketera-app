@@ -9,7 +9,6 @@ const InputModal = ({ handleModalSubmit }) => {
         name: "",
         surname: "",
         email: "",
-        email2: "",
         dni: "",
     });
 
@@ -78,7 +77,7 @@ const InputModal = ({ handleModalSubmit }) => {
                             type="email"
                             id="email"
                             name="email"
-                            value={formData.email2}
+                            value={formData.email}
                             onChange={handleChange}
                             placeholder="Repite tu email"
                             required
