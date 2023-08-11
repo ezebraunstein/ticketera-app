@@ -4,6 +4,8 @@ import { v4 as uuid } from 'uuid';
 import { createPayment } from '../graphql/mutations';
 import { updateTypeTicket } from "../graphql/mutations";
 import axios from "axios";
+import { loadStripe } from '@stripe/stripe-js';
+
 
 AWS.config.update({
     region: "us-east-1",
@@ -11,7 +13,8 @@ AWS.config.update({
     secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
 });
 
-const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
+//const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
+const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
 
 async function handleCheckoutStripe(cart, data, eventData) {
 
@@ -72,6 +75,13 @@ async function handleCheckoutStripe(cart, data, eventData) {
             throw new Error(response.error);
         }
 
+        const stripe = await stripePromise;
+
+        if (!stripe) {
+            console.error("Failed to initialize Stripe");
+            return;
+        }
+        
         await stripe.redirectToCheckout({ sessionId: response.data.sessionId });
 
     } catch (error) {
