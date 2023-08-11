@@ -37,6 +37,7 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
+    "stripe": "^12.18.0",
     "sweetalert2": "^11.4.8",
     "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
