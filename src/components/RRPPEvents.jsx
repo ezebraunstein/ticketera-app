@@ -6,8 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import ModalRRPPEvent from './ModalRRPPEvent';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
+//CLOUDFRONT URL
 const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
+//const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
 
 const RRPPEvents = ({ user }) => {
 

@@ -13,9 +13,8 @@ AWS.config.update({
     secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
 });
 
-//const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
-//const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC);
+
 async function handleCheckoutStripe(cart, data, eventData) {
 
     const lineItems = convertCartToLineItems(cart);
@@ -26,6 +25,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
     const eventName = eventData.nameEvent;
     const paymentId = uuid();
     const updatedPrice = ((lineItems.reduce((acc, item) => acc + (item.price_data.unit_amount * item.quantity), 0)) / 100) * 1.75;
+
+    const baseUrl = `${window.location.protocol}//${window.location.host}`;
 
     const createPaymentInput = {
         id: paymentId,
@@ -63,8 +64,8 @@ async function handleCheckoutStripe(cart, data, eventData) {
     try {
         const response = await axios.post('https://okosjzzcwklkr22nb5wc3ksmlm0fjcey.lambda-url.us-east-1.on.aws/', {
             line_items: lineItems,
-            success_url: `https://front.d25hgj6mmosto5.amplifyapp.com/checkout/success`,
-            cancel_url: `https://front.d25hgj6mmosto5.amplifyapp.com/checkout/failure`,
+            success_url: `${baseUrl}/checkout/success`,
+            cancel_url: `${baseUrl}/checkout/failure`,
             email: data.email,
             payment_id: paymentId,
             expires_at: expiresAt,

@@ -13,6 +13,7 @@ const BuyEvent = () => {
 
   //CLOUDFRONT URL
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
+  //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
 
   //PARAMS
   const { eventId, rrppEventId } = useParams();

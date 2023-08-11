@@ -10,7 +10,8 @@ const EditEvent = () => {
 
   //CLOUDFRONT URL
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
-
+  //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
+  
   //PARAMS
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
