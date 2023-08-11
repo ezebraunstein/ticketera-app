@@ -11,7 +11,7 @@ AWS.config.update({
     secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
 });
 
-const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_PUBLIC}`);
+const stripe = window.Stripe(`${process.env.REACT_APP_STRIPE_TEST_PUBLIC}`);
 
 async function handleCheckoutStripe(cart, data, eventData) {
 
