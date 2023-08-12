@@ -33,7 +33,7 @@ const RRPPEvents = ({ user }) => {
                     filter: { rrppID: { eq: user.username } },
                 })
             );
-            debugger;
+
             const rrppEventsList = rrppEventsData.data.listRRPPEvents.items;
             const rrppEventsWithImages = await Promise.all(
                 rrppEventsList.map(async (rrppEvent) => {
@@ -67,15 +67,24 @@ const RRPPEvents = ({ user }) => {
             <h1 className="eventBoxTitle">Mis Eventos RRPP</h1>
             <ModalRRPPEvent onEventLinked={handleEventLinked} user={user} />
             <div className="eventBoxContainer">
-                {rrppEvents.map((rrppEvent) => (
-                    <div key={rrppEvent.id} className="eventBox">
-                        <img src={rrppEvent.Event.imageUrl} />
-                        <h3>{rrppEvent.Event.nameEvent}</h3>
-                        <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
-                            <i className="icon-ticket"></i>Acceder
-                        </button>
-                    </div>
-                ))}
+                <div>
+                    {rrppEvents.length === 0 ? (
+                        <div >
+                            <br/>
+                            <p className='titleMessage'>No hay eventos vinculados</p>
+                            <p className='textMessage1'>Ingresá el código de evento</p>
+                        </div>
+                    ) : (
+                        rrppEvents.map((rrppEvent) => (
+                            <div key={rrppEvent.id} className="eventBox">
+                                <img src={rrppEvent.Event.imageUrl} />
+                                <h3>{rrppEvent.Event.nameEvent}</h3>
+                                <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
+                                    <i className="icon-ticket"></i>Acceder
+                                </button>
+                            </div>
+                        )))}
+                </div>
             </div>
         </div>
     );

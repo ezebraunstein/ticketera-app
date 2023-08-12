@@ -134,7 +134,7 @@ const Event = () => {
                 <GoogleMap
                   mapContainerStyle={{
                     width: "40%",
-                    height: "300px",
+                    height: "400px",
                     marginLeft: "10px",
                     borderRadius: "10px"
                   }}
@@ -156,7 +156,7 @@ const Event = () => {
             Editar Evento
           </button>
           <button className="btnMain" onClick={redirectRRPP}>
-            Ventas Públicas
+            Ver Públicas
           </button>
         </div>
         <br />

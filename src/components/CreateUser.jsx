@@ -60,6 +60,14 @@ function App({ user }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
+    if (name === 'dniUser') {
+      const regex = /^[0-9]*$/;
+      if (!(regex.test(value) || value === "")) {
+        return;
+      }
+    }
+
     setUsersData({ ...userData, [name]: value });
   };
 
@@ -74,7 +82,7 @@ function App({ user }) {
           <input className="inputCreateUser"
             placeholder="Nombre"
             name="nameUser"
-            value={userData.nameUser || ''}
+            value={userData.nameUser}
             onChange={handleInputChange}
           ></input>
         </label>
@@ -82,7 +90,7 @@ function App({ user }) {
           <input className="inputCreateUser"
             placeholder="Apellido"
             name="surnameUser"
-            value={userData.surnameUser || ''}
+            value={userData.surnameUser}
             onChange={handleInputChange}
           ></input>
         </label>
@@ -90,7 +98,12 @@ function App({ user }) {
           <input className="inputCreateUser"
             placeholder="DNI"
             name="dniUser"
-            value={userData.dniUser || ''}
+            value={userData.dniUser}
+            required
+            pattern="\d{8}"
+            maxLength="8"
+            minLength="8"
+            inputMode="numeric"
             onChange={handleInputChange}
           ></input>
         </label>

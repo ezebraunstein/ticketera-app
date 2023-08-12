@@ -126,14 +126,20 @@ const RRPPData = () => {
         <br />
         <br />
         <div>
-          {rrpps.map((rrpp) => (
-            <div key={rrpp.id}>
-              <h3 className='nombrePublica'>{rrpp.nameRRPP}</h3>
-              {renderTypeTickets(rrpp.id)}
-              <br />
-              <br />
+          {rrpps.length === 0 ? (
+            <div>
+              <p className='titleMessage'>No hay públicas vinculados a este evento</p>
+              <p className='textMessage1'>Copiá el código y compartíselos</p>
             </div>
-          ))}
+          ) : (
+            rrpps.map((rrpp) => (
+              <div key={rrpp.id}>
+                <h3 className='nombrePublica'>{rrpp.nameRRPP}</h3>
+                {renderTypeTickets(rrpp.id)}
+                <br />
+                <br />
+              </div>
+            )))}
         </div>
         <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
           <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { API, graphqlOperation } from 'aws-amplify';
-import { getEvent } from '../graphql/queries';
+import { getEvent, getRRPP, getRRPPEvent } from '../graphql/queries';
 import { listTypeTickets } from '../graphql/queries';
 import ModalCheckout from './ModalCheckout';
 import stripeCheckout from './CheckoutStripe';
@@ -18,6 +18,9 @@ const BuyEvent = () => {
   //PARAMS
   const { eventId, rrppEventId } = useParams();
   const [eventData, setEventData] = useState(null);
+  const [rrppID, setRRPPid] = useState(null);
+  const [nameRRPP, setNameRRPP] = useState(null);
+  const [surnameRRPP, setSurnameRRPP] = useState(null);
   const [typeTickets, setTypeTickets] = useState([]);
   const [cart, setCart] = useState([]);
   //const [cartVisible, setCartVisible] = useState(false);
@@ -62,6 +65,7 @@ const BuyEvent = () => {
       event.imageUrl = imageUrl;
       setEventData(event);
       fetchTypeTickets();
+      fetchRRPPEvent(rrppEventId);
     } catch (error) {
       console.error("Error fetching event:", error);
     }
@@ -76,6 +80,31 @@ const BuyEvent = () => {
       setTypeTickets(typeTicketsList);
     } catch (error) {
       console.error("Error fetching type tickets:", error);
+    }
+  };
+
+  const fetchRRPPEvent = async (rrppEventId) => {
+    try {
+      const rrppEventData = await API.graphql(graphqlOperation(getRRPPEvent, { id: rrppEventId }));
+      const rrppEvent = rrppEventData.data.getRRPPEvent;
+      const rrppID = rrppEvent.rrppID;
+      setRRPPid(rrppID)
+      fetchRRPP(rrppID);
+    } catch (error) {
+      console.error("Error fetching RRPP:", error);
+    }
+  };
+
+  const fetchRRPP = async (rrppID) => {
+    try {
+      const rrppData = await API.graphql(graphqlOperation(getRRPP, { id: rrppID }));
+      const rrpp = rrppData.data.getRRPP;
+      const nameRRPP = rrpp.nameRRPP;
+      const surnameRRPP = rrpp.surnameRRPP;
+      setNameRRPP(nameRRPP);
+      setSurnameRRPP(surnameRRPP);
+    } catch (error) {
+      console.error("Error fetching RRPP:", error);
     }
   };
 
@@ -140,8 +169,8 @@ const BuyEvent = () => {
         </div>
       )}
       <div>
-        <div style={{ display: "flex", padding: "10px" }}>
-          <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
+        <div style={{ display: "flex" }}>
+          <img className="imgEvent" src={eventData.imageUrl} alt="" />
           {mapsApiLoaded && (
             <LoadScriptNext
               googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -150,13 +179,12 @@ const BuyEvent = () => {
               <GoogleMap
                 mapContainerStyle={{
                   width: "40%",
-                  height: "300px",
+                  height: "400px",
                   marginLeft: "10px",
                   borderRadius: "10px"
                 }}
                 zoom={15}
-                center={selectedLocation || { lat: -34.397, lng: 150.644 }}
-              >
+                center={selectedLocation || { lat: -34.397, lng: 150.644 }}>
                 {selectedLocation && (
                   <MarkerF position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }} />
                 )}
@@ -173,15 +201,17 @@ const BuyEvent = () => {
       <br />
       <br />
       {isSubmitting && (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+        <div className="circularProgress">
           <CircularProgress />
         </div>
       )}
       {rrppEventId && (
-        <div>
-          <p>Estás usando el link de: {rrppEventId}</p>
+        <div className='textMessage3'>
+          <br />
+          <p>Estás usando el link de {nameRRPP} {surnameRRPP}</p>
         </div>
       )}
+      <br />
     </div>
   );
 };

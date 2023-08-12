@@ -160,8 +160,8 @@ const RRPPEvent = () => {
             <h4 className="eventDescription"> {eventData.descriptionEvent}</h4>
           </div>
         )}
-        <div>
-          <div style={{ display: "flex", padding: "10px" }}>
+        {/* <div>
+          {/* <div style={{ display: "flex", padding: "10px" }}>
             <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
             {mapsApiLoaded && (
               <LoadScriptNext
@@ -171,7 +171,7 @@ const RRPPEvent = () => {
                 <GoogleMap
                   mapContainerStyle={{
                     width: "40%",
-                    height: "300px",
+                    height: "400px",
                     marginLeft: "10px",
                     borderRadius: "10px"
                   }}
@@ -184,8 +184,8 @@ const RRPPEvent = () => {
                 </GoogleMap>
               </LoadScriptNext>
             )}
-          </div>
-        </div>
+          </div> 
+        </div> */}
         <br />
         <div>
           <button type="button" class="btnMain" onClick={copyEventLinkToClipboard}>
