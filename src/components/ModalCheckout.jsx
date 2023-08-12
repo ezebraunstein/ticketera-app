@@ -93,7 +93,6 @@ const InputModal = ({ handleModalSubmit }) => {
                             name="dni"
                             value={formData.dni}
                             onChange={(e) => {
-                                // Allow only numeric input on-the-fly
                                 const regex = /^[0-9]*$/;
                                 if (regex.test(e.target.value) || e.target.value === "") {
                                     handleChange(e);
@@ -104,7 +103,7 @@ const InputModal = ({ handleModalSubmit }) => {
                             pattern="\d{8}"
                             maxLength="8"
                             minLength="8"
-                            inputMode="numeric" // to show the numeric keypad on mobile devices
+                            inputMode="numeric" 
                         />
                     </div>
                     <br />

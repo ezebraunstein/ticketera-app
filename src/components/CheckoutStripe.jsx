@@ -19,7 +19,7 @@ async function handleCheckoutStripe(cart, data, eventData) {
 
     const lineItems = convertCartToLineItems(cart);
     const cartJson = JSON.stringify(cart);
-    const emailBuyer = data.email;
+    const emailBuyer = data.email1;
     const dniBuyer = data.dni;
     const eventId = eventData.id;
     const eventName = eventData.nameEvent;
@@ -66,7 +66,7 @@ async function handleCheckoutStripe(cart, data, eventData) {
             line_items: lineItems,
             success_url: `${baseUrl}/checkout/success`,
             cancel_url: `${baseUrl}/checkout/failure`,
-            email: data.email,
+            email: data.email1,
             payment_id: paymentId,
             expires_at: expiresAt,
             locale: 'es',

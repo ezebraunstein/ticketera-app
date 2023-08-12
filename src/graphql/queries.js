@@ -34,6 +34,7 @@ export const getRRPPEvent = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -238,6 +239,7 @@ export const getTicket = /* GraphQL */ `
       validTicket
       dniTicket
       emailTicket
+      eventID
       typeticketID
       rrppeventID
     }
@@ -256,6 +258,7 @@ export const listTickets = /* GraphQL */ `
         validTicket
         dniTicket
         emailTicket
+        eventID
         typeticketID
         rrppeventID
       }
@@ -284,6 +287,7 @@ export const ticketsByTypeticketID = /* GraphQL */ `
         validTicket
         dniTicket
         emailTicket
+        eventID
         typeticketID
         rrppeventID
       }
@@ -312,6 +316,7 @@ export const ticketsByRrppeventID = /* GraphQL */ `
         validTicket
         dniTicket
         emailTicket
+        eventID
         typeticketID
         rrppeventID
       }
@@ -340,6 +345,7 @@ export const getTypeTicket = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }

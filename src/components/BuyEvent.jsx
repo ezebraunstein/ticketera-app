@@ -45,7 +45,6 @@ const BuyEvent = () => {
   const handleModalSubmit = async (data) => {
 
     setIsSubmitting(true);
-    debugger;
     await stripeCheckout(cart, data, eventData);
     //await mercadopagoCheckout(data, path, cart, eventData);
 

@@ -36,6 +36,7 @@ export const onCreateRRPPEvent = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -80,6 +81,7 @@ export const onUpdateRRPPEvent = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -124,6 +126,7 @@ export const onDeleteRRPPEvent = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -249,6 +252,7 @@ export const onCreateTicket = /* GraphQL */ `
       validTicket
       dniTicket
       emailTicket
+      eventID
       typeticketID
       rrppeventID
     }
@@ -262,6 +266,7 @@ export const onUpdateTicket = /* GraphQL */ `
       validTicket
       dniTicket
       emailTicket
+      eventID
       typeticketID
       rrppeventID
     }
@@ -275,6 +280,7 @@ export const onDeleteTicket = /* GraphQL */ `
       validTicket
       dniTicket
       emailTicket
+      eventID
       typeticketID
       rrppeventID
     }
@@ -303,6 +309,7 @@ export const onCreateTypeTicket = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -334,6 +341,7 @@ export const onUpdateTypeTicket = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
@@ -365,6 +373,7 @@ export const onDeleteTypeTicket = /* GraphQL */ `
           validTicket
           dniTicket
           emailTicket
+          eventID
           typeticketID
           rrppeventID
         }
