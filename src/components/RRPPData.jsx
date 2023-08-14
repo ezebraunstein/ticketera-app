@@ -76,13 +76,13 @@ const RRPPData = () => {
   const renderTypeTickets = (rrppId) => {
     const typeTickets = typeTicketsData[rrppId];
     return typeTickets && typeTickets.map((typeTicket) => (
-      <div className='eventClass'>
+      <div >
         <div key={typeTicket.id} className="ticket-containerRRPP">
           <div className="ticket-column">
             <h2 className="ticket-text">{typeTicket.nameTT}</h2>
           </div>
           <div className="ticket-column">
-            <h2 className="ticket-text">Vendidos: {typeTicket.count}</h2>
+            <h2 className="ticket-text">Vendidos {typeTicket.count}</h2>
           </div>
         </div>
       </div>
@@ -134,7 +134,7 @@ const RRPPData = () => {
           ) : (
             rrpps.map((rrpp) => (
               <div key={rrpp.id}>
-                <h3 className='nombrePublica'>{rrpp.nameRRPP}</h3>
+                <h3 className='nameRRPP'>{rrpp.nameRRPP}</h3>
                 {renderTypeTickets(rrpp.id)}
                 <br />
                 <br />

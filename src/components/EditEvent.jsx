@@ -11,7 +11,7 @@ const EditEvent = () => {
   //CLOUDFRONT URL
   const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
   //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
-  
+
   //PARAMS
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
@@ -66,8 +66,7 @@ const EditEvent = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div className="eventClass">
-        <br />
+      <div >
         <div key={typeTicket.id} class="ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
@@ -76,7 +75,7 @@ const EditEvent = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Cantidad {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text">Disponibles {typeTicket.quantityTT}</h2>
           </div>
         </div>
       </div>
@@ -107,7 +106,7 @@ const EditEvent = () => {
         )}
         <div>
           <div style={{ display: "flex", padding: "10px" }}>
-            <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" height="300px" />
+            <img className="imgEvent" src={eventData.imageUrl} alt="" width="60%" />
             {mapsApiLoaded && (
               <LoadScriptNext
                 googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -116,7 +115,7 @@ const EditEvent = () => {
                 <GoogleMap
                   mapContainerStyle={{
                     width: "40%",
-                    height: "300px",
+                    height: "400px",
                     marginLeft: "10px",
                     borderRadius: "10px"
                   }}
@@ -131,10 +130,16 @@ const EditEvent = () => {
             )}
           </div>
         </div>
+        <br />
+        <div>
+          <p className='textMessage1'>TICKETS</p>
+        </div>
         {renderTypeTickets()}
         <br />
+        <div>
+          <p className='textMessage1'>NUEVO TIPO DE TICKET</p>
+        </div>
         <CreateTypeTicket eventId={eventId} onTypeTicketCreated={handleTypeTicketCreated} />
-        <br />
         <br />
       </div>
     </main>

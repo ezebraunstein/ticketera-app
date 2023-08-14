@@ -196,18 +196,16 @@ function AddEvent({ user }) {
                             <div style={{ display: 'flex' }}>
                                 <div className="input-container" >
                                     <label className="labelEvent">
-                                        Nombre Evento:
                                         <input
                                             className="inputEvent"
                                             type="text"
                                             name="nameEvent"
                                             value={eventData.nameEvent}
                                             onChange={handleInputChange}
-                                            placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
+                                            placeholder={!eventData.nameEvent ? "Nombre*" : ""}
                                         />
                                     </label>
                                     <label className="labelEvent">
-                                        Ubicación:
                                         <StandaloneSearchBox
                                             onLoad={(ref) => setMapRef(ref)}
                                             onPlacesChanged={() => {
@@ -223,20 +221,19 @@ function AddEvent({ user }) {
                                         >
                                             <input
                                                 type="text"
-                                                placeholder="(opcional)"
+                                                placeholder="ubicación (opcional)"
                                                 className="inputEvent"
                                                 style={{ width: "100%" }}
                                             />
                                         </StandaloneSearchBox>
                                     </label>
                                     <label className="labelEvent">
-                                        Descripción:
                                         <input className="inputEvent"
                                             type="text"
                                             name="descriptionEvent"
                                             value={eventData.descriptionEvent}
                                             onChange={handleInputChange}
-                                            placeholder={!eventData.descriptionEvent ? "(opcional)" : ""}
+                                            placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
                                         />
                                     </label>
                                 </div>

@@ -263,7 +263,7 @@ header {
 .imgEvent {
     border-radius: 10px;
     width: 60%;
-    height: 300px;
+    height: 400px;
 }
 
 @media (max-width: 768px),
@@ -307,7 +307,7 @@ header {
     .imgEvent {
         border-radius: 10px;
         width: 60%;
-        height: 300px;
+        height: 400px;
     }
 
     .nombrePublica {
@@ -341,6 +341,7 @@ header {
 .eventBox {
     max-width: 300px;
     min-width: 300px;
+    min-height: 300px;
     margin: 10px;
     display: flex;
     flex-direction: column;
@@ -349,30 +350,22 @@ header {
     overflow: hidden;
 }
 
-.imgEvent {
-    width: 80%;
-    height: 400px;
+.imgEventBox {
+    width: 100%;
+    max-height: 400px;
+    min-height: 400px;
     object-fit: cover;
     display: block;
     margin: 0;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-radius: 5px 5px 0px 0px;
 }
 
-.mapEvent {
-    width: 40%;
-    height: 300px;
-    margin-left: 10px;
-    border-radius: 10px;
-}
-
-.eventBox h3 {
-    font-size: 40px;
+.nameEventBox {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
     padding: 10px;
     flex: 1 1 auto;
     text-align: center;
-    font-family: 'Bebas Neue', sans-serif;
-    padding-top: 10px;
     margin: 0;
     border-left: 3px solid;
     border-right: 3px solid;
@@ -381,7 +374,7 @@ header {
 
 .eventBoxBtnBuy {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 30px;
+    font-size: 35px;
     text-align: center;
     background: #f28d46;
     display: block;
@@ -415,36 +408,32 @@ header {
     }
 
     #boxes .eventBoxContainer {
-        max-width: 100%;
+        max-width: 90%;
         flex-direction: column;
         align-items: center;
     }
 
     .eventBox {
-        width: 85%;
+        width: 100%;
         max-width: none;
-        margin: 10px 0;
         border-radius: 30px;
     }
 
-    .eventBox img {
+    .imgEventBox {
         width: 100%;
-        height: 800px;
+        min-height: 800px;
         object-fit: cover;
         display: block;
         margin: 0;
-        border-top-left-radius: 30px;
-        border-top-right-radius: 30px;
+        border-radius: 20px 20px 0px 0px;
     }
 
-    .eventBox h3 {
-        font-size: 60px;
-        padding: 10px;
-        flex: 1 1 auto;
-        text-align: center;
+    .nameEventBox {
         font-family: 'Bebas Neue', sans-serif;
-        padding-top: 10px;
-        margin: 0;
+        font-size: 60px;
+        text-align: center;
+        display: block;
+        width: auto;
         border-left: 3px solid;
         border-right: 3px solid;
         overflow: hidden;
@@ -452,7 +441,7 @@ header {
 
     .eventBoxBtnBuy {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 50px;
+        font-size: 70px;
         text-align: center;
         background: #f28d46;
         display: block;
@@ -540,19 +529,15 @@ header {
     clear: both;
 }
 
-/* TYPE TICKET */
+/* CREATE TYPE TICKET */
 
 .col-form-label {
     display: flex;
     align-items: center;
 }
 
-.text-sm-right {
-    justify-content: flex-end;
-}
-
-.form-check-label {
-    margin-left: 0.5rem;
+.col-sm-9 {
+    min-width: 100%;
 }
 
 .create-type-ticket-form,
@@ -561,7 +546,6 @@ header {
 .create-type-ticket-form .form-check-input {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 25px;
-    box-sizing: border-box;
 }
 
 
@@ -573,8 +557,8 @@ header {
         align-items: center;
     }
 
-    .text-sm-right {
-        justify-content: flex-end;
+    .col-sm-9 {
+        min-width: 100%;
     }
 
     .create-type-ticket-form,
@@ -582,17 +566,24 @@ header {
     .create-type-ticket-form .col-form-label,
     .create-type-ticket-form .form-check-input {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 50px;
-        box-sizing: border-box;
+        font-size: 65px;
     }
+
 
 }
 
 /* TICKET */
 
 .ticket-text {
-    font-size: 25px;
+    font-size: 30px;
     margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.nameRRPP {
+    font-size: 50px;
+    margin: 0;
+    text-align: left;
     font-family: 'Bebas Neue', sans-serif;
 }
 
@@ -605,6 +596,7 @@ header {
     text-align: center;
     padding: 10px;
     border-radius: 10px;
+    background-color: #B1CD4A;
 }
 
 .ticket-containerRRPP {
@@ -616,6 +608,7 @@ header {
     text-align: center;
     padding: 10px;
     border-radius: 10px;
+    background-color: #B1CD4A;
 }
 
 .ticket-column {
@@ -654,8 +647,8 @@ header {
 }
 
 .btn-Remove:hover {
-    color: white;
-    background-color: #f07b54;
+    color: #ee593c;
+    background-color: white;
 }
 
 .btn-Add {
@@ -663,8 +656,8 @@ header {
 }
 
 .btn-Add:hover {
-    color: white;
-    background-color: #B1CD4A;
+    color: #8fac24;
+    background-color: white;
 }
 
 @media (max-width: 768px),
@@ -734,8 +727,8 @@ header {
     }
 
     .btn-Remove:hover {
-        color: white;
-        background-color: #f07b54;
+        color: #ee593c;
+        background-color: white;
     }
 
     .btn-Add {
@@ -743,8 +736,15 @@ header {
     }
 
     .btn-Add:hover {
-        color: white;
-        background-color: #B1CD4A;
+        color: #8fac24;
+        background-color: white;
+    }
+
+    .nameRRPP {
+        font-size: 80px;
+        margin: 0;
+        text-align: left;
+        font-family: 'Bebas Neue', sans-serif;
     }
 
 }
@@ -955,6 +955,55 @@ header {
     flex-direction: column;
 }
 
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .titleMessage {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 100px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .textMessage1 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 80px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .textMessage2 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 30px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .textMessage3 {
+        display: inline-block;
+        color: rgb(0, 0, 0);
+        font-size: 20px;
+        font-family: 'Bebas Neue', sans-serif;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .containerMessage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80vh;
+        width: 100vw;
+        flex-direction: column;
+    }
+}
+
 /* BUTTON MAIN */
 
 .btnMain {
@@ -1120,6 +1169,86 @@ header {
     transform: scale(0.1, 1);
 }
 
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .box-1 {
+        display: flex;
+        outline: 2px;
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+    .btnHeader {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 40px;
+        text-align: center;
+        background: #f28d46;
+        width: auto;
+        color: #ffffff;
+        transition: 0.3s;
+        cursor: pointer;
+        width: auto;
+        max-width: 100%;
+        border-radius: 20px;
+        display: block;
+    }
+
+    .btnHeader span {
+        transition: all 0.3s;
+    }
+
+    .btnHeader::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        z-index: 1;
+        opacity: 0.5;
+        transition: all 0.3s;
+        border-top-width: 1px;
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-right-style: solid;
+        border-top-style: solid;
+        border-bottom-style: solid;
+        border-top-color: rgba(255, 255, 255, 0.5);
+        border-bottom-color: rgba(255, 255, 255, 0.5);
+        border-right-color: rgba(255, 255, 255, 0.5);
+        border-left-color: rgba(255, 255, 255, 0.5);
+        transform: scale(0.1, 1);
+        border-radius: 5px;
+    }
+
+    .btnHeader:hover {
+        letter-spacing: 2px;
+        color: white;
+    }
+
+    .btnHeader:hover::before {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+
+    .btnHeader::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        transition: all 0.3s;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+    }
+
+    .btnHeader:hover::after {
+        opacity: 0;
+        transform: scale(0.1, 1);
+    }
+}
+
 /* BUTTON LOGOUT */
 
 .btnLogout {
@@ -1183,6 +1312,70 @@ header {
 .btnLogout:hover::after {
     opacity: 0;
     transform: scale(0.1, 1);
+}
+
+@media (max-width: 768px),
+(max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+    .btnLogout {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 40px;
+        text-align: center;
+        background: #f90000;
+        width: 100%;
+        color: #ffffff;
+        transition: 0.3s;
+        cursor: pointer;
+        width: auto;
+        max-width: 100%;
+        border-radius: 20px;
+        display: inline-block;
+    }
+
+    .btnLogout span {
+        position: relative;
+        z-index: 3;
+        transition: all 0.3s;
+    }
+
+    .btnLogout::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        opacity: 0;
+        transition: all 0.3s;
+        border: 1px solid rgba(158, 12, 12, 1);
+        transform: scale(0.1, 1);
+        border-radius: 5px;
+    }
+
+    .btnLogout:hover span {
+        letter-spacing: 2px;
+    }
+
+    .btnLogout:hover::before {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+
+    .btnLogout::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        z-index: 2;
+        transition: all 0.3s;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 5px;
+        background: linear-gradient(rgba(241, 28, 28, .5), rgba(241, 28, 28, .5), rgba(241, 28, 28, .5));
+    }
+
+    .btnLogout:hover::after {
+        opacity: 0;
+        transform: scale(0.1, 1);
+    }
 }
 
 /*CREATE USER*/

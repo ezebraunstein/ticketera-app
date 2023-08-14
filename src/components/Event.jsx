@@ -74,8 +74,7 @@ const Event = () => {
 
   const renderTypeTickets = () => {
     return typeTickets.map((typeTicket) => (
-      <div className='eventClass'>
-        <br />
+      <div >
         <div key={typeTicket.id} class="ticket-container">
           <div class="ticket-column">
             <h2 class="ticket-text">{typeTicket.nameTT}</h2>
@@ -84,7 +83,7 @@ const Event = () => {
             <h2 class="ticket-text">${typeTicket.priceTT}</h2>
           </div>
           <div class="ticket-column">
-            <h2 class="ticket-text">Disponibles:  {typeTicket.quantityTT}</h2>
+            <h2 class="ticket-text">Disponibles {typeTicket.quantityTT}</h2>
           </div>
         </div>
       </div>
@@ -148,6 +147,10 @@ const Event = () => {
               </LoadScriptNext>
             )}
           </div>
+        </div>
+        <br />
+        <div>
+          <p className='textMessage1'>TICKETS</p>
         </div>
         {renderTypeTickets()}
         <br />

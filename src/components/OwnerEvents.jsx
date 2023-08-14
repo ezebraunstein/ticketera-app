@@ -59,8 +59,8 @@ const OwnerEvents = ({ user }) => {
       <div className="eventBoxContainer">
         {events.map((event) => (
           <div key={event.id} className="eventBox">
-            <img src={event.imageUrl} alt={event.nameEvent} />
-            <h3>{event.nameEvent}</h3>
+            <img className="imgEventBox" src={event.imageUrl} alt={event.nameEvent} />
+            <h3 className="nameEventBox">{event.nameEvent}</h3>
             <button onClick={() => handleButtonClick(event)} className="eventBoxBtnBuy">
               <i className="icon-ticket"></i>Acceder
             </button>

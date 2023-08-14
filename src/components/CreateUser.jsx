@@ -83,6 +83,7 @@ function App({ user }) {
             placeholder="Nombre"
             name="nameUser"
             value={userData.nameUser}
+            required
             onChange={handleInputChange}
           ></input>
         </label>
@@ -91,6 +92,7 @@ function App({ user }) {
             placeholder="Apellido"
             name="surnameUser"
             value={userData.surnameUser}
+            required
             onChange={handleInputChange}
           ></input>
         </label>

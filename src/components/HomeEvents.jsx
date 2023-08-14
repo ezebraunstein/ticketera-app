@@ -68,8 +68,8 @@ const HomeEvents = () => {
             <div className="eventBoxContainer">
                 {filteredEvents.map((event) => (
                     <div key={event.id} className="eventBox">
-                        <img src={event.imageUrl} alt={event.nameEvent} />
-                        <h3>{event.nameEvent}</h3>
+                        <img src={event.imageUrl} alt={event.nameEvent} className="imgEventBox" />
+                        <h3 className="nameEventBox">{event.nameEvent}</h3>
                         <button onClick={() => goToBuyEvent(event.id)} className="eventBoxBtnBuy">Comprar Tickets</button>
                     </div>
                 ))}
