@@ -13,8 +13,8 @@ export const createRRPPEvent = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -59,8 +59,8 @@ export const updateRRPPEvent = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -105,8 +105,8 @@ export const deleteRRPPEvent = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -425,8 +425,8 @@ export const createEvent = /* GraphQL */ `
       nameEvent
       locationEvent
       descriptionEvent
-      bannerEvent
-      miniBannerEvent
+      flyerMiniEvent
+      flyerEvent
       startDateE
       endDateE
       upDateE
@@ -477,8 +477,8 @@ export const updateEvent = /* GraphQL */ `
       nameEvent
       locationEvent
       descriptionEvent
-      bannerEvent
-      miniBannerEvent
+      flyerMiniEvent
+      flyerEvent
       startDateE
       endDateE
       upDateE
@@ -529,8 +529,8 @@ export const deleteEvent = /* GraphQL */ `
       nameEvent
       locationEvent
       descriptionEvent
-      bannerEvent
-      miniBannerEvent
+      flyerMiniEvent
+      flyerEvent
       startDateE
       endDateE
       upDateE
@@ -588,8 +588,8 @@ export const createUser = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE
@@ -619,8 +619,8 @@ export const updateUser = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE
@@ -650,8 +650,8 @@ export const deleteUser = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE

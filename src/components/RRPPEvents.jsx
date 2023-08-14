@@ -38,7 +38,7 @@ const RRPPEvents = ({ user }) => {
             const rrppEventsWithImages = await Promise.all(
                 rrppEventsList.map(async (rrppEvent) => {
                     const event = rrppEvent.Event;
-                    const imagePath = `${event.bannerEvent}`;
+                    const imagePath = `${event.flyerMiniEvent}`;
                     const imageUrl = `${cloudFrontUrl}/${imagePath}`;
                     rrppEvent.Event.imageUrl = imageUrl;
                     return rrppEvent;
@@ -70,7 +70,7 @@ const RRPPEvents = ({ user }) => {
                 <div>
                     {rrppEvents.length === 0 ? (
                         <div >
-                            <br/>
+                            <br />
                             <p className='titleMessage'>No hay eventos vinculados</p>
                             <p className='textMessage1'>Ingresá el código de evento</p>
                         </div>

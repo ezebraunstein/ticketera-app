@@ -40,7 +40,7 @@ const HomeEvents = () => {
             const eventsList = eventsData.data.listEvents.items;
             const eventsWithImages = await Promise.all(
                 eventsList.map(async (event) => {
-                    const imagePath = `${event.bannerEvent}`;
+                    const imagePath = `${event.flyerMiniEvent}`;
                     const imageUrl = `${cloudFrontUrl}/${imagePath}`;
                     event.imageUrl = imageUrl;
                     return event;

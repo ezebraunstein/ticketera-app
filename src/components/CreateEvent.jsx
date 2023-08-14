@@ -20,21 +20,12 @@ const s3Client = new S3Client({
     }
 });
 
-// const s3Client = new S3Client({
-//     region: "us-east-1",
-//     credentials: {
-//         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-//         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
-//     }
-// });
-
-
 function AddEvent({ user }) {
 
     //PARAMS
     const [eventData, setEventData] = useState({});
-    const [bannerFile, setBannerFile] = useState(null);
-    const [miniBannerFile, setMiniBannerFile] = useState(null);
+    const [flyerFile, setFlyerFile] = useState(null);
+    const [flyerMiniFile, setFlyerMiniFile] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const [showYourComponent, setShowYourComponent] = useState(false);
@@ -91,14 +82,14 @@ function AddEvent({ user }) {
         checkUserExistence();
     }, [user]);
 
-    const handleBannerChange = (event) => {
+    const handleFlyerChange = (event) => {
         const file = event.target.files[0];
-        setBannerFile(file);
+        setFlyerFile(file);
     };
 
-    const handleMiniChange = (event) => {
+    const handleFlyerMiniChange = (event) => {
         const file = event.target.files[0];
-        setMiniBannerFile(file);
+        setFlyerMiniFile(file);
     };
 
     const handleInputChange = (event) => {
@@ -122,8 +113,8 @@ function AddEvent({ user }) {
             nameEvent: eventData.nameEvent,
             locationEvent: JSON.stringify(selectedLocation),
             descriptionEvent: eventData.descriptionEvent,
-            bannerEvent: "",
-            miniBannerEvent: "",
+            flyerMiniEvent: "",
+            flyerEvent: "",
             startDateE: new Date(eventData.startDateE),
             upDateE: new Date(),
             downDateE: new Date(),
@@ -131,31 +122,32 @@ function AddEvent({ user }) {
             userID: user.username
         };
 
-        if (bannerFile) {
-            const bannerKey = `events/${createEventInput.id}/banner`;
+        if (flyerFile) {
+            const flyerKey = `events/${createEventInput.id}/flyer`;
             const uploadParams = {
                 Bucket: 'melo-tickets-bucket',
-                Key: bannerKey,
-                Body: bannerFile,
+                Key: flyerKey,
+                Body: flyerFile,
                 ContentType: 'image/jpeg'
             };
             await s3Client.send(new PutObjectCommand(uploadParams));
-            createEventInput.bannerEvent = bannerKey;
+            createEventInput.flyerEvent = flyerKey;
         }
 
-        if (miniBannerFile) {
-            const miniBannerKey = `events/${createEventInput.id}/miniBanner`;
+        if (flyerMiniFile) {
+            const flyerMiniKey = `events/${createEventInput.id}/flyerMini`;
             const uploadParams = {
                 Bucket: 'melo-tickets-bucket',
-                Key: miniBannerKey,
-                Body: miniBannerFile,
+                Key: flyerMiniKey,
+                Body: flyerMiniFile,
                 ContentType: 'image/jpeg'
             };
             await s3Client.send(new PutObjectCommand(uploadParams));
-            createEventInput.miniBannerEvent = miniBannerKey;
+            createEventInput.flyerMiniEvent = flyerMiniKey;
         }
 
         try {
+            debugger;
             const response = await axios.post('https://z5wba3v4bvkxdytxba23ma2ajm0qcjed.lambda-url.us-east-1.on.aws/', JSON.stringify({ createEventInput: createEventInput }), {
                 headers: {
                     'Content-Type': 'application/json',
@@ -185,7 +177,10 @@ function AddEvent({ user }) {
             {showYourComponent && <CreateUser />}
             <div className="eventClass">
                 <br />
-                <br />
+                <div>
+                    <p className='textMessage1'>CREAR EVENTO</p>
+                </div>
+
                 <form className="eventForm" onSubmit={handleSubmit}>
                     {mapsApiLoaded && (
                         <LoadScriptNext
@@ -236,6 +231,16 @@ function AddEvent({ user }) {
                                             placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
                                         />
                                     </label>
+                                    <label className='labelEvent'>
+                                        Fecha Inicio:
+                                        <input className='inputEvent'
+                                            type="date"
+                                            name="startDateE"
+                                            value={eventData.startDateE}
+                                            onChange={handleInputChange}
+                                            placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
+                                        />
+                                    </label>
                                 </div>
                                 <div className="map-container" >
                                     <GoogleMap
@@ -259,43 +264,33 @@ function AddEvent({ user }) {
                             </div>
                         </LoadScriptNext>
                     )}
-                    <label className='labelEvent'>
-                        Fecha Inicio:
-                        <input className='inputEvent'
-                            type="date"
-                            name="startDateE"
-                            value={eventData.startDateE}
-                            onChange={handleInputChange}
-                            placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
-                        />
-                    </label>
                     <div className="label-container">
                         <div>
                             <label className='labelEvent'>
-                                Imagen Flyer Grande:
+                                Flyer (3:4)
                                 <input className='inputEvent'
                                     type="file"
                                     accept=".jpg,.jpeg,.png"
-                                    name="bannerEvent"
-                                    onChange={handleBannerChange}
+                                    name="flyerMiniEvent"
+                                    onChange={handleFlyerMiniChange}
                                 />
                             </label>
                         </div>
                         <div>
                             <label className='labelEvent'>
-                                Imagen Flyer Chica:
+                                Flyer (16:9)
                                 <input className='inputEvent'
                                     type="file"
                                     accept=".jpg,.jpeg,.png"
-                                    name="miniBannerEvent"
-                                    onChange={handleMiniChange}
+                                    name="flyerEvent"
+                                    onChange={handleFlyerChange}
                                 />
                             </label>
                         </div>
                     </div>
                     <br />
                     <div style={{ textAlign: 'center' }}>
-                        <button className='btnMain' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !bannerFile || isSubmitting}>Agregar Evento</button>
+                        <button className='btnMain' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !flyerMiniFile || isSubmitting}>Agregar Evento</button>
                     </div>
                 </form>
                 <br />

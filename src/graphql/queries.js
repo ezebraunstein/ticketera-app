@@ -10,8 +10,8 @@ export const getRRPPEvent = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -58,8 +58,8 @@ export const listRRPPEvents = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE
@@ -100,8 +100,8 @@ export const rRPPEventsByRrppID = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE
@@ -423,8 +423,8 @@ export const getEvent = /* GraphQL */ `
       nameEvent
       locationEvent
       descriptionEvent
-      bannerEvent
-      miniBannerEvent
+      flyerMiniEvent
+      flyerEvent
       startDateE
       endDateE
       upDateE
@@ -477,8 +477,8 @@ export const listEvents = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -516,8 +516,8 @@ export const eventsByUserID = /* GraphQL */ `
         nameEvent
         locationEvent
         descriptionEvent
-        bannerEvent
-        miniBannerEvent
+        flyerMiniEvent
+        flyerEvent
         startDateE
         endDateE
         upDateE
@@ -549,8 +549,8 @@ export const getUser = /* GraphQL */ `
           nameEvent
           locationEvent
           descriptionEvent
-          bannerEvent
-          miniBannerEvent
+          flyerMiniEvent
+          flyerEvent
           startDateE
           endDateE
           upDateE

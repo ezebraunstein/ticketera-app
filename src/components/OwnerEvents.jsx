@@ -25,7 +25,7 @@ const OwnerEvents = ({ user }) => {
       );
       const eventsWithImages = await Promise.all(
         filterEventsList.map(async (event) => {
-          const imagePath = `${event.bannerEvent}`;
+          const imagePath = `${event.flyerMiniEvent}`;
           const imageUrl = `${cloudFrontUrl}/${imagePath}`;
           event.imageUrl = imageUrl;
           return event;

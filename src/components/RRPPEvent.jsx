@@ -61,7 +61,7 @@ const RRPPEvent = () => {
         graphqlOperation(getEvent, { id: eventId })
       );
       const event = eventResult.data.getEvent;
-      const imagePath = `${event.bannerEvent}`;
+      const imagePath = `${event.flyerEvent}`;
       const imageUrl = `${cloudFrontUrl}/${imagePath}`;
       event.imageUrl = imageUrl;
       setEventData(event);
