@@ -7,8 +7,8 @@ import ModalRRPPEvent from './ModalRRPPEvent';
 import CircularProgress from '@mui/material/CircularProgress';
 
 //CLOUDFRONT URL
-const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
-//const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
+
+const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
 const RRPPEvents = ({ user }) => {
 
@@ -78,7 +78,7 @@ const RRPPEvents = ({ user }) => {
                         rrppEvents.map((rrppEvent) => (
                             <div key={rrppEvent.id} className="eventBox">
                                 <img src={rrppEvent.Event.imageUrl} />
-                                <h3>{rrppEvent.Event.nameEvent}</h3>
+                                <h3 className="nameEventBox">{rrppEvent.Event.nameEvent}</h3>
                                 <button onClick={() => handleButtonClick(rrppEvent.id)} className="eventBoxBtnBuy">
                                     <i className="icon-ticket"></i>Acceder
                                 </button>

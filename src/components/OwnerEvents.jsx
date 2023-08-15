@@ -9,8 +9,8 @@ import '@aws-amplify/ui-react/styles.css';
 const OwnerEvents = ({ user }) => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
-  //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
+
+  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
 
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);

@@ -13,7 +13,7 @@ import Alert from '@mui/material/Alert';
 import '@aws-amplify/ui-react/styles.css';
 
 const s3Client = new S3Client({
-    region: "sa-east-1",
+    region: "us-east-1",
     credentials: {
         accessKeyId: process.env.REACT_APP_ACCESS_KEY,
         secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY,
@@ -125,7 +125,7 @@ function AddEvent({ user }) {
         if (flyerFile) {
             const flyerKey = `events/${createEventInput.id}/flyer`;
             const uploadParams = {
-                Bucket: 'melo-tickets-bucket',
+                Bucket: 'melo-tickets',
                 Key: flyerKey,
                 Body: flyerFile,
                 ContentType: 'image/jpeg'
@@ -137,7 +137,7 @@ function AddEvent({ user }) {
         if (flyerMiniFile) {
             const flyerMiniKey = `events/${createEventInput.id}/flyerMini`;
             const uploadParams = {
-                Bucket: 'melo-tickets-bucket',
+                Bucket: 'melo-tickets',
                 Key: flyerMiniKey,
                 Body: flyerMiniFile,
                 ContentType: 'image/jpeg'
@@ -172,6 +172,13 @@ function AddEvent({ user }) {
             setIsSubmitting(false);
         }
     };
+
+    if (loading) {
+        return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
+          <CircularProgress />
+        </div>
+      }
+      
     return (
         <>
             {showYourComponent && <CreateUser />}
@@ -267,7 +274,7 @@ function AddEvent({ user }) {
                     <div className="label-container">
                         <div>
                             <label className='labelEvent'>
-                                Flyer (3:4)
+                                Flyer 3:4*
                                 <input className='inputEvent'
                                     type="file"
                                     accept=".jpg,.jpeg,.png"
@@ -278,7 +285,7 @@ function AddEvent({ user }) {
                         </div>
                         <div>
                             <label className='labelEvent'>
-                                Flyer (16:9)
+                                Flyer 16:9 (opcional)
                                 <input className='inputEvent'
                                     type="file"
                                     accept=".jpg,.jpeg,.png"

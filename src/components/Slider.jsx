@@ -6,8 +6,9 @@ import { useState, useEffect } from "react";
 const Slider = () => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
-  //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
+
+  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
+  
   const [events, setEvents] = useState([]);
   const fetchEvents = async () => {
 

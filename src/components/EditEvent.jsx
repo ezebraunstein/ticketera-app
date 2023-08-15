@@ -9,8 +9,9 @@ import { GoogleMap, LoadScriptNext, MarkerF } from "@react-google-maps/api";
 const EditEvent = () => {
 
   //CLOUDFRONT URL
-  const cloudFrontUrl = 'https://d1vjh7v19d1zbm.cloudfront.net';
-  //const cloudFrontUrl = 'https://d32bfav9oplhyr.cloudfront.net';
+
+  const cloudFrontUrl = 'https://dx597v8ovxj0u.cloudfront.net';
+  
 
   //PARAMS
   const { eventId } = useParams();
