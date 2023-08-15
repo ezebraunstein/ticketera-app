@@ -82,21 +82,48 @@ function AddEvent({ user }) {
         checkUserExistence();
     }, [user]);
 
+    // const handleFlyerChange = (event) => {
+    //     const file = event.target.files[0];
+    //     setFlyerFile(file);
+    // };
+
+    // const handleFlyerMiniChange = (event) => {
+    //     const file = event.target.files[0];
+    //     setFlyerMiniFile(file);
+    // };
+
+    const [flyerUrl, setFlyerUrl] = useState(null);
+    const [flyerMiniUrl, setFlyerMiniUrl] = useState(null);
+
     const handleFlyerChange = (event) => {
         const file = event.target.files[0];
         setFlyerFile(file);
+
+        // Read the selected file and set the URL
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFlyerUrl(reader.result);
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleFlyerMiniChange = (event) => {
         const file = event.target.files[0];
         setFlyerMiniFile(file);
+
+        // Read the selected file and set the URL
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setFlyerMiniUrl(reader.result);
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setEventData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value.toUpperCase()
         }));
     };
 
@@ -173,12 +200,12 @@ function AddEvent({ user }) {
         }
     };
 
-    if (loading) {
+    if (isSubmitting) {
         return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0, 0, 0, 0.9)', zIndex: 999 }}>
-          <CircularProgress />
+            <CircularProgress />
         </div>
-      }
-      
+    }
+
     return (
         <>
             {showYourComponent && <CreateUser />}
@@ -188,7 +215,7 @@ function AddEvent({ user }) {
                     <p className='textMessage1'>CREAR EVENTO</p>
                 </div>
 
-                <form className="eventForm" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     {mapsApiLoaded && (
                         <LoadScriptNext
                             googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS}
@@ -238,25 +265,30 @@ function AddEvent({ user }) {
                                             placeholder={!eventData.descriptionEvent ? "Descripción (opcional)" : ""}
                                         />
                                     </label>
-                                    <label className='labelEvent'>
-                                        Fecha Inicio:
-                                        <input className='inputEvent'
-                                            type="date"
-                                            name="startDateE"
-                                            value={eventData.startDateE}
-                                            onChange={handleInputChange}
-                                            placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
-                                        />
-                                    </label>
+                                    <div>
+                                        <label className='labelEvent'>
+                                            <label className='labelEvent'>
+                                                Fecha Inicio:
+                                            </label>
+                                            <input className='inputEvent'
+                                                type="date"
+                                                name="startDateE"
+                                                value={eventData.startDateE}
+                                                onChange={handleInputChange}
+                                                placeholder={!eventData.nameEvent ? "Campo obligatorio" : ""}
+                                            ></input>
+                                        </label>
+                                    </div>
+
                                 </div>
                                 <div className="map-container" >
                                     <GoogleMap
                                         mapContainerStyle={{
                                             width: "100%",
-                                            height: "94%",
+                                            height: "100%",
                                             borderRadius: '10px'
                                         }}
-                                        zoom={10}
+                                        zoom={15}
                                         center={selectedLocation || { lat: -34.397, lng: 150.644 }}
                                         onClick={(e) =>
                                             setSelectedLocation({ lat: e.latLng.lat(), lng: e.latLng.lng() })
@@ -274,7 +306,7 @@ function AddEvent({ user }) {
                     <div className="label-container">
                         <div>
                             <label className='labelEvent'>
-                                Flyer 3:4*
+                                Flyer 1:1*
                                 <input className='inputEvent'
                                     type="file"
                                     accept=".jpg,.jpeg,.png"
@@ -282,6 +314,7 @@ function AddEvent({ user }) {
                                     onChange={handleFlyerMiniChange}
                                 />
                             </label>
+                            {/* {flyerMiniUrl && <img src={flyerMiniUrl} alt="Flyer Mini Preview" className="flyerMiniImg" />} */}
                         </div>
                         <div>
                             <label className='labelEvent'>
@@ -293,8 +326,10 @@ function AddEvent({ user }) {
                                     onChange={handleFlyerChange}
                                 />
                             </label>
+                            {/* {flyerUrl && <img src={flyerUrl} alt="Flyer Preview" className="flyerImg" />} */}
                         </div>
                     </div>
+                    <br />
                     <br />
                     <div style={{ textAlign: 'center' }}>
                         <button className='btnMain' type="submit" disabled={!eventData.nameEvent || !eventData.startDateE || !flyerMiniFile || isSubmitting}>Agregar Evento</button>

@@ -68,7 +68,7 @@ function App({ user }) {
       }
     }
 
-    setUsersData({ ...userData, [name]: value });
+    setUsersData({ ...userData, [name]: value.toUpperCase() });
   };
 
   const handleTypeUserChange = (event) => {

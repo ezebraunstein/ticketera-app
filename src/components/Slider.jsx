@@ -36,16 +36,18 @@ const Slider = () => {
   }, []);
 
   return (
-    <div className="slider-frame">
-      <ul>
-        {events.slice(0, 4).map((event) => {
-          return (
-            <li>
-              <img className="sliderImg" src={event.imageUrl} alt="" />
-            </li>
-          );
-        })}
-      </ul>
+    <div className="slider">
+      <div className="slider-frame">
+        <ul>
+          {events.slice(0, 4).map((event) => {
+            return (
+              <li>
+                <img className="sliderImg" src={event.imageUrl} alt="" />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

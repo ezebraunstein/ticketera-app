@@ -20,18 +20,18 @@ function CreateTypeTicket({ eventId, onTypeTicketCreated }) {
 
         setTypeTicketData((prevData) => ({
             ...prevData,
-            [name]: value
+            [name]: value.toUpperCase()
         }));
     };
 
-    const handleInputChangeBool = (typeTicket) => {
-        const { name, value, type, checked } = typeTicket.target;
-        const inputValue = type === "checkbox" ? checked : value;
-        setTypeTicketData((prevData) => ({
-            ...prevData,
-            [name]: inputValue
-        }));
-    };
+    // const handleInputChangeBool = (typeTicket) => {
+    //     const { name, value, type, checked } = typeTicket.target;
+    //     const inputValue = type === "checkbox" ? checked : value;
+    //     setTypeTicketData((prevData) => ({
+    //         ...prevData,
+    //         [name]: inputValue
+    //     }));
+    // };
 
     const handleSubmit = async (typeTicket) => {
         typeTicket.preventDefault();
