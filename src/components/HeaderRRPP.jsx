@@ -59,7 +59,7 @@ const HeaderRRPP = () => {
         </a>)}
 
       <div className='box-1'>
-        {isRRPPEventPage && <button className="btnHeader" onClick={() => window.location.href = '/rrpp-events'}>Atrás</button>}
+        {isRRPPEventPage && <button className="btnHeader" onClick={() => window.location.href = '/rrpp-events'}>Volver</button>}
         {user && <ButtonLogout />}
       </div>
     </header>

@@ -43,22 +43,6 @@ async function handleCheckoutStripe(cart, data, eventData) {
 
     await API.graphql(graphqlOperation(createPayment, { input: createPaymentInput }))
 
-    for (const item of cart) {
-        const itemID = item.id;
-        const itemQuantity = item.quantityTT - item.selectedQuantity;
-
-        const updateTypeTicketInput = {
-            id: itemID,
-            quantityTT: itemQuantity
-        };
-
-        await API.graphql({
-            query: updateTypeTicket,
-            variables: { input: updateTypeTicketInput }
-        });
-
-    };
-
     const expiresAt = Math.floor(Date.now() / 1000) + (30 * 60);
 
     try {

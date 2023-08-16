@@ -5,7 +5,7 @@ export const Footer = () => {
     <footer className="footerClass">
       <div className="footerContainer">
         <span className="footerText">
-          &copy; Melo Tickets - 2023
+          &copy; Melo - 2023
         </span>
         <img className="logo" src={meloLoguito} alt='' width="60px" />
       </div>
